@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:formvalidation/src/models/Moneda_model.dart';
-import 'package:formvalidation/src/utils/url_api.dart';
+import 'package:formvalidation/src/utils/juego_pruebas.dart';
 import 'package:http/http.dart' as http;
 
 class MonedasProvider {
@@ -30,5 +30,25 @@ class MonedasProvider {
       print(_);
       return [];
     }
+  }
+
+  MonedaModel buscarMoneda(String descripcion) {
+    MonedaModel retorno;
+    // int recorrida = 0;
+    // while (recorrida < monedas.length) {
+    //   if (monedas[recorrida].descripcion == descripcion.toUpperCase()) {
+    //     recorrida = monedas.length;
+    //     retorno = monedas[recorrida];
+    //   }
+    //   recorrida++;
+    // }
+    // return retorno;
+
+    for (int i = 0; i < monedas.length; i++) {
+      if (monedas[i].descripcion == descripcion.toUpperCase()) {
+        retorno = monedas[i];
+      }
+    }
+    return retorno;
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
+import 'package:formvalidation/src/providers/Monedas_provider.dart';
 import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
@@ -23,18 +24,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final monedaTengo = new MonedaModel();
-  final monedaQuiero = new MonedaModel();
   final importeTengo = new TextEditingController();
   final importeQuiero = new TextEditingController();
   var _currenIndex = 0;
 
   final simularOpProvider = new SimularOpProvider();
 
-  String _monedaSeleccionadaTengo = 'Pesos';
-  String _monedaSeleccionadaQuiero = 'Dólares';
+  String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
+  String _monedaSeleccionadaQuiero = 'Dolares';
 
-  final monedaProvider = new PizarraProvider();
+  final pizarraProvider = new PizarraProvider();
 
   Image opcionMonedaSeleccionadaTengo = Image(
       width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
@@ -109,7 +108,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
 
     return FutureBuilder(
-        future: monedaProvider.cargarPizarra(),
+        future: pizarraProvider.cargarPizarra(),
         builder: (BuildContext context,
             AsyncSnapshot<List<PizarraModel>> listaMonedas) {
           if (listaMonedas.hasData) {
@@ -267,6 +266,8 @@ class _HomePageState extends State<HomePage> {
                               onChanged: (String newValue) {
                                 setState(() {
                                   _monedaSeleccionadaTengo = newValue;
+                                  jp.monedaTengo =
+                                      MonedasProvider().buscarMoneda(newValue);
                                 });
                                 print(_monedaSeleccionadaTengo);
                               },
@@ -366,6 +367,8 @@ class _HomePageState extends State<HomePage> {
                               onChanged: (String newValue) {
                                 setState(() {
                                   _monedaSeleccionadaQuiero = newValue;
+                                  jp.monedaQuiero =
+                                      MonedasProvider().buscarMoneda(newValue);
                                   simularOp(bloc);
                                 });
                               },
@@ -447,14 +450,18 @@ class _HomePageState extends State<HomePage> {
 
   void simularOp(LoginBloc bloc) {
     if (importeQuiero.text != '' || importeTengo.text != '') {
-      // agregar condicion de que si hay un importeTengo, el importeQuiero sea '' y al reves tmb!!!
+      //************* */
+
+      // agregar condicion de que si hay un importeTengo, el importeQuiero sea 0 y al reves tmb!!!
+
+      //************* */
 
       simularOpProvider.enviarSimulacionOp(
-          MonedaModel(id: 1, descripcion: '', codigoIso: 's', tipoParidad: 1),
-          MonedaModel(id: 1, descripcion: '', codigoIso: 's', tipoParidad: 1),
-          1,
-          1,
-          1,
+          jp.monedaTengo,
+          jp.monedaQuiero,
+          1, //IMPORTE TENGO
+          1, //IMPORTE QUIERO
+          0, //TC APLICADO, mando 0 segun ale
           bloc.usuario != null
               ? bloc.usuario
               : UsuarioModel(tipodoc: Tipodoc(pais: Pais())));

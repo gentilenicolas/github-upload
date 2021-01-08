@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   final prefs = new PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
-    cargoDataCombosMoneycard();
+    cargoDataInicial();
 
     return MultiProvider(
       //esto es lo de Providers. vos podes poner return ChangeNotifierProvider y eso te deja manejar solo un provider
