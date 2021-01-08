@@ -38,8 +38,9 @@ class LogOut extends StatelessWidget {
 
   Widget _salir(LoginBloc bloc) {
     return Card(
-      child: Column(children: <Widget>[
-        ListTile(
+      
+     child: Column(children: <Widget>[
+       ListTile(
           title: Text('              Esta seguro que desea salir?'),
         ),
         Row(
