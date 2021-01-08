@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
 
-
 import 'package:formvalidation/src/utils/juego_pruebas.dart';
 import 'package:formvalidation/src/providers/moneycard_provider.dart';
 
@@ -46,7 +45,7 @@ int buscarIdDepartamento(String deptoString) {
   return retorno;
 }
 
-void cargoDataCombosMoneycard() async {
+void cargoDataInicial() async {
   MoneycardProvider moneycardProvider = new MoneycardProvider();
   MonedasProvider monedasProvider = MonedasProvider();
 

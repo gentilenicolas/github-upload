@@ -3,6 +3,7 @@ import 'package:formvalidation/src/models/Departamentos_model.dart';
 import 'package:formvalidation/src/models/Localidades_model.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
+import 'package:formvalidation/src/providers/Monedas_provider.dart';
 import 'package:formvalidation/src/utils/funciones.dart';
 
 final String urlApi = 'http://10.1.3.215:7010/api';
@@ -10,6 +11,8 @@ final String urlApi = 'http://10.1.3.215:7010/api';
 //para simular op
 UsuarioModel usuarioLogueado;
 List<MonedaModel> monedas = new List();
+MonedaModel monedaTengo = MonedasProvider().buscarMoneda('PESOS URUGUAYOS');
+MonedaModel monedaQuiero = MonedasProvider().buscarMoneda('DOLARES');
 
 TextEditingController nombre = new TextEditingController();
 TextEditingController apellido = new TextEditingController();
@@ -70,19 +73,19 @@ TextEditingController textEditingControllerDate =
 List<Map> banderasJson = [
   {
     "id": 3,
-    "combo": 'Pesos',
+    "combo": 'Pesos Uruguayos',
     "descripcion": 'PESOS URUGUAYOS',
     "image": "assets/images/uruguay.png",
   },
   {
     "id": 1,
-    "combo": 'Dólares',
+    "combo": 'Dolares',
     "descripcion": 'DOLARES',
     "image": "assets/images/eeuu.png",
   },
   {
     "id": 2,
-    "combo": 'Argentinos',
+    "combo": 'Pesos Argentinos',
     "descripcion": 'PESOS ARGENTINOS',
     "image": "assets/images/argentina.png",
   },
