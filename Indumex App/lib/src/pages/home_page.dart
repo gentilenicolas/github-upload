@@ -13,7 +13,6 @@ import 'package:formvalidation/src/providers/Pizarra_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
-
 import 'package:formvalidation/src/models/Usuario_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   final monedaQuiero = new MonedaModel();
   final importeTengo = new TextEditingController();
   final importeQuiero = new TextEditingController();
-  var _currenIndex = 0;
+ // var _currenIndex = 0;
 
   final simularOpProvider = new SimularOpProvider();
 

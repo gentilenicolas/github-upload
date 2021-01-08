@@ -1,79 +1,78 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:formvalidation/src/providers/login_provider.dart';
+import 'package:formvalidation/src/utils/estilos.dart' as estilos;
+import 'dart:io' show Platform, exit;
 
 class LogOut extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Home'),
-    );
-  }
-}
+    final bloc = LoginProvider.of(context);
+    //final _prefs = new PreferenciasUsuario();
+    //  print (_prefs.nombre);
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  void _salir() {
-    _exitApp(context);
-    setState(() {});
-  }
-
-  Future<bool> _exitApp(BuildContext context) {
-    return showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Esta seguro que desea salir??'),
-            content: Text('...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-                child: Text('No'),
-              ),
-              FlatButton(
-                onPressed: () {
-                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-                },
-                child: Text('Si'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent[400],
+        actions: [],
+      ),
+      //fondo gradiente
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'toca el boton para salir',
-            ),
+            _salir(bloc),
           ],
         ),
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+              colors: [estilos.gradientStart, estilos.gradientEnd],
+              begin: const FractionalOffset(0.5, 0.0),
+              end: const FractionalOffset(0.0, 0.5),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _salir,
-        tooltip: 'Salir',
-        child: Icon(Icons.add),
-      ),
+    );
+  }
+
+  Widget _salir(LoginBloc bloc) {
+    return Card(
+      child: Column(children: <Widget>[
+        ListTile(
+          title: Text('              Esta seguro que desea salir?'),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              children: [
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            VerticalDivider(),
+            Row(
+              children: [
+                FloatingActionButton(onPressed: () {
+                  if (Platform.isAndroid) {
+                    //exit para android
+                    SystemNavigator.pop();
+                    bloc.dispose();
+                  } else if (Platform.isIOS) {
+                    bloc.dispose();
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      exit(0); //exit para ios
+                    });
+                  }
+                }),
+              ],
+            ),
+          ],
+        )
+      ]),
     );
   }
 }

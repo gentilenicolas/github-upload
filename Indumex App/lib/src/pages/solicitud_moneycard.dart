@@ -9,7 +9,7 @@ import 'package:formvalidation/src/utils/funciones.dart' as funciones;
 import 'package:formvalidation/src/utils/funciones.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart';
-import 'package:formvalidation/src/utils/estilos.dart' as estilos;
+
 
 class SolicitudMoneycard extends StatefulWidget {
   @override

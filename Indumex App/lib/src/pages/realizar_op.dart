@@ -33,7 +33,7 @@ class RealizarOp extends StatelessWidget {
         actions: [],
       ),
       //fondo gradiente
-     body: Column(
+     body: Row(
         children: [
           Container(
             decoration: new BoxDecoration(
