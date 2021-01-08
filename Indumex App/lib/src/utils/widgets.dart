@@ -4,7 +4,7 @@ import 'package:formvalidation/src/pages/paginaVacia.dart';
 import 'package:formvalidation/src/pages/productos_page.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
-import 'package:formvalidation/src/pages/sucursales.dart';
+import 'package:formvalidation/src/pages/sucursales_page.dart';
 
 //class MasterMenu {
 Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
@@ -123,10 +123,10 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             Icons.sensor_door,
             color: Colors.blue,
           ),
-          onTap: () {
-            _salir(context, bloc);
-          //  Navigator.pushReplacementNamed(context, 'logout');
+        onTap: () {
+            Navigator.pushReplacementNamed(context, 'logout');
           },
+            
         ),
         ListTile(
           title: Text('PAGINA DE PRUEBAS'),
@@ -168,8 +168,7 @@ String bienvenido(LoginBloc bloc) {
     return "";
 }
 
-
-Widget _salir(BuildContext context, LoginBloc bloc) {
+ _salir(BuildContext context, LoginBloc bloc) {
   return Card(
     child: Column(children: <Widget>[
       ListTile(
@@ -207,7 +206,6 @@ Widget _salir(BuildContext context, LoginBloc bloc) {
     ]),
   );
 }
-
 
 Widget incio(LoginBloc bloc) {
   if (bloc.nombre != null) {
