@@ -11,6 +11,7 @@ String monedaModelToJson(MonedaModel data) => json.encode(data.toJson());
 
 class MonedaModel {
   MonedaModel({
+    //comentario
     this.id,
     this.descripcion,
     this.tipoParidad,
