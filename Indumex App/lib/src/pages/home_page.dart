@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final importeTengo = new TextEditingController();
   final importeQuiero = new TextEditingController();
- // var _currenIndex = 0;
+  // var _currenIndex = 0;
 
   final simularOpProvider = new SimularOpProvider();
 
@@ -327,7 +327,9 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           )),
                       onChanged: (valor) {
-                        setState(() {});
+                        setState(() {
+                          importeQuiero.text = '';
+                        });
                       },
                     ),
                   ),
@@ -396,7 +398,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(10)),
                   child: FocusScope(
                     onFocusChange: (value) {
-                      if (!value) {
+                      if (value) {
                         simularOp(bloc);
                       }
                     },
@@ -433,8 +435,7 @@ class _HomePageState extends State<HomePage> {
                           )),
                       onChanged: (valor) {
                         setState(() {
-                          //no es necesario al utilizar controller
-                          //importeQuiero.text = valor;
+                          importeTengo.text = '';
                         });
                       },
                     ),
@@ -448,18 +449,22 @@ class _HomePageState extends State<HomePage> {
 
   void simularOp(LoginBloc bloc) {
     if (importeQuiero.text != '' || importeTengo.text != '') {
+      double importeTengo = 0;
+      double importeQuiero = 0;
       //************* */
 
       // agregar condicion de que si hay un importeTengo, el importeQuiero sea 0 y al reves tmb!!!
 
       //************* */
 
+      try {} catch (e) {}
+
       simularOpProvider.enviarSimulacionOp(
           jp.monedaTengo,
           jp.monedaQuiero,
-          1, //IMPORTE TENGO
-          1, //IMPORTE QUIERO
-          0, //TC APLICADO, mando 0 segun ale
+          importeTengo,
+          importeQuiero,
+          0, //TC APLICADO, lo calcula la API
           bloc.usuario != null
               ? bloc.usuario
               : UsuarioModel(tipodoc: Tipodoc(pais: Pais())));
