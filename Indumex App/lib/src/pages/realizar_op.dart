@@ -43,7 +43,7 @@ class RealizarOp extends StatelessWidget {
             //_contenidoRealizarOp(context , bloc)/*
             _tiposDeCambio(bloc),
             SizedBox(height: 15.0),
-            Text('Resumen Operacion', style: TextStyle(color: Colors.blue[400],fontSize: 20.0)),
+            Text('RESUMEN DE OPERACION', style: TextStyle(color: Colors.blue[400],fontSize: 20.0)),
             SizedBox(height: 10.0),
             _resumenOp(bloc),
               SizedBox(height: 10.0),
