@@ -168,44 +168,6 @@ String bienvenido(LoginBloc bloc) {
     return "";
 }
 
- _salir(BuildContext context, LoginBloc bloc) {
-  return Card(
-    child: Column(children: <Widget>[
-      ListTile(
-        leading: Icon(
-          Icons.phone,
-          color: Colors.brown,
-        ),
-        title: Text('Esta seguro que desea salir?'),
-        subtitle: Text('kjljljljljllkñlklñkñlkñlklñlkjlkjkljlkjlkjklsdlfkj'),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: [
-              FlatButton(
-                child: Text('No'),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          VerticalDivider(),
-          Column(
-            children: [
-              FlatButton(
-                child: Text('Si'),
-                onPressed: () {
-                  bloc.dispose();
-                },
-              ),
-            ],
-          )
-        ],
-      )
-    ]),
-  );
-}
 
 Widget incio(LoginBloc bloc) {
   if (bloc.nombre != null) {

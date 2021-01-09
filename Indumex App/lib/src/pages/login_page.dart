@@ -104,8 +104,7 @@ class LoginPage extends StatelessWidget {
                 counterText:
                     email, //snapshot.data, //cuando escribo en el input, me pone por debajo de la linea lo mismo que pongo en ese imput
                 errorText: snapshot.error),
-            onChanged: bloc
-                .changeEmail, //cuando escriben en el campo, se lo manda al email
+            onChanged: bloc.changeEmail, //cuando escriben en el campo, se lo manda al email
           ),
         );
       },
@@ -160,7 +159,7 @@ prefs.ultimaPagina= LoginPage().routeName;
 }
 */
 
-// lo que traigo aca es el valor del email  pass solo para ver en consola
+
   Future<UsuarioModel> _login(LoginBloc bloc, BuildContext context) async {
     final user =
         await loginProvider.crearLogin(bloc.email, bloc.password, context);

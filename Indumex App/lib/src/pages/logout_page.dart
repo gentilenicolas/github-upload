@@ -19,9 +19,10 @@ class LogOut extends StatelessWidget {
       ),
       //fondo gradiente
       body: Container(
+         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Column(
           children: <Widget>[
-            _salir(bloc),
+            _salir(bloc, context),
           ],
         ),
         decoration: new BoxDecoration(
@@ -36,44 +37,52 @@ class LogOut extends StatelessWidget {
     );
   }
 
-  Widget _salir(LoginBloc bloc) {
-    return Card(
-      
-     child: Column(children: <Widget>[
-       ListTile(
-          title: Text('              Esta seguro que desea salir?'),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: [
-                FlatButton(
-                  child: Text('No'),
-                  onPressed: () {},
-                ),
-              ],
+  Widget _salir(LoginBloc bloc, BuildContext context) {
+    return Center(
+      child: Card(
+        child: Column(children: <Widget>[
+          Center(
+            child: ListTile(
+              title: Text('Esta seguro que desea salir?'),
             ),
-            VerticalDivider(),
-            Row(
-              children: [
-                FloatingActionButton(onPressed: () {
-                  if (Platform.isAndroid) {
-                    //exit para android
-                    SystemNavigator.pop();
-                    bloc.dispose();
-                  } else if (Platform.isIOS) {
-                    bloc.dispose();
-                    Future.delayed(const Duration(milliseconds: 1000), () {
-                      exit(0); //exit para ios
-                    });
-                  }
-                }),
-              ],
-            ),
-          ],
-        )
-      ]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: [
+                  FlatButton(
+                    child: Text('NO'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+              VerticalDivider(),
+              Row(
+                children: [
+                  FlatButton(
+                    child: Text(' SI '),
+                    onPressed: () {
+                      if (Platform.isAndroid) {
+                        //exit para android
+                        SystemNavigator.pop();
+                        bloc.dispose();
+                      } else if (Platform.isIOS) {
+                        bloc.dispose();
+                        Future.delayed(const Duration(milliseconds: 1500), () {
+                          exit(0); //exit para ios
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          )
+        ]),
+      ),
     );
   }
 }
