@@ -168,6 +168,8 @@ class RealizarOp extends StatelessWidget {
     );
   }
 
+
+//
   _contenidoRealizarOp(BuildContext context, LoginBloc bloc) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
@@ -193,6 +195,10 @@ class RealizarOp extends StatelessWidget {
     //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));
   }
 
+
+  //botones tipos de liquidacion
+  //liquidacion por medio de moneycard
+
   Widget _crearBotonTipoLiquidacionMoney(LoginBloc bloc) {
     return StreamBuilder(
       stream: bloc.formValidStream,
@@ -213,7 +219,7 @@ class RealizarOp extends StatelessWidget {
       },
     );
   }
-
+//liquidacion por transferencia brou
   Widget _crearBotonTipoLiquidacionTransf(LoginBloc bloc) {
     return StreamBuilder(
       stream: bloc.formValidStream,
@@ -234,6 +240,7 @@ class RealizarOp extends StatelessWidget {
       },
     );
   }
+  //liquidacion por surcursal
 
   Widget _crearBotonTipoLiquidacionReturarSuc(LoginBloc bloc) {
     return StreamBuilder(
@@ -258,14 +265,15 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  void _realizarOp(LoginBloc bloc, BuildContext context) {
-    final user = bloc.usuario.id;
+   bool _realizarOp(LoginBloc bloc, BuildContext context) {
+    final id = bloc.usuario.id;
 
-    if (user != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
-    } else {
+    if (id == null) {
       mostrarAlerta(context, 'Usuario no encontrado');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    } else {
+     
     }
   }
 
