@@ -11,7 +11,9 @@ final String urlApi = 'http://10.1.3.215:7010/api';
 //para simular op
 UsuarioModel usuarioLogueado;
 List<MonedaModel> monedas = new List();
+
 MonedaModel monedaTengo = MonedasProvider().buscarMoneda('PESOS URUGUAYOS');
+
 MonedaModel monedaQuiero = MonedasProvider().buscarMoneda('DOLARES');
 
 TextEditingController nombre = new TextEditingController();
