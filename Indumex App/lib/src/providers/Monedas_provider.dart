@@ -33,20 +33,15 @@ class MonedasProvider {
   }
 
   MonedaModel buscarMoneda(String descripcion) {
+    if (descripcion == 'Euros') {
+      descripcion = 'Euro';
+    }
     MonedaModel retorno;
-    // int recorrida = 0;
-    // while (recorrida < monedas.length) {
-    //   if (monedas[recorrida].descripcion == descripcion.toUpperCase()) {
-    //     recorrida = monedas.length;
-    //     retorno = monedas[recorrida];
-    //   }
-    //   recorrida++;
-    // }
-    // return retorno;
 
     for (int i = 0; i < monedas.length; i++) {
       if (monedas[i].descripcion == descripcion.toUpperCase()) {
         retorno = monedas[i];
+        return retorno;
       }
     }
     return retorno;
