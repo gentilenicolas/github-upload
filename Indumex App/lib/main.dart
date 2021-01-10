@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/providers/localidades_provider.dart';
@@ -9,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'src/providers/login_provider.dart';
 
 void main() {
+  cargoDataInicial();
   //Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -21,7 +24,9 @@ class MyApp extends StatelessWidget {
   final prefs = new PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
-    cargoDataInicial();
+    Timer(Duration(seconds: 3), () {});
+
+    //agregar tiempo de espera para que se cargue toda la data! ! ! ! ! ! ! ! ! !! !!!!!!!
 
     return MultiProvider(
       //esto es lo de Providers. vos podes poner return ChangeNotifierProvider y eso te deja manejar solo un provider

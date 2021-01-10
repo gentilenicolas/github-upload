@@ -22,8 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final importeTengo = new TextEditingController();
-  final importeQuiero = new TextEditingController();
+  final importeTengoController = new TextEditingController();
+  final importeQuieroController = new TextEditingController();
   // var _currenIndex = 0;
 
   final simularOpProvider = new SimularOpProvider();
@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.blueAccent[400],
         appBar: AppBar(
           backgroundColor: Colors.blue,
@@ -267,7 +268,6 @@ class _HomePageState extends State<HomePage> {
                                   jp.monedaTengo =
                                       MonedasProvider().buscarMoneda(newValue);
                                 });
-                                print(_monedaSeleccionadaTengo);
                               },
                               items: jp.banderasJson.map((Map map) {
                                 return new DropdownMenuItem<String>(
@@ -296,15 +296,18 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(10)),
                   child: FocusScope(
                     onFocusChange: (value) {
-                      if (!value) {
+                      if (value) {
                         simularOp(bloc);
                       }
                     },
                     child: TextField(
-                      controller: importeTengo,
+                      controller: importeTengoController,
                       cursorColor: Colors.white,
                       style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.number,
+                      // inputFormatters: [
+                      //   new FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                      // ],
                       autofocus: false,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
@@ -328,7 +331,7 @@ class _HomePageState extends State<HomePage> {
                           )),
                       onChanged: (valor) {
                         setState(() {
-                          importeQuiero.text = '';
+                          importeQuieroController.text = '';
                         });
                       },
                     ),
@@ -369,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                                   _monedaSeleccionadaQuiero = newValue;
                                   jp.monedaQuiero =
                                       MonedasProvider().buscarMoneda(newValue);
-                                  simularOp(bloc);
+                                  //simularOp(bloc);
                                 });
                               },
                               items: jp.banderasJson.map((Map map) {
@@ -410,7 +413,7 @@ class _HomePageState extends State<HomePage> {
 
                       //focusNode: FocusNode(),
                       //enableInteractiveSelection: false,
-                      controller: importeQuiero,
+                      controller: importeQuieroController,
                       cursorColor: Colors.white,
                       style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.number,
@@ -435,7 +438,7 @@ class _HomePageState extends State<HomePage> {
                           )),
                       onChanged: (valor) {
                         setState(() {
-                          importeTengo.text = '';
+                          importeTengoController.text = '';
                         });
                       },
                     ),
@@ -448,16 +451,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   void simularOp(LoginBloc bloc) {
-    if (importeQuiero.text != '' || importeTengo.text != '') {
-      double importeTengo = 0;
-      double importeQuiero = 0;
-      //************* */
+    if (importeQuieroController.text != '' ||
+        importeTengoController.text != '') {
+      double importeTengo;
+      double importeQuiero;
+      String tengoString;
+      String quieroString;
 
-      // agregar condicion de que si hay un importeTengo, el importeQuiero sea 0 y al reves tmb!!!
+      if (importeTengoController.text == '') {
+        tengoString = '0';
+      } else {
+        tengoString = importeTengoController.text;
+      }
 
-      //************* */
+      if (importeQuieroController.text == '') {
+        quieroString = '0';
+      } else {
+        quieroString = importeQuieroController.text;
+      }
 
-      try {} catch (e) {}
+      try {
+        importeTengo = double.parse(tengoString);
+      } catch (e) {
+        importeTengo = 0;
+        print(e);
+      }
+
+      try {
+        importeQuiero = double.parse(quieroString);
+      } catch (e) {
+        importeQuiero = 0;
+        print(e);
+      }
 
       simularOpProvider.enviarSimulacionOp(
           jp.monedaTengo,
