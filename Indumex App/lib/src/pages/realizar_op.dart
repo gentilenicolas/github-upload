@@ -1,12 +1,13 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'package:formvalidation/src/pages/home_page.dart';
+import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
-import 'package:formvalidation/src/utils/estilos.dart' as estilos;
+import 'package:url_launcher/url_launcher.dart';
 
 /*void main() async {
   final prefs = new PreferenciasLogin();
@@ -23,6 +24,8 @@ class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = LoginProvider.of(context);
+    final size = MediaQuery.of(context).size;
+
     //final _prefs = new PreferenciasUsuario();
     //  print (_prefs.nombre);
 
@@ -41,13 +44,30 @@ class RealizarOp extends StatelessWidget {
         child: Column(
           children: <Widget>[
             //_contenidoRealizarOp(context , bloc)/*
-            _tiposDeCambio(bloc),
-            SizedBox(height: 15.0),
-            Text('RESUMEN DE OPERACION', style: TextStyle(color: Colors.blue[400],fontSize: 20.0)),
+            _tiposDeCambio(bloc, context),
+            SizedBox(
+              width: size.width * 0.10,
+            ),
+            Text('RESUMEN DE OPERACION',
+                style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
             SizedBox(height: 10.0),
             _resumenOp(bloc),
-              SizedBox(height: 10.0),
+            SizedBox(height: 10.0),
             _btnRealizarOp(context),
+            SizedBox(height: 10.0),
+            
+            Center(
+              child: Row(children: [
+                
+
+              _crearBotonTipoLiquidacionReturarSuc(bloc),
+          
+              _crearBotonTipoLiquidacionMoney(bloc),
+           
+              _crearBotonTipoLiquidacionTransf( bloc)
+
+              ],),
+            ),
           ],
         ), /*
         decoration: new BoxDecoration(
@@ -59,31 +79,59 @@ class RealizarOp extends StatelessWidget {
               tileMode: TileMode.clamp),
         ),*/
       ),
-         bottomNavigationBar: _bottomNavigationBar(),
+
+      bottomNavigationBar: _bottomNavigationBar(),
       endDrawer: master.menuDrawer(context, bloc),
     );
   }
 
-//contenedor info tipos de cambio (card)
-  Widget _tiposDeCambio(LoginBloc bloc) {
+//validarion usuario
+
+  UsuarioModel _validoUsuario(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
+
+    if (usr == null) {
+      UsuarioModel usuario = new UsuarioModel();
+      return usuario;
+    } else if (usr.id != null) {
+      _tiposDeCambio(bloc, context);
+    } else {
+      mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    }
+    return usr;
+  }
+
+//contenedor info tipos de cambio (card)
+  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
+    final usr = _validoUsuario(bloc, context);
+
+    if (usr == null) {
+      mostrarAlerta(context, "Debe loguearce para realizar esta accción");
+      usr.nombreCompleto = "";
+    }
     return Card(
+      elevation: 24.0,
       child: Column(children: <Widget>[
         ListTile(
-          title: Text('Moneda :' + usr.nombreCompleto),
+          title: Text('Moneda :' /*+ usr.nombreCompleto*/),
           subtitle: Text(
               'para abajo los distintos tipos de cambio ahora puse tres propiedades cualquier a, tengo que traer el nuevo objeto de ale'),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                 Text("Tc pizarra : PITO PITO"),
+                Text("Tc pizarra : PITO PITO", textAlign: TextAlign.start),
+                SizedBox(height: 10.0),
                 Text("Tc cliente : PITO PITO"),
+                SizedBox(height: 10.0),
                 Text("Tc moneycard : PITO PITO"),
-               
+                SizedBox(height: 10.0),
               ],
             )
           ],
@@ -94,22 +142,23 @@ class RealizarOp extends StatelessWidget {
 
 //contenedor resumen de operacion
   Widget _resumenOp(LoginBloc bloc) {
-    final usr = bloc.usuario;
     return Card(
+      elevation: 24.0,
       child: Column(children: <Widget>[
         ListTile(
           title: Text('Resumen de operacion'),
           subtitle: Text('resumen'),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Entrega :"),
-                Text("Tipo de cambio :"),
-                Text("Recibio :")
+                SizedBox(height: 10.0),
+                Text("Entrega : pito "),
+                SizedBox(height: 10.0),
+                Text("Tipo de cambio : mas pito "),
+                SizedBox(height: 10.0),
+                Text("Recibio : pito ")
               ],
             )
           ],
@@ -120,7 +169,7 @@ class RealizarOp extends StatelessWidget {
 
   Widget _btnRealizarOp(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
+      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
       child: Center(
         child: Column(
           children: <Widget>[
@@ -168,19 +217,18 @@ class RealizarOp extends StatelessWidget {
     );
   }
 
-
 //
   _contenidoRealizarOp(BuildContext context, LoginBloc bloc) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
 
-    if ( usr.id != null) {
+    if (usr.id != null) {
       return ListView(
         padding: EdgeInsets.all(25),
         children: <Widget>[
           SizedBox(height: 30.0),
-          _tiposDeCambio(bloc),
+          _tiposDeCambio(bloc, context),
           SizedBox(height: 30.0),
           _resumenOp(bloc),
         ],
@@ -195,7 +243,6 @@ class RealizarOp extends StatelessWidget {
     //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));
   }
 
-
   //botones tipos de liquidacion
   //liquidacion por medio de moneycard
 
@@ -203,81 +250,97 @@ class RealizarOp extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-              child: Text('Deposito a Moneycard'),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+        return Container(
+         width:100,
+          height: 100,
+
+          alignment: Alignment.center,
+          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          child: MaterialButton(
+            shape: CircleBorder(
+                side: BorderSide(
+                    width: 2,
+                    color: Colors.orange[600],
+                    style: BorderStyle.solid)),
             elevation: 0.0,
             color: Colors.orange[500],
             textColor: Colors.white,
-            //obener los valores de las cajas de texto
-            onPressed:
-                snapshot.hasData ? () => _realizarOp(bloc, context) : null);
+            onPressed: null,
+            child: Text('Deposito Moneycard'),
+          ),
+        );
       },
     );
   }
-//liquidacion por transferencia brou
-  Widget _crearBotonTipoLiquidacionTransf(LoginBloc bloc) {
-    return StreamBuilder(
-      stream: bloc.formValidStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-              child: Text('Transferencia bancaria'),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-            elevation: 0.0,
-            color: Colors.orange[500],
-            textColor: Colors.white,
-            //obener los valores de las cajas de texto
-            onPressed:
-                snapshot.hasData ? () => _realizarOp(bloc, context) : null);
-      },
-    );
-  }
+
   //liquidacion por surcursal
 
   Widget _crearBotonTipoLiquidacionReturarSuc(LoginBloc bloc) {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-              child: Text('Retirar por sucursal'),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+        return Container(color: Colors.blue,
+          width:100,
+          height: 100,
+          alignment: Alignment.centerLeft,
+          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          child: MaterialButton(
+            shape: CircleBorder(
+                side: BorderSide(
+                    width: 2,
+                    color: Colors.orange[600],
+                    style: BorderStyle.solid)),
             elevation: 0.0,
             color: Colors.orange[500],
             textColor: Colors.white,
-            //obener los valores de las cajas de texto
-            onPressed:
-                snapshot.hasData ? () => _realizarOp(bloc, context) : null);
+            onPressed: null,
+            child: Text('Retirar por sucursal'),
+          ),
+        );
       },
     );
   }
 
-//validarion usuario
-
-   bool _realizarOp(LoginBloc bloc, BuildContext context) {
-    final id = bloc.usuario.id;
-
-    if (id == null) {
-      mostrarAlerta(context, 'Usuario no encontrado');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else {
-     
-    }
+//liquidacion por transferencia brou
+  Widget _crearBotonTipoLiquidacionTransf(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.formValidStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+         return Container(color: Colors.blue,
+         width:100,
+          height: 100,
+          alignment: Alignment.centerRight,
+          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          child: MaterialButton(
+            shape: CircleBorder(
+                side: BorderSide(
+                    width: 2,
+                    color: Colors.orange[600],
+                    style: BorderStyle.solid)),
+            elevation: 0.0,
+            color: Colors.orange[500],
+            textColor: Colors.white,
+            onPressed: null,
+            child: Text('Transferencia Bancaria'),
+          ),
+        );
+      },
+    );
   }
 
- // navigationBar
+/*
+ Function _habilitarBotonesTransaccion() {
+    if (     ) {
+      return null;
+    } else {
+      return () {
+       
+      };
+    }
+  }
+*/
+
+  // navigationBar
   Widget _bottomNavigationBar() {
     return Container(
       //alignment: Alignment.bottomCenter,
@@ -311,7 +374,4 @@ class RealizarOp extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

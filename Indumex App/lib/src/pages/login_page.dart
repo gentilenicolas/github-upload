@@ -161,8 +161,7 @@ prefs.ultimaPagina= LoginPage().routeName;
 
 
   Future<UsuarioModel> _login(LoginBloc bloc, BuildContext context) async {
-    final user =
-        await loginProvider.crearLogin(bloc.email, bloc.password, context);
+    final user = await loginProvider.crearLogin(bloc.email, bloc.password, context);
 
     if (user.id != null) {
       Navigator.pushReplacement(

@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      new Text('Venta', style: estilos.textoTabla),
+                      new Text('Venta',style: estilos.textoTabla),
                     ],
                   ),
                 ),
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                       child: TableCell(
                         child: Center(
                           child: Text(
-                            '${monedas[i].moneda.trim()}',
+                            '${monedas[i].moneda.trim()}',textAlign: TextAlign.start,
                             style: estilos.monedasTabla,
                           ),
                         ),
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                   //valores compra
                   Column(children: [
                     Text('${monedas[i].compra}',
-                        style: estilos.valoresNumericosTabla),
+                        style: estilos.valoresNumericosTabla,textAlign: TextAlign.start),
                   ]),
                   //valores venta
                   Column(children: [

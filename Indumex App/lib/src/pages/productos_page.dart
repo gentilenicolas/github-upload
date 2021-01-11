@@ -9,13 +9,13 @@ class Productos extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
+          /*appBar: AppBar(
                   title: StreamBuilder(
                stream: productosBloc.productosContadorStream,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                   return Text('Productos (${snapshot.data ?? 0})');
-                }),
-          ),
+                }),s
+          ),*/
           body: StreamBuilder(
             stream: productosBloc.getProductos,
             builder: (_, AsyncSnapshot snapshot) {

@@ -1,9 +1,9 @@
-// para luego validar con la api de firebase que sea un usuario por lo menos de google
+/* para luego validar con la api de firebase que sea un usuario por lo menos de google
 //import 'dart:convert';
 
 //import 'package:http/http.dart' as http;
 
-class UsuarioProvider {/*
+class UsuarioProvider {
   int id;
   String nombre;
   String apellido1;
@@ -55,7 +55,7 @@ class Pais {
   });
 
   //nuevo usuario por firebase
-/*
+
   nuevoUsuario(String email, String password) async {
 //api token que se proporciona de la api
     final String _firebaseToken = ''; // poner la url de la api
@@ -72,6 +72,8 @@ class Pais {
 
     Map<String, dynamic> decodedResp = json.decode(resp.body);
     print(decodedResp); // ver si manda algo 
-  }*/
-  */
+  }
+ 
 }
+
+*/

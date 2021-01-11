@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/login_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
-
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
 export 'package:formvalidation/src/bloc/login_bloc.dart'; //donde utilice mi provider con el export lo puedo usar donde quiera

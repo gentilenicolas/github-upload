@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/login_bloc.dart';
+import 'package:formvalidation/src/pages/logout_page.dart';
 import 'package:formvalidation/src/pages/paginaVacia.dart';
 import 'package:formvalidation/src/pages/productos_page.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
+
+
 
 //class MasterMenu {
 Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
@@ -123,11 +126,30 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             Icons.sensor_door,
             color: Colors.blue,
           ),
-        onTap: () {
-            Navigator.pushReplacementNamed(context, 'logout');
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LogOut(),
+              ),
+            );
           },
-            
-        ),
+        ),/*
+          ListTile(
+          title: Text('CERRAR SESION'),
+          leading: Icon(
+            Icons.sensor_door,
+            color: Colors.blue,
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CerrarSesion(),
+              ),
+            );
+          },
+        ),*/
         ListTile(
           title: Text('PAGINA DE PRUEBAS'),
           leading: Icon(Icons.sensor_door),
@@ -163,10 +185,19 @@ Widget tamanoDeNotch(BuildContext context) {
 //mensaje bienveida
 String bienvenido(LoginBloc bloc) {
   if (bloc.nombre != null) {
-    return "Hola " + bloc.nombre + " !";
+    return "Bienvenido :" + bloc.email + " !";
   } else
     return "";
 }
+
+//mensaje bienveida
+String bienvenidoHome(LoginBloc bloc) {
+  if (bloc.nombre != null) {
+    return "Hola:" + bloc.nombre + " !";
+  } else
+    return "";
+}
+
 
 
 Widget incio(LoginBloc bloc) {

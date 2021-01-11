@@ -5,6 +5,51 @@ import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'dart:io' show Platform, exit;
 
+// https://api.flutter.dev/flutter/material/AlertDialog-class.html
+
+Future<void> cerrarSesion(BuildContext context, LoginBloc bloc) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Esta seguro que quiere cerrar sesion?'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Alerta alerta '),
+              Text('Would you like to approve of this message?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('No')),
+          FlatButton(
+            child: Text(' SI '),
+            onPressed: () {
+              if (Platform.isAndroid) {
+                //exit para android
+                SystemNavigator.pop();
+                bloc.dispose();
+              } else if (Platform.isIOS) {
+                bloc.dispose();
+                Future.delayed(const Duration(milliseconds: 1500), () {
+                  exit(0); //exit para ios
+                });
+              }
+            },
+          ),
+        ],
+        elevation: 24.0,
+      );
+    },
+  );
+}
+
 class LogOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,20 +63,22 @@ class LogOut extends StatelessWidget {
         actions: [],
       ),
       //fondo gradiente
-      body: Container(
-         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: Column(
-          children: <Widget>[
-            _salir(bloc, context),
-          ],
-        ),
-        decoration: new BoxDecoration(
-          gradient: new LinearGradient(
-              colors: [estilos.gradientStart, estilos.gradientEnd],
-              begin: const FractionalOffset(0.5, 0.0),
-              end: const FractionalOffset(0.0, 0.5),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          child: Column(
+            children: <Widget>[
+              _salir(bloc, context),
+            ],
+          ),
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [estilos.gradientStart, estilos.gradientEnd],
+                begin: const FractionalOffset(0.5, 0.0),
+                end: const FractionalOffset(0.0, 0.5),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
         ),
       ),
     );
@@ -47,7 +94,7 @@ class LogOut extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Row(
                 children: [

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-const List PRODUCTOS = [{'Western Union '}, 'Transferencias', 'Pagos'];
+const List PRODUCTOS = ['Western Union ', 'Transferencias', 'Pagos'];
 
 class ProductosBloc {
   Stream<List<String>> get getProductos async* {
