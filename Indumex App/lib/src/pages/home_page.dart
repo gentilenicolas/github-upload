@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
+import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
 import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
@@ -14,6 +15,7 @@ import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
 import 'package:formvalidation/src/models/Usuario_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
+  final bloc = LoginBloc();
   // var _currenIndex = 0;
 
   final simularOpProvider = new SimularOpProvider();
@@ -58,6 +61,7 @@ class _HomePageState extends State<HomePage> {
           child: Center(
             child: Column(
               children: <Widget>[
+                _sucursales(bloc),
                 Container(
                   //Pizzarra
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -100,6 +104,88 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: _bottomNavigationBar(),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
+  }
+
+//mensaje bienveida
+  String _bienvenidoHome(LoginBloc bloc) {
+    if (bloc.nombre != null) {
+      return "Hola " + bloc.nombre + " busca aqui tu sucursal mas proxima !";
+    } else
+      return "";
+  }
+
+  Widget _sucursales(LoginBloc bloc) {
+    if (bloc.nombre != null) {
+      return
+          // leading: Icon(Icons.account_box,color: Colors.white),
+          Center(
+        child: Row(
+          children: <Widget>[
+            MaterialButton(
+              child: Row(
+                children: <Widget>[
+                  new Icon(
+                    Icons.person_pin_circle,
+                    size: 20.0,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    _bienvenidoHome(bloc),
+                    style: new TextStyle(color: Colors.white, fontSize: 12.0),
+                  ),
+                ],
+              ),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Sucursales(),
+                  ),
+                ),
+              },
+              
+            ),
+          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
+      );
+    } else {
+      return Center(
+        child: Row(
+          children: <Widget>[
+            MaterialButton(
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>  _urlredirect(),
+                  ),
+                ),
+              },
+            ),
+            new Icon(
+              Icons.person_pin_circle,
+              size: 20.0,
+              color: Colors.white,
+            ),
+            Text(
+              'Busca aqui la sucursal mas proxima !',
+              style: new TextStyle(color: Colors.white, fontSize: 12.0),
+            )
+          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+        ),
+      );
+    }
+  }
+
+  _urlredirect() async {
+    const url = 'https://www.indumex.com/sucursales';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'No pudo cargar sucursales : $url';
+    }
   }
 
   //Pizarra
@@ -147,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      new Text('Venta',style: estilos.textoTabla),
+                      new Text('Venta', style: estilos.textoTabla),
                     ],
                   ),
                 ),
@@ -165,7 +251,8 @@ class _HomePageState extends State<HomePage> {
                       child: TableCell(
                         child: Center(
                           child: Text(
-                            '${monedas[i].moneda.trim()}',textAlign: TextAlign.start,
+                            '${monedas[i].moneda.trim()}',
+                            textAlign: TextAlign.start,
                             style: estilos.monedasTabla,
                           ),
                         ),
@@ -175,7 +262,8 @@ class _HomePageState extends State<HomePage> {
                   //valores compra
                   Column(children: [
                     Text('${monedas[i].compra}',
-                        style: estilos.valoresNumericosTabla,textAlign: TextAlign.start),
+                        style: estilos.valoresNumericosTabla,
+                        textAlign: TextAlign.start),
                   ]),
                   //valores venta
                   Column(children: [

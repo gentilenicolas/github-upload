@@ -54,19 +54,15 @@ class RealizarOp extends StatelessWidget {
             _resumenOp(bloc),
             SizedBox(height: 10.0),
             _btnRealizarOp(context),
-            SizedBox(height: 10.0),
-            
+
             Center(
-              child: Row(children: [
-                
-
-              _crearBotonTipoLiquidacionReturarSuc(bloc),
-          
-              _crearBotonTipoLiquidacionMoney(bloc),
-           
-              _crearBotonTipoLiquidacionTransf( bloc)
-
-              ],),
+              child: Row(
+                children: [
+                  _crearBotonTipoLiquidacionReturarSuc(bloc),
+                  _crearBotonTipoLiquidacionMoney(bloc),
+                  _crearBotonTipoLiquidacionTransf(bloc)
+                ],
+              ),
             ),
           ],
         ), /*
@@ -87,25 +83,28 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _validoUsuario(LoginBloc bloc, BuildContext context) {
+  UsuarioModel _usuario(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
 
-    if (usr == null) {
-      UsuarioModel usuario = new UsuarioModel();
-      return usuario;
-    } else if (usr.id != null) {
+    if (_validar == false) {
       _tiposDeCambio(bloc, context);
-    } else {
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
+    } else {
+      UsuarioModel usuario = new UsuarioModel();
+      return usuario;
     }
     return usr;
   }
 
+  bool _validar(LoginBloc bloc, BuildContext context) {
+    bool ok = false;
+  }
+
 //contenedor info tipos de cambio (card)
   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _validoUsuario(bloc, context);
+    final usr = _usuario(bloc, context);
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -116,8 +115,7 @@ class RealizarOp extends StatelessWidget {
       child: Column(children: <Widget>[
         ListTile(
           title: Text('Moneda :' /*+ usr.nombreCompleto*/),
-          subtitle: Text(
-              'para abajo los distintos tipos de cambio ahora puse tres propiedades cualquier a, tengo que traer el nuevo objeto de ale'),
+          subtitle: Text('para abajo los distintos tipos de cambio'),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,11 +125,11 @@ class RealizarOp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text("Tc pizarra : PITO PITO", textAlign: TextAlign.start),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Text("Tc cliente : PITO PITO"),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Text("Tc moneycard : PITO PITO"),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
               ],
             )
           ],
@@ -153,12 +151,12 @@ class RealizarOp extends StatelessWidget {
           children: <Widget>[
             Column(
               children: [
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Text("Entrega : pito "),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Text("Tipo de cambio : mas pito "),
                 SizedBox(height: 10.0),
-                Text("Recibio : pito ")
+                SizedBox(height: 5.0),
               ],
             )
           ],
@@ -250,23 +248,35 @@ class RealizarOp extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-         width:100,
-          height: 100,
+        return Flexible(
+          flex: 4,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                MaterialButton(
+                  shape: CircleBorder(
+                      side: BorderSide(
+                          width: 1,
+                          color: Colors.orange[600],
+                          style: BorderStyle.solid)),
+                  elevation: 24.0,
+                  color: Colors.orange[500],
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.credit_card,
+                    size: 20.0,
+                  ),
+                  onPressed: null,
+                ),
+                Text('Deposito Moneycard'),
+              ],
+            ),
 
-          alignment: Alignment.center,
-          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: MaterialButton(
-            shape: CircleBorder(
-                side: BorderSide(
-                    width: 2,
-                    color: Colors.orange[600],
-                    style: BorderStyle.solid)),
-            elevation: 0.0,
-            color: Colors.orange[500],
-            textColor: Colors.white,
-            onPressed: null,
-            child: Text('Deposito Moneycard'),
+            width: 100,
+            height: 100,
+            alignment: Alignment.center,
+
+            //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
       },
@@ -279,22 +289,35 @@ class RealizarOp extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(color: Colors.blue,
-          width:100,
-          height: 100,
-          alignment: Alignment.centerLeft,
-          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: MaterialButton(
-            shape: CircleBorder(
-                side: BorderSide(
-                    width: 2,
-                    color: Colors.orange[600],
-                    style: BorderStyle.solid)),
-            elevation: 0.0,
-            color: Colors.orange[500],
-            textColor: Colors.white,
-            onPressed: null,
-            child: Text('Retirar por sucursal'),
+        return Flexible(
+          flex: 4,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                MaterialButton(
+                  shape: CircleBorder(
+                      side: BorderSide(
+                          width: 1,
+                          color: Colors.orange[600],
+                          style: BorderStyle.solid)),
+                  elevation: 24.0,
+                  color: Colors.orange[500],
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.store,
+                    size: 20.0,
+                  ),
+                  onPressed: null,
+                ),
+                Text('Retirar por sucursal'),
+              ],
+            ),
+
+            width: 100,
+            height: 100,
+            alignment: Alignment.center,
+
+            //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
       },
@@ -306,24 +329,60 @@ class RealizarOp extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-         return Container(color: Colors.blue,
-         width:100,
-          height: 100,
-          alignment: Alignment.centerRight,
-          //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: MaterialButton(
-            shape: CircleBorder(
-                side: BorderSide(
-                    width: 2,
-                    color: Colors.orange[600],
-                    style: BorderStyle.solid)),
-            elevation: 0.0,
-            color: Colors.orange[500],
-            textColor: Colors.white,
-            onPressed: null,
-            child: Text('Transferencia Bancaria'),
+          return Flexible(
+          flex: 4,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                MaterialButton(
+                  shape: CircleBorder(
+                      side: BorderSide(
+                          width: 1,
+                          color: Colors.orange[600],
+                          style: BorderStyle.solid)),
+                  elevation: 24.0,
+                  color: Colors.orange[500],
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.comment_bank,
+                    size: 20.0,
+                  ),
+                  onPressed: null,
+                ),
+                Text('Transferencia bancaria'),
+              ],
+            ),
+
+            width: 100,
+            height: 100,
+            alignment: Alignment.center,
+
+            //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
+
+         // return Container(
+        //   color: Colors.blue,
+        //   width: 100,
+        //   height: 80,
+        //   alignment: Alignment.centerRight,
+        //   //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+        //   child: MaterialButton(
+        //     shape: CircleBorder(
+        //         side: BorderSide(
+        //             width: 2,
+        //             color: Colors.orange[600],
+        //             style: BorderStyle.solid)),
+        //     elevation: 0.0,
+        //     color: Colors.orange[500],
+        //     textColor: Colors.white,
+        //     onPressed: null,
+        //     child: Text('Transferencia Bancaria'),
+        //   ),
+        // );
+
+
+
       },
     );
   }

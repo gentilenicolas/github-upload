@@ -190,15 +190,8 @@ String bienvenido(LoginBloc bloc) {
     return "";
 }
 
-//mensaje bienveida
-String bienvenidoHome(LoginBloc bloc) {
-  if (bloc.nombre != null) {
-    return "Hola:" + bloc.nombre + " !";
-  } else
-    return "";
-}
 
-
+//Drawer Inicio
 
 Widget incio(LoginBloc bloc) {
   if (bloc.nombre != null) {
