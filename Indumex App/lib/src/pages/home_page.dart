@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      new Text('Venta',style: estilos.textoTabla),
+                      new Text('Venta', style: estilos.textoTabla),
                     ],
                   ),
                 ),
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                       child: TableCell(
                         child: Center(
                           child: Text(
-                            '${monedas[i].moneda.trim()}',textAlign: TextAlign.start,
+                            '${monedas[i].moneda.trim()}',
                             style: estilos.monedasTabla,
                           ),
                         ),
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                   //valores compra
                   Column(children: [
                     Text('${monedas[i].compra}',
-                        style: estilos.valoresNumericosTabla,textAlign: TextAlign.start),
+                        style: estilos.valoresNumericosTabla),
                   ]),
                   //valores venta
                   Column(children: [
@@ -492,7 +492,7 @@ class _HomePageState extends State<HomePage> {
           0, //TC APLICADO, lo calcula la API
           bloc.usuario != null
               ? bloc.usuario
-              : UsuarioModel(tipodoc: Tipodoc(pais: Pais())));
+              : null); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
   }
 

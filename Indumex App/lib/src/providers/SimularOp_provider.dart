@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:formvalidation/src/models/Moneda_model.dart';
+import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
@@ -15,21 +16,26 @@ class SimularOpProvider {
       UsuarioModel usuario) async {
     final url = '$urlApi/SimularOp';
 
-    final resp = await http.post(
-      url,
-      body: {
-        "MonedaTengo": monedaModelToJson(monedaTengo),
-        "MonedaQuiero": monedaModelToJson(monedaQuiero),
-        "ImporteTengo": jsonEncode(importeTengo),
-        "ImporteQuiero": jsonEncode(importeQuiero),
-        "TcAplicado": jsonEncode(tcAplicado),
-        "Usuario": usuarioToJson(usuario)
-      },
-
-      // headers: <String, String>{
-      //   'Content-Type': 'application/json; charset=UTF-8'
-      // }
-    );
+    final resp = await http.post(url,
+        // body: jsonEncode(<String, dynamic>{
+        //   "idSimulacion": 10000,
+        //   "MonedaTengo": json.decode(monedaModelToJson(monedaTengo)),
+        //   "MonedaQuiero": json.decode(monedaModelToJson(monedaQuiero)),
+        //   "ImporteTengo": importeTengo,
+        //   "ImporteQuiero": importeQuiero,
+        //   "TcAplicado": tcAplicado,
+        //   "Usuario": json.decode(usuarioToJson(usuario))
+        // }),
+        body: simularOpModelToJson(new SimularOpModel(
+            monedaTengo: monedaTengo,
+            monedaQuiero: monedaQuiero,
+            importeTengo: importeTengo,
+            importeQuiero: importeQuiero,
+            tcAplicado: tcAplicado,
+            usuario: usuario)),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
 
     final decodedData = json.decode(resp.body);
 
