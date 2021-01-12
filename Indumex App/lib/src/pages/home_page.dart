@@ -18,6 +18,8 @@ import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
+    HomePage({Key key}) : super(key: key);
+  
   @override
   _HomePageState createState() => _HomePageState();
   //final String routeName = 'home';
@@ -27,17 +29,15 @@ class _HomePageState extends State<HomePage> {
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
-  // var _currenIndex = 0;
-
+  int _selectedIndex = 0; // bottom
   final simularOpProvider = new SimularOpProvider();
-
   String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
   String _monedaSeleccionadaQuiero = 'Dolares';
-
   final pizarraProvider = new PizarraProvider();
-
   Image opcionMonedaSeleccionadaTengo = Image(
       width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,20 +99,10 @@ class _HomePageState extends State<HomePage> {
                 tileMode: TileMode.clamp),
           ),
         ),
-
-        //Menu de navegacion Inferior
-        bottomNavigationBar: _bottomNavigationBar(),
+     bottomNavigationBar: _bottomNavigator(),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
   }
-
-// //mensaje bienveida
-//   String _bienvenidoHome(LoginBloc bloc) {
-//     if (bloc.nombre != null) {
-//       return "Hola " + bloc.nombre + " busca aqui tu sucursal mas proxima !";
-//     } else
-//       return "";
-//   }
 
   Widget _sucursales(LoginBloc bloc) {
     if (bloc.nombre != null) {
@@ -631,41 +621,41 @@ class _HomePageState extends State<HomePage> {
 
   Widget _imagenBottom() {
     // final size = MediaQuery.of(context).size;
-    return Expanded(
-      child: Stack(
-        children: [
-          Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: MaterialButton(
-              onPressed: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SolicitudMoneycard(),
-                  ),
-                ),
-              },
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height:
-                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.bottomCenter,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    //  return Expanded(
+    //     child: Stack(
+    //       children: [
+    //         Align(
+    //           alignment: FractionalOffset.bottomCenter,
+    //           child: MaterialButton(
+    //             onPressed: () => {
+    //               Navigator.push(
+    //                 context,
+    //                 MaterialPageRoute(
+    //                   builder: (context) => SolicitudMoneycard(),
+    //                 ),
+    //               ),
+    //             },
+    //           ),
+    //         ),
+    //         Positioned(
+    //           bottom: 0,
+    //           left: 0,
+    //           right: 0,
+    //           height:
+    //               100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+    //           child: Container(
+    //             child: Image.asset(
+    //               'assets/images/MoneyBottom.png',
+    //               fit: BoxFit.cover,
+    //               alignment: FractionalOffset.bottomCenter,
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   );
 
-    /* return Expanded(
+    return Expanded(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
         child: MaterialButton(
@@ -683,41 +673,63 @@ class _HomePageState extends State<HomePage> {
               alignment: FractionalOffset.bottomCenter,
             )),
       ),
-    );*/
+    );
   }
 
-  // navigationBar
-  Widget _bottomNavigationBar() {
-    return Container(
-      //alignment: Alignment.bottomCenter,
-      margin: EdgeInsets.only(left: 0, right: 0, bottom: 0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: BottomNavigationBar(
-        backgroundColor: Colors.orange[50],
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        items: [
-          new BottomNavigationBarItem(
+
+   void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+ Widget _bottomNavigator() {
+
+  
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+       BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            
           ),
-          new BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.local_activity),
             label: 'Algo',
           ),
-          new BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.inbox),
             label: 'Algo',
           ),
-          new BottomNavigationBarItem(
+         BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Login',
           ),
-        ],
-      ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.amber[800],
+      onTap: _onItemTapped,
     );
   }
+
+   static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Ayuda',
+      style: optionStyle,
+    ),
+  ];
+
+
+
+
 }

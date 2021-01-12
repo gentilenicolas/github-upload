@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
-import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
-import 'package:url_launcher/url_launcher.dart';
+
 
 /*void main() async {
   final prefs = new PreferenciasLogin();
