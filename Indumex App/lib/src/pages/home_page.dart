@@ -106,13 +106,13 @@ class _HomePageState extends State<HomePage> {
         endDrawer: master.menuDrawer(context, bloc));
   }
 
-//mensaje bienveida
-  String _bienvenidoHome(LoginBloc bloc) {
-    if (bloc.nombre != null) {
-      return "Hola " + bloc.nombre + " busca aqui tu sucursal mas proxima !";
-    } else
-      return "";
-  }
+// //mensaje bienveida
+//   String _bienvenidoHome(LoginBloc bloc) {
+//     if (bloc.nombre != null) {
+//       return "Hola " + bloc.nombre + " busca aqui tu sucursal mas proxima !";
+//     } else
+//       return "";
+//   }
 
   Widget _sucursales(LoginBloc bloc) {
     if (bloc.nombre != null) {
@@ -130,7 +130,10 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                   ),
                   Text(
-                    _bienvenidoHome(bloc),
+                    "Hola " +
+                        bloc.nombre +
+                        " busca aqui tu sucursal más proxima !",
+                    //_bienvenidoHome(bloc),
                     style: new TextStyle(color: Colors.white, fontSize: 12.0),
                   ),
                 ],
@@ -143,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               },
-              
             ),
           ],
           mainAxisAlignment: MainAxisAlignment.center,
@@ -153,25 +155,18 @@ class _HomePageState extends State<HomePage> {
       return Center(
         child: Row(
           children: <Widget>[
-            MaterialButton(
-              onPressed: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>  _urlredirect(),
-                  ),
-                ),
+            Icon(Icons.person_pin_circle, size: 20, color: Colors.white),
+            InkWell(
+              child: Text(
+                'Busca aqui la sucursal mas proxima !',
+                style: new TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+              onTap: () async {
+                if (await canLaunch(_urlredirect())) {
+                  await launch(_urlredirect());
+                }
               },
             ),
-            new Icon(
-              Icons.person_pin_circle,
-              size: 20.0,
-              color: Colors.white,
-            ),
-            Text(
-              'Busca aqui la sucursal mas proxima !',
-              style: new TextStyle(color: Colors.white, fontSize: 12.0),
-            )
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),
@@ -182,9 +177,9 @@ class _HomePageState extends State<HomePage> {
   _urlredirect() async {
     const url = 'https://www.indumex.com/sucursales';
     if (await canLaunch(url)) {
-      await launch(url);
+      launch(url);
     } else {
-      throw 'No pudo cargar sucursales : $url';
+      throw 'No pueden cargar las sucursales : $url';
     }
   }
 
@@ -206,9 +201,9 @@ class _HomePageState extends State<HomePage> {
               //Cabezal tabla
               TableRow cabezal = TableRow(children: [
                 TableCell(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         children: <Widget>[
@@ -636,18 +631,41 @@ class _HomePageState extends State<HomePage> {
 
   Widget _imagenBottom() {
     // final size = MediaQuery.of(context).size;
-
-    // Expanded(
-    //   child: Align(
-    //     alignment: Alignment.topCenter,
-    //     child: Image.asset(
-    //       'assets/images/MoneyBottom.png',
-    //       fit: BoxFit.fitHeight,
-    //     ),
-    //   ),
-    // );
-
     return Expanded(
+      child: Stack(
+        children: [
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: MaterialButton(
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SolicitudMoneycard(),
+                  ),
+                ),
+              },
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height:
+                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Container(
+              child: Image.asset(
+                'assets/images/MoneyBottom.png',
+                fit: BoxFit.cover,
+                alignment: FractionalOffset.bottomCenter,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    /* return Expanded(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
         child: MaterialButton(
@@ -661,11 +679,11 @@ class _HomePageState extends State<HomePage> {
                 },
             child: Image.asset(
               'assets/images/MoneyBottom.png',
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
               alignment: FractionalOffset.bottomCenter,
             )),
       ),
-    );
+    );*/
   }
 
   // navigationBar
