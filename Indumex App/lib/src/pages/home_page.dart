@@ -14,12 +14,14 @@ import 'package:formvalidation/src/providers/Pizarra_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
+import 'package:flutter/src/rendering/box.dart';
+
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
-    HomePage({Key key}) : super(key: key);
-  
+  HomePage({Key key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
   //final String routeName = 'home';
@@ -29,15 +31,13 @@ class _HomePageState extends State<HomePage> {
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
-  int _selectedIndex = 0; // bottom
   final simularOpProvider = new SimularOpProvider();
   String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
   String _monedaSeleccionadaQuiero = 'Dolares';
   final pizarraProvider = new PizarraProvider();
   Image opcionMonedaSeleccionadaTengo = Image(
       width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
-
-
+  int _selectedIndex = 0; // bottom
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                 tileMode: TileMode.clamp),
           ),
         ),
-     bottomNavigationBar: _bottomNavigator(),
+        bottomNavigationBar: _bottomNavigator(),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
   }
@@ -620,41 +620,41 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-    // final size = MediaQuery.of(context).size;
-    //  return Expanded(
-    //     child: Stack(
-    //       children: [
-    //         Align(
-    //           alignment: FractionalOffset.bottomCenter,
-    //           child: MaterialButton(
-    //             onPressed: () => {
-    //               Navigator.push(
-    //                 context,
-    //                 MaterialPageRoute(
-    //                   builder: (context) => SolicitudMoneycard(),
-    //                 ),
-    //               ),
-    //             },
-    //           ),
-    //         ),
-    //         Positioned(
-    //           bottom: 0,
-    //           left: 0,
-    //           right: 0,
-    //           height:
-    //               100 /*size.height * 0.1*/, // no se porque me saca un cachito..
-    //           child: Container(
-    //             child: Image.asset(
-    //               'assets/images/MoneyBottom.png',
-    //               fit: BoxFit.cover,
-    //               alignment: FractionalOffset.bottomCenter,
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-
+    //  final size = MediaQuery.of(context).size;
+    return Expanded(
+      child: Stack(
+        children: [
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: MaterialButton(
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SolicitudMoneycard(),
+                  ),
+                ),
+              },
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height:
+                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Container(
+              child: Image.asset(
+                'assets/images/MoneyBottom.png',
+                fit: BoxFit.cover,
+                alignment: FractionalOffset.bottomCenter,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+/*
     return Expanded(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
@@ -673,37 +673,34 @@ class _HomePageState extends State<HomePage> {
               alignment: FractionalOffset.bottomCenter,
             )),
       ),
-    );
+    );*/
   }
 
-
-   void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
- Widget _bottomNavigator() {
 
-  
+  Widget _bottomNavigator() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-       BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_activity),
-            label: 'Algo',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: 'Algo',
-          ),
-         BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Login',
-          ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.local_activity),
+          label: 'Algo',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.inbox),
+          label: 'Algo',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Login',
+        ),
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.amber[800],
@@ -711,7 +708,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   static const TextStyle optionStyle =
+  static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
@@ -728,8 +725,4 @@ class _HomePageState extends State<HomePage> {
       style: optionStyle,
     ),
   ];
-
-
-
-
 }
