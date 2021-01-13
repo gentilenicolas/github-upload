@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
           // title: 'Material App',
           //inicio de la aplicacion en la pagina de home
           initialRoute:
-              'home', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
+              'splashScreen', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
           routes: getApplicatiosnRoutes(),
           theme: ThemeData(
             primaryColor: Colors.blueAccent[400],
