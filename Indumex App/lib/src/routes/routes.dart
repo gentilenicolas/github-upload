@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/pages/Moneda_page.dart';
+import 'package:formvalidation/src/pages/SplashScreen_page.dart';
 import 'package:formvalidation/src/pages/ayuda_page.dart';
 import 'package:formvalidation/src/pages/home_page.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
@@ -24,5 +25,6 @@ Map<String, WidgetBuilder> getApplicatiosnRoutes() {
     'productos': (BuildContext context) => Productos(),
     'logout': (BuildContext context) => LogOut(),
     'paginaPruebas': (BuildContext context) => PaginaVacia(),
+    'splashScreen': (BuildContext context) => SplashScreenPage(),
   };
 }
