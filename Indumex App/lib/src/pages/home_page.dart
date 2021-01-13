@@ -14,9 +14,6 @@ import 'package:formvalidation/src/providers/Pizarra_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
-import 'package:flutter/src/rendering/box.dart';
-
-import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -624,9 +621,23 @@ class _HomePageState extends State<HomePage> {
     return Expanded(
       child: Stack(
         children: [
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Text(""),
+          ),
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: MaterialButton(
+              child: Container(
+                child: Image.asset(
+                  'assets/images/MoneyBottom.png',
+                  fit: BoxFit.cover,
+                  alignment: FractionalOffset.bottomCenter,
+                ),
+              ),
               onPressed: () => {
                 Navigator.push(
                   context,
@@ -635,20 +646,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               },
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height:
-                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.bottomCenter,
-              ),
             ),
           ),
         ],
