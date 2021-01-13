@@ -1,12 +1,51 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
 import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
-class SimularOpProvider {
+class SimularOpProvider extends InheritedWidget {
+  
+    static SimularOpProvider _instancia;
+
+  factory SimularOpProvider({Key key, Widget child}) {
+    if (_instancia == null) {
+      _instancia = new SimularOpProvider._internal(
+          key: key,
+          child:
+              child); //creo el constructor privado par aqu eno se inicialice desde afuera
+    }
+
+    return _instancia;
+  }
+
+  SimularOpProvider._internal({Key key, Widget child})
+      : super(
+            key: key, //es el mismo key al igual qu eel child
+            child:
+                child); // es un identificador unico del widget osea que dentro de mi inheritWidget voy a meter un widget child
+
+  final simularOpBloc = SimularBloc(); // es una propiedad de instancia de login bloc
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) =>
+      true; // esto es para que se actualice todo el dia.
+
+  static SimularBloc of(BuildContext context) {
+    //metodo estatico of y el build context es el arbol de widgets el of busca dentro del arbol del context
+    //print(context);
+
+    return context.dependOnInheritedWidgetOfExactType<SimularOpProvider>().simularOpBloc; //el inheritedWidget cambio por el dependoOnInheritedWidgetOf....
+  }
+
+  
+     
+  
   Future<bool> enviarSimulacionOp(
       MonedaModel monedaTengo,
       MonedaModel monedaQuiero,

@@ -97,10 +97,9 @@ class _HomePageState extends State<HomePage> {
           ),
         
         ),
-        bottomNavigationBar: _bottomNavigator(
-         //_widgetOptions.elementAt(_selectedIndex),
-        
-        ),
+        // bottomNavigationBar: _bottomNavigator(
+        //  //_widgetOptions.elementAt(_selectedIndex),
+        //         ),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
   }
@@ -643,7 +642,7 @@ class _HomePageState extends State<HomePage> {
             left: 0,
             right: 0,
             height:
-                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+              87/*size.height * 0.1*/, // no se porque me saca un cachito..
             child: Container(
               child: Image.asset(
                 'assets/images/MoneyBottom.png',
@@ -678,7 +677,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 //bottom navigator
-
+/*
   Widget _bottomNavigator() {
     return BottomNavigationBar(
      
@@ -686,10 +685,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
-
+          
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_activity),
+                    icon: Icon(Icons.local_activity),
           label: 'Sucursales',
         ),
         BottomNavigationBarItem(
@@ -717,6 +716,7 @@ class _HomePageState extends State<HomePage> {
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
+
     Text(
       'Index 0: home',
       style: optionStyle,
@@ -733,7 +733,7 @@ class _HomePageState extends State<HomePage> {
       'Index 2: login',
       style: optionStyle,
     ),
-  ];
+  ];*/
 }
 
 

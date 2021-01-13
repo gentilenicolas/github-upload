@@ -1,93 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/pages/home_page.dart';
+import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/pages/realizar_op.dart';
+import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 
-void main() => runApp(Ayuda());
-
-/// This is the main application widget.
-class Ayuda extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
+class AyudaPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-    );
-  }
+  _MyBottomBarDemoState createState() => new _MyBottomBarDemoState();
 }
 
-/// This is the stateful widget that the main application instantiates.
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class _MyBottomBarDemoState extends State<AyudaPage> {
+  int _pageIndex = 0;
+  PageController _pageController;
 
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
+//paginas
 
-/// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Ayuda',
-      style: optionStyle,
-    ),
+  List<Widget> tabPages = [
+    HomePage(),
+    SolicitudMoneycard(),
+    RealizarOp(),
+   // LoginPage(),
   ];
 
- 
+  @override
+  void initState(){
+    super.initState();
+    _pageController = PageController(initialPage: _pageIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+      // appBar: AppBar(
+      //   title: Text("BottomNavigationBar", style: TextStyle(color: Colors.white)),
+      //   backgroundColor: Colors.deepPurple,
+      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _pageIndex,
+        onTap: onTabTapped,
+        backgroundColor: Colors.white,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem( icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: "Moneycard"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "RealizarOp"),
+       //  BottomNavigationBarItem(icon: Icon(Icons.person), label: "Login"),
+     
+        ],
+
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        children: tabPages,
+        onPageChanged: onPageChanged,
+        controller: _pageController,
       ),
-      bottomNavigationBar: _bottomNavigator(),
     );
   }
-
-  Widget _bottomNavigator() {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-       BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_activity),
-            label: 'Algo',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: 'Algo',
-          ),
-         BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Login',
-          ),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.orange[800],
-      onTap: _onItemTapped,
-    );
-  }
-
-   void _onItemTapped(int item) {
+  void onPageChanged(int page) {
     setState(() {
-      _selectedIndex = item;
+      this._pageIndex = page;
     });
   }
+
+  void onTabTapped(int index) {
+    this._pageController.animateToPage(index,duration: const Duration(milliseconds: 500),curve: Curves.easeInOut);
+  }
 }
+
+// class Pantalla1 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//         color: Colors.green,
+//             child: Center(child: Text("Pantalla 1")),
+//     );
+//   }
+// }
+
+// class Pantalla2 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.yellow,
+//       child: Center(child: Text("Pantalla 2")),
+//     );
+//   }
+// }
+
+// class Pantalla3 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.cyan,
+//       child: Center(child: Text("Pantalla 3")),
+//     );
+//   }
+// }

@@ -20,7 +20,7 @@ Map<String, WidgetBuilder> getApplicatiosnRoutes() {
     'moneda': (BuildContext context) => MonedaPage(),
     'solicitudMoneyCard': (BuildContext context) => SolicitudMoneycard(),
     'realizarOp': (BuildContext context) => RealizarOp(),
-    'ayuda': (BuildContext context) => Ayuda(),
+    'ayuda': (BuildContext context) => AyudaPage(),
     'registro': (BuildContext context) => RegistroCliente(),
     'productos': (BuildContext context) => Productos(),
     'logout': (BuildContext context) => LogOut(),

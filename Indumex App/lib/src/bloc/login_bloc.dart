@@ -27,7 +27,7 @@ class LoginBloc with Validators {
   Stream<String> get nombreStream =>
       _nombreController.stream.transform(validarUsuario);
 
-  //Stream<UsuarioModel> get usuarioStream =>_usuarioController.stream.transform(validarUsuario);
+
 
   // Insertar  o enviar valores al Stream .sink
   Function(String) get changeEmail => _emailController.sink.add;

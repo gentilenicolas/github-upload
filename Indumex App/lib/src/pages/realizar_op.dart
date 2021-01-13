@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
@@ -20,7 +22,8 @@ import 'package:formvalidation/src/utils/widgets.dart' as master;
 class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = LoginProvider.of(context);
+    final blocLogin = LoginProvider.of(context);
+   // final blocSimularOp = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
 
     //final _prefs = new PreferenciasUsuario();
@@ -42,28 +45,28 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(bloc, context),
+              _tiposDeCambio(blocLogin,context),
               SizedBox(
                 width: size.width * 0.10,
               ),
               Text('RESUMEN DE OPERACION',
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               SizedBox(height: 10.0),
-              _resumenOp(bloc),
+              _resumenOp(blocLogin),
 
               SizedBox(height: 10.0),
               Text('FORMAS DE PAGO',
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               SizedBox(height: 10.0),
-              _formasDePago(bloc),
+              _formasDePago(blocLogin),
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
               Center(
                 child: Row(
                   children: [
-                    _crearBotonTipoLiquidacionReturarSuc(bloc),
-                    _crearBotonTipoLiquidacionMoney(bloc),
-                    _crearBotonTipoLiquidacionTransf(bloc)
+                    _crearBotonTipoLiquidacionReturarSuc(blocLogin),
+                    _crearBotonTipoLiquidacionMoney(blocLogin),
+                    _crearBotonTipoLiquidacionTransf(blocLogin)
                   ],
                 ),
               ),
@@ -81,7 +84,7 @@ class RealizarOp extends StatelessWidget {
       ),
 
       bottomNavigationBar: _bottomNavigationBar(),
-      endDrawer: master.menuDrawer(context, bloc),
+      endDrawer: master.menuDrawer(context, blocLogin),
     );
   }
 
@@ -108,7 +111,8 @@ class RealizarOp extends StatelessWidget {
  
 //contenedor info tipos de cambio (card)
   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _usuarioValido(bloc, context);
+    final usr = _usuarioValido(bloc ,context);
+   
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -246,7 +250,7 @@ class RealizarOp extends StatelessWidget {
   }
 
 //
-  _contenidoRealizarOp(BuildContext context, LoginBloc bloc) {
+  _contenidoRealizarOp(BuildContext context, LoginBloc bloc, SimularBloc simula) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
@@ -390,26 +394,7 @@ class RealizarOp extends StatelessWidget {
             //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
-
-        // return Container(
-        //   color: Colors.blue,
-        //   width: 100,
-        //   height: 80,
-        //   alignment: Alignment.centerRight,
-        //   //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-        //   child: MaterialButton(
-        //     shape: CircleBorder(
-        //         side: BorderSide(
-        //             width: 2,
-        //             color: Colors.orange[600],
-        //             style: BorderStyle.solid)),
-        //     elevation: 0.0,
-        //     color: Colors.orange[500],
-        //     textColor: Colors.white,
-        //     onPressed: null,
-        //     child: Text('Transferencia Bancaria'),
-        //   ),
-        // );
+    
       },
     );
   }

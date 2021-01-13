@@ -4,9 +4,9 @@ import 'package:rxdart/rxdart.dart';
 class SimularBloc {
   final _simularController = BehaviorSubject<SimularOpModel>();
 
-  Function(SimularOpModel) get changeUsuario => _simularController.sink.add;
+  Function(SimularOpModel) get changeSimulaOp => _simularController.sink.add;
 
-  SimularOpModel get usuario => _simularController.value;
+  SimularOpModel get simularOP => _simularController.value;
 
   dispose() {
   
