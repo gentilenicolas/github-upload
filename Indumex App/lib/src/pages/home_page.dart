@@ -565,7 +565,7 @@ class _HomePageState extends State<HomePage> {
           0, //TC APLICADO, lo calcula la API
           bloc.usuario != null
               ? bloc.usuario
-              : UsuarioModel(tipodoc: Tipodoc(pais: Pais())));
+              : null); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
   }
 

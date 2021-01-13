@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class MonedasProvider {
   Future<List<MonedaModel>> getMonedas() async {
-    final url = '$urlApi/Moneda';
+    final url = '$urlApi/Moneda?soloPizarra=true';
 
     try {
       final resp = await http.get(url);
