@@ -184,10 +184,10 @@ class RealizarOp extends StatelessWidget {
               children: [
                 SizedBox(height: 5.0),
                 Text("Entrega : pito "),
-                SizedBox(height: 5.0),
+                 VerticalDivider(),
                 Text("Tipo de cambio : mas pito "),
                 SizedBox(height: 10.0),
-                SizedBox(height: 5.0),
+               
               ],
             )
           ],
