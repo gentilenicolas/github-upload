@@ -41,28 +41,37 @@ class MyApp extends StatelessWidget {
       ],
       child: LoginProvider(
         //aca tenias la palabra Provider en vez de LoginProvider, compilaba porque Provider a secas es el patron y existe
-        child: MaterialApp(
-          actions: {},
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            // ... app-specific localization delegate[s] here
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: [
-            const Locale('en', 'US'), // English, no country code
-            const Locale('es', 'ES'),
-            const Locale.fromSubtags(
-                languageCode: 'zh'), // Chinese *See Advanced Locales below*
-          ],
-          // title: 'Material App',
-          //inicio de la aplicacion en la pagina de home
-          initialRoute:
-              'splashScreen', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
-          routes: getApplicatiosnRoutes(),
-          theme: ThemeData(
-            primaryColor: Colors.blueAccent[400],
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus &&
+                currentFocus.focusedChild != null) {
+              currentFocus.focusedChild.unfocus();
+            }
+          },
+          child: MaterialApp(
+            actions: {},
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: [
+              // ... app-specific localization delegate[s] here
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en', 'US'), // English, no country code
+              const Locale('es', 'ES'),
+              const Locale.fromSubtags(
+                  languageCode: 'zh'), // Chinese *See Advanced Locales below*
+            ],
+            // title: 'Material App',
+            //inicio de la aplicacion en la pagina de home
+            initialRoute:
+                'splashScreen', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
+            routes: getApplicatiosnRoutes(),
+            theme: ThemeData(
+              primaryColor: Colors.blueAccent[400],
+            ),
           ),
         ),
       ),
