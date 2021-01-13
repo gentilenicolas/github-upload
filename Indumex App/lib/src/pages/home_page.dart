@@ -14,6 +14,8 @@ import 'package:formvalidation/src/providers/Pizarra_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
+import 'package:flutter/src/rendering/box.dart';
+
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
-  int _selectedIndex = 0; // bottom
   final simularOpProvider = new SimularOpProvider();
 
   String _monedaSeleccionadaTengo = 'PESOS URUGUAYOS';
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   final pizarraProvider = new PizarraProvider();
   Image opcionMonedaSeleccionadaTengo = Image(
       width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
+  int _selectedIndex = 0; // bottom
 
   @override
   Widget build(BuildContext context) {
@@ -626,60 +628,60 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-    // final size = MediaQuery.of(context).size;
-    //  return Expanded(
-    //     child: Stack(
-    //       children: [
-    //         Align(
-    //           alignment: FractionalOffset.bottomCenter,
-    //           child: MaterialButton(
-    //             onPressed: () => {
-    //               Navigator.push(
-    //                 context,
-    //                 MaterialPageRoute(
-    //                   builder: (context) => SolicitudMoneycard(),
-    //                 ),
-    //               ),
-    //             },
-    //           ),
-    //         ),
-    //         Positioned(
-    //           bottom: 0,
-    //           left: 0,
-    //           right: 0,
-    //           height:
-    //               100 /*size.height * 0.1*/, // no se porque me saca un cachito..
-    //           child: Container(
-    //             child: Image.asset(
-    //               'assets/images/MoneyBottom.png',
-    //               fit: BoxFit.cover,
-    //               alignment: FractionalOffset.bottomCenter,
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-
-    /* return Expanded(
-                                    child: Align(
-                                      alignment: FractionalOffset.bottomCenter,
-                                      child: MaterialButton(
-                                          onPressed: () => {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => SolicitudMoneycard(),
-                                                  ),
-                                                ),
-                                              },
-                                          child: Image.asset(
-                                            'assets/images/MoneyBottom.png',
-                                            fit: BoxFit.cover,
-                                            alignment: FractionalOffset.bottomCenter,
-                                          )),
-                                    ),
-                                  );*/
+    //  final size = MediaQuery.of(context).size;
+    return Expanded(
+      child: Stack(
+        children: [
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: MaterialButton(
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SolicitudMoneycard(),
+                  ),
+                ),
+              },
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height:
+                100 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Container(
+              child: Image.asset(
+                'assets/images/MoneyBottom.png',
+                fit: BoxFit.cover,
+                alignment: FractionalOffset.bottomCenter,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+/*
+    return Expanded(
+      child: Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: MaterialButton(
+            onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SolicitudMoneycard(),
+                    ),
+                  ),
+                },
+            child: Image.asset(
+              'assets/images/MoneyBottom.png',
+              fit: BoxFit.cover,
+              alignment: FractionalOffset.bottomCenter,
+            )),
+      ),
+    );*/
   }
 
   void _onItemTapped(int index) {
@@ -738,4 +740,22 @@ class _HomePageState extends State<HomePage> {
     }
     return lista;
   }
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Ayuda',
+      style: optionStyle,
+    ),
+  ];
 }

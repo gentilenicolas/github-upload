@@ -6,7 +6,6 @@ import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 
-
 /*void main() async {
   final prefs = new PreferenciasLogin();
 
@@ -37,33 +36,39 @@ class RealizarOp extends StatelessWidget {
         ),
       ),
       //fondo gradiente
-      body: Container(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: Column(
-          children: <Widget>[
-            //_contenidoRealizarOp(context , bloc)/*
-            _tiposDeCambio(bloc, context),
-            SizedBox(
-              width: size.width * 0.10,
-            ),
-            Text('RESUMEN DE OPERACION',
-                style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-            SizedBox(height: 10.0),
-            _resumenOp(bloc),
-            SizedBox(height: 10.0),
-            _btnRealizarOp(context),
-
-            Center(
-              child: Row(
-                children: [
-                  _crearBotonTipoLiquidacionReturarSuc(bloc),
-                  _crearBotonTipoLiquidacionMoney(bloc),
-                  _crearBotonTipoLiquidacionTransf(bloc)
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          child: Column(
+            children: <Widget>[
+              //_contenidoRealizarOp(context , bloc)/*
+              _tiposDeCambio(bloc, context),
+              SizedBox(
+                width: size.width * 0.10,
               ),
-            ),
-          ],
-        ), /*
+              Text('RESUMEN DE OPERACION',
+                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+              SizedBox(height: 10.0),
+              _resumenOp(bloc),
+
+              SizedBox(height: 10.0),
+              Text('FORMAS DE PAGO',
+                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+              SizedBox(height: 10.0),
+              _formasDePago(bloc),
+              SizedBox(height: 10.0),
+              _btnRealizarOp(context),
+              Center(
+                child: Row(
+                  children: [
+                    _crearBotonTipoLiquidacionReturarSuc(bloc),
+                    _crearBotonTipoLiquidacionMoney(bloc),
+                    _crearBotonTipoLiquidacionTransf(bloc)
+                  ],
+                ),
+              ),
+            ],
+          ), /*
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
               colors: [estilos.gradientStart, estilos.gradientEnd],
@@ -72,6 +77,7 @@ class RealizarOp extends StatelessWidget {
               stops: [0.0, 1.0],
               tileMode: TileMode.clamp),
         ),*/
+        ),
       ),
 
       bottomNavigationBar: _bottomNavigationBar(),
@@ -138,6 +144,33 @@ class RealizarOp extends StatelessWidget {
 
 //contenedor resumen de operacion
   Widget _resumenOp(LoginBloc bloc) {
+    return Card(
+      elevation: 24.0,
+      child: Column(children: <Widget>[
+        ListTile(
+          title: Text('Resumen de operacion'),
+          subtitle: Text('resumen'),
+        ),
+        Column(
+          children: <Widget>[
+            Column(
+              children: [
+                SizedBox(height: 5.0),
+                Text("Entrega : pito "),
+                SizedBox(height: 5.0),
+                Text("Tipo de cambio : mas pito "),
+                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
+              ],
+            )
+          ],
+        ),
+      ]),
+    );
+  }
+
+  //contenedor resumen de operacion
+  Widget _formasDePago(LoginBloc bloc) {
     return Card(
       elevation: 24.0,
       child: Column(children: <Widget>[
@@ -327,7 +360,7 @@ class RealizarOp extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Flexible(
+        return Flexible(
           flex: 4,
           child: Container(
             child: Column(
@@ -359,7 +392,7 @@ class RealizarOp extends StatelessWidget {
           ),
         );
 
-         // return Container(
+        // return Container(
         //   color: Colors.blue,
         //   width: 100,
         //   height: 80,
@@ -378,9 +411,6 @@ class RealizarOp extends StatelessWidget {
         //     child: Text('Transferencia Bancaria'),
         //   ),
         // );
-
-
-
       },
     );
   }
