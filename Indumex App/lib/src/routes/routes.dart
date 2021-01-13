@@ -26,5 +26,7 @@ Map<String, WidgetBuilder> getApplicatiosnRoutes() {
     'logout': (BuildContext context) => LogOut(),
     'paginaPruebas': (BuildContext context) => PaginaVacia(),
     'splashScreen': (BuildContext context) => SplashScreenPage(),
+     'moneda': (BuildContext context) => MonedaPage(),
+  
   };
 }

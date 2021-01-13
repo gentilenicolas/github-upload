@@ -95,8 +95,12 @@ class _HomePageState extends State<HomePage> {
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp),
           ),
+        
         ),
-        bottomNavigationBar: _bottomNavigator(),
+        bottomNavigationBar: _bottomNavigator(
+         //_widgetOptions.elementAt(_selectedIndex),
+        
+        ),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
   }
@@ -673,26 +677,24 @@ class _HomePageState extends State<HomePage> {
     );*/
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+//bottom navigator
 
   Widget _bottomNavigator() {
     return BottomNavigationBar(
+     
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
+
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.local_activity),
-          label: 'Algo',
+          label: 'Sucursales',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.inbox),
-          label: 'Algo',
+          label: 'Solicitud Moneycard',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
@@ -700,26 +702,38 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: Colors.orange[800],
       onTap: _onItemTapped,
+      
     );
   }
+    void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Home',
+      'Index 0: home',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: sucursales',
       style: optionStyle,
     ),
     Text(
-      'Index 2: Ayuda',
+      'Index 2: solicitudMoneyCard',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: login',
       style: optionStyle,
     ),
   ];
 }
+
+

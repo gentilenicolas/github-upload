@@ -87,28 +87,28 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _usuario(LoginBloc bloc, BuildContext context) {
+  UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
+    
 
-    if (_validar == false) {
+    if (usr.id== null) {
+      UsuarioModel usuario = new UsuarioModel();
       _tiposDeCambio(bloc, context);
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
+      print("debe esar logueado");
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     } else {
-      UsuarioModel usuario = new UsuarioModel();
-      return usuario;
+      
+     
     }
     return usr;
   }
 
-  bool _validar(LoginBloc bloc, BuildContext context) {
-    bool ok = false;
-  }
-
+ 
 //contenedor info tipos de cambio (card)
   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _usuario(bloc, context);
+    final usr = _usuarioValido(bloc, context);
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -184,10 +184,9 @@ class RealizarOp extends StatelessWidget {
               children: [
                 SizedBox(height: 5.0),
                 Text("Entrega : pito "),
-                 VerticalDivider(),
+                VerticalDivider(),
                 Text("Tipo de cambio : mas pito "),
                 SizedBox(height: 10.0),
-               
               ],
             )
           ],

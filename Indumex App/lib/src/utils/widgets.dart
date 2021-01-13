@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/login_bloc.dart';
+import 'package:formvalidation/src/pages/Moneda_page.dart';
 import 'package:formvalidation/src/pages/logout_page.dart';
 import 'package:formvalidation/src/pages/paginaVacia.dart';
 import 'package:formvalidation/src/pages/productos_page.dart';
@@ -157,7 +158,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => PaginaVacia(),
+                builder: (context) => MonedaPage(),
               ),
             );
           },
@@ -192,7 +193,6 @@ String bienvenido(LoginBloc bloc) {
 
 
 //Drawer Inicio
-
 Widget incio(LoginBloc bloc) {
   if (bloc.nombre != null) {
     return ListTile(
