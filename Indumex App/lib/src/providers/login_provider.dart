@@ -31,6 +31,7 @@ class LoginProvider extends InheritedWidget {
   final loginBloc = LoginBloc(); // es una propiedad de instancia de login bloc
 
   @override
+  
   bool updateShouldNotify(InheritedWidget oldWidget) =>
       true; // esto es para que se actualice todo el dia.
 

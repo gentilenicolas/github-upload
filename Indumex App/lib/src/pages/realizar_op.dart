@@ -23,7 +23,7 @@ class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocLogin = LoginProvider.of(context);
-   // final blocSimularOp = SimularOpProvider.of(context);
+   
     final size = MediaQuery.of(context).size;
 
     //final _prefs = new PreferenciasUsuario();
@@ -92,13 +92,15 @@ class RealizarOp extends StatelessWidget {
 
   UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
+   
     
 
     if (usr.id== null) {
-      UsuarioModel usuario = new UsuarioModel();
-      _tiposDeCambio(bloc, context);
+      LoginBloc us = new LoginBloc(); 
+  
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
       print("debe esar logueado");
+      _tiposDeCambio(us, context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     } else {

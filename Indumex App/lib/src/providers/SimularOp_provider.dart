@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
@@ -7,7 +8,8 @@ import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+export  'package:formvalidation/src/models/SimularOp_model.dart';
+
 
 class SimularOpProvider extends InheritedWidget {
   
@@ -42,17 +44,14 @@ class SimularOpProvider extends InheritedWidget {
 
     return context.dependOnInheritedWidgetOfExactType<SimularOpProvider>().simularOpBloc; //el inheritedWidget cambio por el dependoOnInheritedWidgetOf....
   }
-
-  
+ 
      
   
-  Future<bool> enviarSimulacionOp(
-      MonedaModel monedaTengo,
-      MonedaModel monedaQuiero,
-      double importeTengo,
-      double importeQuiero,
-      double tcAplicado,
-      UsuarioModel usuario) async {
+  Future<bool> enviarSimulacionOp( MonedaModel monedaTengo, MonedaModel monedaQuiero, double importeTengo, double importeQuiero,
+      double tcAplicado, UsuarioModel usuario, BuildContext context) async {
+
+      SimularOpModel oSimular = new SimularOpModel();
+        final bloc = SimularOpProvider.of(context);
     final url = '$urlApi/SimularOp';
 
     final resp = await http.post(url,
@@ -79,6 +78,8 @@ class SimularOpProvider extends InheritedWidget {
     final decodedData = json.decode(resp.body);
 
     print(decodedData);
+     oSimular = SimularOpModel.fromJson(decodedData);
+      bloc.changeSimulaOp(oSimular);
 
     if (resp.statusCode == 400) return false;
 
