@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
-import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
@@ -92,8 +91,7 @@ class RealizarOp extends StatelessWidget {
 
   UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
-   
-    
+      
 
     if (usr.id== null) {
       LoginBloc us = new LoginBloc(); 
