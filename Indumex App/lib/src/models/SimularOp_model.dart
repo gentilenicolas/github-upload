@@ -31,6 +31,7 @@ class SimularOpModel {
 
   factory SimularOpModel.fromJson(Map<String, dynamic> json) {
     if (json["Usuario"] != null) {
+      //pregunto si es nulo usuario
       return SimularOpModel(
         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
