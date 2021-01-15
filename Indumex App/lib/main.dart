@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/localidades_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:formvalidation/src/providers/realizarOp_provider.dart';
 import 'package:formvalidation/src/routes/routes.dart';
 import 'package:formvalidation/src/share_prefs/preferencias_usuario.dart';
 import 'package:formvalidation/src/utils/funciones.dart';
@@ -17,11 +18,11 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  return runApp(MyApp());
+  return runApp(InduApp());
   //
 } // main anterior ,
 
-class MyApp extends StatelessWidget {
+class InduApp extends StatelessWidget {
   final prefs = new PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
@@ -41,38 +42,40 @@ class MyApp extends StatelessWidget {
         //Provider<Clase> (create: (_) => new Clase())    como ejemplo, clase puede ser login, loguead, lo que venga fijate
       ],
       child: SimularOpProvider(
-        child: LoginProvider(
-          //aca tenias la palabra Provider en vez de LoginProvider, compilaba porque Provider a secas es el patron y existe
-          child: GestureDetector(
-            onTap: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus &&
-                  currentFocus.focusedChild != null) {
-                currentFocus.focusedChild.unfocus();
-              }
-            },
-            child: MaterialApp(
-              actions: {},
-              debugShowCheckedModeBanner: false,
-              localizationsDelegates: [
-                // ... app-specific localization delegate[s] here
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('en', 'US'), // English, no country code
-                const Locale('es', 'ES'),
-                const Locale.fromSubtags(
-                    languageCode: 'zh'), // Chinese *See Advanced Locales below*
-              ],
-              // title: 'Material App',
-              //inicio de la aplicacion en la pagina de home
-              initialRoute:
-                  'splashScreen', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
-              routes: getApplicatiosnRoutes(),
-              theme: ThemeData(
-                primaryColor: Colors.blueAccent[400],
+        child: RealizarOpProvider(
+          child: LoginProvider(
+            child: GestureDetector(
+              onTap: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus &&
+                    currentFocus.focusedChild != null) {
+                  currentFocus.focusedChild.unfocus();
+                }
+              },
+              child: MaterialApp(
+                actions: {},
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: [
+                  // ... app-specific localization delegate[s] here
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', 'US'), // English, no country code
+                  const Locale('es', 'ES'),
+                  const Locale.fromSubtags(
+                      languageCode:
+                          'zh'), // Chinese *See Advanced Locales below*
+                ],
+                // title: 'Material App',
+                //inicio de la aplicacion en la pagina de home
+                initialRoute:
+                    'splashScreen', //prefs.ultimaPagina,       // si no hay ultima pagina me vuelve al home , video 191
+                routes: getApplicatiosnRoutes(),
+                theme: ThemeData(
+                  primaryColor: Colors.blueAccent[400],
+                ),
               ),
             ),
           ),

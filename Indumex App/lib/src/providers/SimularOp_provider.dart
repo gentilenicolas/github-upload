@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
@@ -8,7 +7,6 @@ import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 export 'package:formvalidation/src/models/SimularOp_model.dart';
 
 class SimularOpProvider extends InheritedWidget {

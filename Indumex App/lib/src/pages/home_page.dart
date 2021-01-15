@@ -616,68 +616,60 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-    //  final size = MediaQuery.of(context).size;
-    return Expanded(
-      child: Stack(
-        children: [
-          Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: RaisedButton(onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SolicitudMoneycard(),
-                    ));
-              })
 
-              // child: MaterialButton(
-              //   onPressed: () => {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => SolicitudMoneycard(),
-              //       ),
-              //     ),
-              //   },
-              // ),
-              ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height:
-                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
+    LoginBloc bloc = new LoginBloc();
+    //  final size = MediaQuery.of(context).size;
+   // if (bloc.usuario.id != null) {
+      return Expanded(
+        child: Stack(
+          children: [
+            Align(
                 alignment: FractionalOffset.bottomCenter,
+                child: RaisedButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolicitudMoneycard(),
+                      ));
+                })),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height:
+                  87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+              child: Container(
+                child: Image.asset(
+                  'assets/images/MoneyBottom.png',
+                  fit: BoxFit.cover,
+                  alignment: FractionalOffset.bottomCenter,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-/*
-    return Expanded(
-      child: Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: MaterialButton(
-            onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SolicitudMoneycard(),
-                    ),
-                  ),
-                },
-            child: Image.asset(
-              'assets/images/MoneyBottom.png',
-              fit: BoxFit.cover,
-              alignment: FractionalOffset.bottomCenter,
-            )),
-      ),
-    );*/
+          ],
+       ),
+       );
+    // } else {
+    //   return Expanded(
+    //     child: Align(
+    //       alignment: FractionalOffset.bottomCenter,
+    //       child: MaterialButton(
+    //           onPressed: () => {
+    //                 Navigator.push(
+    //                   context,
+    //                   MaterialPageRoute(
+    //                     builder: (context) => SolicitudMoneycard(),
+    //                   ),
+    //                 ),
+    //               },
+    //           child: Image.asset(
+    //             'assets/images/MoneyBottom.png',
+    //             fit: BoxFit.cover,
+    //             alignment: FractionalOffset.bottomCenter,
+    //           )),
+    //     ),
+    //   );
+    // }
   }
 
 //bottom navigator

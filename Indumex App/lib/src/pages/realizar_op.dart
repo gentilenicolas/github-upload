@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
+import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 
 /*void main() async {
   final prefs = new PreferenciasLogin();
@@ -22,9 +23,9 @@ class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocLogin = LoginProvider.of(context);
-    // final blocSimularOp = SimularOpProvider.of(context);
+    final simularBl = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
-
+  
     //final _prefs = new PreferenciasUsuario();
     //  print (_prefs.nombre);
 
@@ -44,7 +45,7 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(blocLogin, context),
+              _tiposDeCambio(blocLogin, context,simularBl),
               SizedBox(
                 width: size.width * 0.10,
               ),
@@ -52,25 +53,25 @@ class RealizarOp extends StatelessWidget {
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               SizedBox(height: 10.0),
               _resumenOp(blocLogin),
-
               SizedBox(height: 10.0),
               Text('FORMAS DE PAGO',
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-              SizedBox(height: 10.0),
-              _formasDePago(blocLogin),
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
               Center(
                 child: Row(
                   children: [
-                    _crearBotonTipoLiquidacionReturarSuc(blocLogin),
-                    _crearBotonTipoLiquidacionMoney(blocLogin),
-                    _crearBotonTipoLiquidacionTransf(blocLogin)
+
+              SizedBox(height: 10.0),
+              _formasDePago(blocLogin),
+                    // _crearBotonTipoLiquidacionReturarSuc(blocLogin),
+                    // _crearBotonTipoLiquidacionMoney(blocLogin),
+                    // _crearBotonTipoLiquidacionTransf(blocLogin)
                   ],
                 ),
               ),
-            ],
-          ), /*
+             ],
+          ), 
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
               colors: [estilos.gradientStart, estilos.gradientEnd],
@@ -78,7 +79,7 @@ class RealizarOp extends StatelessWidget {
               end: const FractionalOffset(0.0, 0.5),
               stops: [0.0, 1.0],
               tileMode: TileMode.clamp),
-        ),*/
+        ),
         ),
       ),
 
@@ -89,7 +90,7 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context) {
+  UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context,SimularBloc blSimular) {
     final usr = bloc.usuario;
 
     if (usr.id == null) {
@@ -97,7 +98,7 @@ class RealizarOp extends StatelessWidget {
 
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
       print("debe esar logueado");
-      _tiposDeCambio(us, context);
+      _tiposDeCambio(us, context,blSimular);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     } else {}
@@ -105,8 +106,8 @@ class RealizarOp extends StatelessWidget {
   }
 
 //contenedor info tipos de cambio (card)
-  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _usuarioValido(bloc, context);
+  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
+    final usr = _usuarioValido(bloc, context,simularBloc);
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -167,29 +168,30 @@ class RealizarOp extends StatelessWidget {
     );
   }
 
-  //contenedor resumen de operacion
   Widget _formasDePago(LoginBloc bloc) {
-    return Card(
-      elevation: 24.0,
-      child: Column(children: <Widget>[
-        ListTile(
-          title: Text('Resumen de operacion'),
-          subtitle: Text('resumen'),
-        ),
-        Column(
-          children: <Widget>[
-            Column(
-              children: [
-                SizedBox(height: 5.0),
-                Text("Entrega : pito "),
-                VerticalDivider(),
-                Text("Tipo de cambio : mas pito "),
-                SizedBox(height: 10.0),
-              ],
-            )
-          ],
-        ),
-      ]),
+    return Container(
+      child: Card(
+        elevation: 24.0,
+        child: Column(children: <Widget>[
+          ListTile(
+            title: Text('Excoja forma de pago '),
+          ),
+          Column(
+            children: <Widget>[
+              Column(
+                children: [],
+              )
+            ],
+          ),
+          Column(
+            children: [
+              _crearBotonTipoLiquidacionReturarSuc(bloc),
+              _crearBotonTipoLiquidacionTransf(bloc),
+              _crearBotonTipoLiquidacionMoney(bloc),
+            ],
+          ),
+        ]),
+      ),
     );
   }
 
@@ -241,33 +243,6 @@ class RealizarOp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-//
-  _contenidoRealizarOp(
-      BuildContext context, LoginBloc bloc, SimularBloc simula) {
-    // final prefs = new PreferenciasUsuario();
-    // await prefs.initPrefs();
-    final usr = bloc.usuario;
-
-    if (usr.id != null) {
-      return ListView(
-        padding: EdgeInsets.all(25),
-        children: <Widget>[
-          SizedBox(height: 30.0),
-          _tiposDeCambio(bloc, context),
-          SizedBox(height: 30.0),
-          _resumenOp(bloc),
-        ],
-      );
-    } else {
-      mostrarAlerta1(
-          context, "Debe estar logueado para realizar una operación");
-       return /*scheduleMicrotask(() =>*/ Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
-    }
-
-    //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));
   }
 
   //botones tipos de liquidacion
@@ -438,5 +413,32 @@ class RealizarOp extends StatelessWidget {
         ],
       ),
     );
+  }
+
+//
+  _contenidoRealizarOp(
+      BuildContext context, LoginBloc bloc, SimularBloc simula) {
+    // final prefs = new PreferenciasUsuario();
+    // await prefs.initPrefs();
+    final usr = bloc.usuario;
+
+    if (usr.id != null) {
+      return ListView(
+        padding: EdgeInsets.all(25),
+        children: <Widget>[
+          SizedBox(height: 30.0),
+          _tiposDeCambio(bloc, context,simula),
+          SizedBox(height: 30.0),
+          _resumenOp(bloc),
+        ],
+      );
+    } else {
+      mostrarAlerta1(
+          context, "Debe estar logueado para realizar una operación");
+      return /*scheduleMicrotask(() =>*/ Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    }
+
+    //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));
   }
 }

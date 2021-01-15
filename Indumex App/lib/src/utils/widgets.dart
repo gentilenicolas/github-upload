@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/login_bloc.dart';
 import 'package:formvalidation/src/pages/Moneda_page.dart';
 import 'package:formvalidation/src/pages/logout_page.dart';
-import 'package:formvalidation/src/pages/paginaVacia.dart';
 import 'package:formvalidation/src/pages/productos_page.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
-
-
 
 //class MasterMenu {
 Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
@@ -36,6 +33,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
           leading: Icon(Icons.accessibility),
           onTap: () {
             Navigator.pushReplacementNamed(context, 'login');
+            _redireccionAlBottom(context, bloc);
           },
         ),
         SizedBox(
@@ -135,7 +133,8 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
               ),
             );
           },
-        ),/*
+        ),
+        /*
           ListTile(
           title: Text('CERRAR SESION'),
           leading: Icon(
@@ -168,6 +167,27 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
   );
 }
 
+//redireccion al context
+
+Widget _redireccionAlBottom(BuildContext context, LoginBloc bloc) {
+  if (bloc.usuario.id != null) {
+    return ListTile(
+      title: Text('AYUDA'),
+      leading: Icon(Icons.help),
+      onTap: () {
+        Navigator.pushReplacementNamed(context, 'ayuda');
+      },
+    );
+  } else {
+    return ListTile(
+        title: Text('LOGIN'),
+        leading: Icon(Icons.accessibility),
+        onTap: () {
+          Navigator.pushReplacementNamed(context, 'login');
+        });
+  }
+}
+
 Widget tamanoDeNotch(BuildContext context) {
   final notch = MediaQuery.of(context).viewPadding;
   double bottom = notch.bottom;
@@ -191,9 +211,9 @@ String bienvenido(LoginBloc bloc) {
     return "";
 }
 
-
 //Drawer Inicio
 Widget incio(LoginBloc bloc) {
+  
   if (bloc.nombre != null) {
     return ListTile(
         // leading: Icon(Icons.account_box,color: Colors.white),
