@@ -1,4 +1,4 @@
-import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
@@ -268,8 +268,8 @@ class RealizarOp extends StatelessWidget {
     } else {
       mostrarAlerta1(
           context, "Debe estar logueado para realizar una operación");
-      return scheduleMicrotask(() => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage())));
+       return /*scheduleMicrotask(() =>*/ Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
 
     //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));

@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:formvalidation/src/models/Usuario_model.dart';
+
 class Validators {
-
-
   final validarUsuario = StreamTransformer<String, String>.fromHandlers(
       handleData: (usuario, sink) {
-  //patron para ci
+    //patron para ci
     Pattern pattternCedula = r'(^[0-9]{8}.*$)';
 //patron para email
     Pattern patternEmail =
@@ -23,9 +23,9 @@ class Validators {
  final validarDocumento = StreamTransformer<String, String>.fromHandlers(// string , string , significa que entra un string y sale un string
     handleData: ( password, sink ) { //recibe el string y el sink le dice que info notifico o que info le digo que es error
 
- */ 
+ */
 
-//validar password 
+//validar password
   final validarPassword = StreamTransformer<String, String>.fromHandlers(
       // string , string , significa que entra un string y sale un string
       handleData: (password, sink) {
@@ -35,6 +35,17 @@ class Validators {
       sink.add(password);
     } else {
       sink.addError('Más de 6 caracteres por favor');
+    }
+  });
+
+
+  final validarOusuario =
+      StreamTransformer<UsuarioModel, UsuarioModel>.fromHandlers(
+          handleData: (oSimular, sink) {
+    if (oSimular != null) {
+      sink.add(oSimular);
+    } else {
+      sink.addError('Por favor debe loguearse');
     }
   });
 }
