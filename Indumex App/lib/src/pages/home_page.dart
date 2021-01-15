@@ -32,8 +32,6 @@ class _HomePageState extends State<HomePage> {
   String _monedaSeleccionadaTengo = 'PESOS URUGUAYOS';
   String _monedaSeleccionadaQuiero = 'DOLARES';
   final pizarraProvider = new PizarraProvider();
-  Image opcionMonedaSeleccionadaTengo = Image(
-      width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
   int _selectedIndex = 0; // bottom
 
   @override
@@ -359,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                   child: FocusScope(
                     onFocusChange: (value) {
                       if (value) {
-                        simularOp(bloc);
+                        simularOp(bloc, context);
                       }
                     },
                     child: TextField(
@@ -468,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                   child: FocusScope(
                     onFocusChange: (value) {
                       if (value) {
-                        simularOp(bloc);
+                        simularOp(bloc, context);
                       }
                     },
                     child: TextField(
@@ -516,7 +514,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void simularOp(LoginBloc bloc) {
+  void simularOp(LoginBloc bloc, BuildContext context) {
     if (importeQuieroController.text != '' ||
         importeTengoController.text != '') {
       double importeTengo;
@@ -556,9 +554,8 @@ class _HomePageState extends State<HomePage> {
           importeTengo,
           importeQuiero,
           0, //TC APLICADO, lo calcula la API
-          bloc.usuario != null
-              ? bloc.usuario
-              : null); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
+          bloc.usuario != null ? bloc.usuario : null,
+          context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
   }
 

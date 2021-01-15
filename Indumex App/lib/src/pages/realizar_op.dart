@@ -23,7 +23,7 @@ class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocLogin = LoginProvider.of(context);
-   // final blocSimularOp = SimularOpProvider.of(context);
+    // final blocSimularOp = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
 
     //final _prefs = new PreferenciasUsuario();
@@ -45,7 +45,7 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(blocLogin,context),
+              _tiposDeCambio(blocLogin, context),
               SizedBox(
                 width: size.width * 0.10,
               ),
@@ -92,27 +92,21 @@ class RealizarOp extends StatelessWidget {
 
   UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context) {
     final usr = bloc.usuario;
-    
 
-    if (usr.id== null) {
+    if (usr.id == null) {
       UsuarioModel usuario = new UsuarioModel();
       _tiposDeCambio(bloc, context);
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
       print("debe esar logueado");
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else {
-      
-     
-    }
+    } else {}
     return usr;
   }
 
- 
 //contenedor info tipos de cambio (card)
   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _usuarioValido(bloc ,context);
-   
+    final usr = _usuarioValido(bloc, context);
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -250,7 +244,8 @@ class RealizarOp extends StatelessWidget {
   }
 
 //
-  _contenidoRealizarOp(BuildContext context, LoginBloc bloc, SimularBloc simula) {
+  _contenidoRealizarOp(
+      BuildContext context, LoginBloc bloc, SimularBloc simula) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
@@ -394,7 +389,6 @@ class RealizarOp extends StatelessWidget {
             //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
-    
       },
     );
   }
