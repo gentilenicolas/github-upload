@@ -32,8 +32,6 @@ class _HomePageState extends State<HomePage> {
   String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
   String _monedaSeleccionadaQuiero = 'Dolares';
   final pizarraProvider = new PizarraProvider();
-  Image opcionMonedaSeleccionadaTengo = Image(
-      width: 40, height: 40, image: AssetImage('assets/images/uruguay.png'));
   int _selectedIndex = 0; // bottom
 
   @override
@@ -95,7 +93,6 @@ class _HomePageState extends State<HomePage> {
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp),
           ),
-        
         ),
         // bottomNavigationBar: _bottomNavigator(
         //  //_widgetOptions.elementAt(_selectedIndex),
@@ -370,7 +367,7 @@ class _HomePageState extends State<HomePage> {
                   child: FocusScope(
                     onFocusChange: (value) {
                       if (value) {
-                        simularOp(bloc);
+                        simularOp(bloc, context);
                       }
                     },
                     child: TextField(
@@ -475,7 +472,7 @@ class _HomePageState extends State<HomePage> {
                   child: FocusScope(
                     onFocusChange: (value) {
                       if (value) {
-                        simularOp(bloc);
+                        simularOp(bloc, context);
                       }
                     },
                     child: TextField(
@@ -523,7 +520,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void simularOp(LoginBloc bloc) {
+  void simularOp(LoginBloc bloc, BuildContext context) {
     if (importeQuieroController.text != '' ||
         importeTengoController.text != '') {
       double importeTengo;
@@ -562,11 +559,9 @@ class _HomePageState extends State<HomePage> {
           jp.monedaQuiero,
           importeTengo,
           importeQuiero,
-          
           0, //TC APLICADO, lo calcula la API
-          bloc.usuario != null
-              ? bloc.usuario
-              : null,context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
+          bloc.usuario != null ? bloc.usuario : null,
+          context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
   }
 
@@ -643,7 +638,7 @@ class _HomePageState extends State<HomePage> {
             left: 0,
             right: 0,
             height:
-              87/*size.height * 0.1*/, // no se porque me saca un cachito..
+                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
             child: Container(
               child: Image.asset(
                 'assets/images/MoneyBottom.png',
@@ -736,5 +731,3 @@ class _HomePageState extends State<HomePage> {
     ),
   ];*/
 }
-
-

@@ -8,12 +8,11 @@ import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
-export  'package:formvalidation/src/models/SimularOp_model.dart';
-
+import 'package:provider/provider.dart';
+export 'package:formvalidation/src/models/SimularOp_model.dart';
 
 class SimularOpProvider extends InheritedWidget {
-  
-    static SimularOpProvider _instancia;
+  static SimularOpProvider _instancia;
 
   factory SimularOpProvider({Key key, Widget child}) {
     if (_instancia == null) {
@@ -32,7 +31,8 @@ class SimularOpProvider extends InheritedWidget {
             child:
                 child); // es un identificador unico del widget osea que dentro de mi inheritWidget voy a meter un widget child
 
-  final simularOpBloc = SimularBloc(); // es una propiedad de instancia de login bloc
+  final simularOpBloc =
+      SimularBloc(); // es una propiedad de instancia de login bloc
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) =>
@@ -42,16 +42,24 @@ class SimularOpProvider extends InheritedWidget {
     //metodo estatico of y el build context es el arbol de widgets el of busca dentro del arbol del context
     //print(context);
 
-    return context.dependOnInheritedWidgetOfExactType<SimularOpProvider>().simularOpBloc; //el inheritedWidget cambio por el dependoOnInheritedWidgetOf....
-  }
- 
-     
-  
-  Future<bool> enviarSimulacionOp( MonedaModel monedaTengo, MonedaModel monedaQuiero, double importeTengo, double importeQuiero,
-      double tcAplicado, UsuarioModel usuario, BuildContext context) async {
+    return context
+        .dependOnInheritedWidgetOfExactType<SimularOpProvider>()
+        .simularOpBloc; //el inheritedWidget cambio por el dependoOnInheritedWidgetOf....
 
-      SimularOpModel oSimular = new SimularOpModel();
-        final bloc = SimularOpProvider.of(context);
+    //ahi se cae
+  }
+
+  Future<bool> enviarSimulacionOp(
+      MonedaModel monedaTengo,
+      MonedaModel monedaQuiero,
+      double importeTengo,
+      double importeQuiero,
+      double tcAplicado,
+      UsuarioModel usuario,
+      BuildContext context) async {
+    SimularOpModel modeloSimularOp = new SimularOpModel();
+    final blocSimular = SimularOpProvider.of(context);
+
     final url = '$urlApi/SimularOp';
 
     final resp = await http.post(url,
@@ -75,15 +83,25 @@ class SimularOpProvider extends InheritedWidget {
           'Content-Type': 'application/json; charset=UTF-8'
         });
 
+    //dale ahi ,
+    //segui mirando queres, tengo que largar un rato
+    //tiene else?
+    //hasta ahi no llega. se cae al principio
+
     final decodedData = json.decode(resp.body);
 
+    modeloSimularOp = SimularOpModel.fromJson(decodedData);
     print(decodedData);
-     oSimular = SimularOpModel.fromJson(decodedData);
-      bloc.changeSimulaOp(oSimular);
+    blocSimular.changeSimularOp(modeloSimularOp);
+    if (resp.statusCode == 400) return false; //null;
 
-    if (resp.statusCode == 400) return false;
+    // if (importeTengo == 0) {
+    //   bloc.simularOP.importeTengo;
+    // } else {
+    //   return modelo.importeTengo;
+    // }
 
-    return true;
+    return true; //blocSimular.simularOP;
   }
 
   // Future<List<DatoModel>> recibirSimulacionOp() async {
