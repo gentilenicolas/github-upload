@@ -621,18 +621,26 @@ class _HomePageState extends State<HomePage> {
       child: Stack(
         children: [
           Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: MaterialButton(
-              onPressed: () => {
+              alignment: FractionalOffset.bottomCenter,
+              child: RaisedButton(onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SolicitudMoneycard(),
-                  ),
-                ),
-              },
-            ),
-          ),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SolicitudMoneycard(),
+                    ));
+              })
+
+              // child: MaterialButton(
+              //   onPressed: () => {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => SolicitudMoneycard(),
+              //       ),
+              //     ),
+              //   },
+              // ),
+              ),
           Positioned(
             bottom: 0,
             left: 0,
