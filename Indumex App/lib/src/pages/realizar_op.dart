@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/pages/sucursales_page.dart';
+import 'package:formvalidation/src/pages/tranfe_money_page.dart';
+import 'package:formvalidation/src/pages/transfe_brou_page.dart';
 import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
@@ -25,7 +28,7 @@ class RealizarOp extends StatelessWidget {
     final blocLogin = LoginProvider.of(context);
     final simularBl = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
-  
+
     //final _prefs = new PreferenciasUsuario();
     //  print (_prefs.nombre);
 
@@ -45,41 +48,42 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(blocLogin, context,simularBl),
+              _tiposDeCambio(blocLogin, context, simularBl),
               SizedBox(
                 width: size.width * 0.10,
               ),
+              SizedBox(height: 10.0),
               Text('RESUMEN DE OPERACION',
-                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+                  style: TextStyle(color: Colors.white, fontSize: 20.0)),
               SizedBox(height: 10.0),
               _resumenOp(blocLogin),
-              SizedBox(height: 10.0),
               Text('FORMAS DE PAGO',
-                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-              SizedBox(height: 10.0),
-              _btnRealizarOp(context),
+                  style: TextStyle(color: Colors.white, fontSize: 20.0)),
+             
               Center(
                 child: Row(
                   children: [
-
-              SizedBox(height: 10.0),
-              _formasDePago(blocLogin),
-                    // _crearBotonTipoLiquidacionReturarSuc(blocLogin),
-                    // _crearBotonTipoLiquidacionMoney(blocLogin),
-                    // _crearBotonTipoLiquidacionTransf(blocLogin)
+                    SizedBox(height: 10.0),
+                   // _formasDePago(blocLogin),
+                    _crearBotonTipoLiquidacionReturarSuc(blocLogin),
+                    _crearBotonTipoLiquidacionMoney(blocLogin),
+                    _crearBotonTipoLiquidacionTransf(blocLogin)
                   ],
                 ),
               ),
-             ],
-          ), 
-        decoration: new BoxDecoration(
-          gradient: new LinearGradient(
-              colors: [estilos.gradientStart, estilos.gradientEnd],
-              begin: const FractionalOffset(0.5, 0.0),
-              end: const FractionalOffset(0.0, 0.5),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
+              
+              SizedBox(height: 10.0),
+              _btnRealizarOp(context),
+            ],
+          ),
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [estilos.gradientStart, estilos.gradientEnd],
+                begin: const FractionalOffset(0.5, 0.0),
+                end: const FractionalOffset(0.0, 0.5),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
         ),
       ),
 
@@ -90,7 +94,8 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _usuarioValido(LoginBloc bloc, BuildContext context,SimularBloc blSimular) {
+  UsuarioModel _usuarioValido(
+      LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
     final usr = bloc.usuario;
 
     if (usr.id == null) {
@@ -98,7 +103,7 @@ class RealizarOp extends StatelessWidget {
 
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
       print("debe esar logueado");
-      _tiposDeCambio(us, context,blSimular);
+      _tiposDeCambio(us, context, blSimular);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     } else {}
@@ -106,8 +111,9 @@ class RealizarOp extends StatelessWidget {
   }
 
 //contenedor info tipos de cambio (card)
-  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
-    final usr = _usuarioValido(bloc, context,simularBloc);
+  Widget _tiposDeCambio(
+      LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
+    final usr = _usuarioValido(bloc, context, simularBloc);
 
     if (usr == null) {
       mostrarAlerta(context, "Debe loguearce para realizar esta accción");
@@ -185,9 +191,9 @@ class RealizarOp extends StatelessWidget {
           ),
           Column(
             children: [
-              _crearBotonTipoLiquidacionReturarSuc(bloc),
-              _crearBotonTipoLiquidacionTransf(bloc),
-              _crearBotonTipoLiquidacionMoney(bloc),
+              // _crearBotonTipoLiquidacionReturarSuc(bloc),
+              // _crearBotonTipoLiquidacionTransf(bloc),
+              // _crearBotonTipoLiquidacionMoney(bloc),
             ],
           ),
         ]),
@@ -270,7 +276,12 @@ class RealizarOp extends StatelessWidget {
                     Icons.credit_card,
                     size: 20.0,
                   ),
-                  onPressed: null,
+               onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TranfMoney()),
+                      );
+                    }
                 ),
                 Text('Deposito Moneycard'),
               ],
@@ -299,20 +310,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.store,
-                    size: 20.0,
-                  ),
-                  onPressed: null,
-                ),
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.store,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Sucursales()),
+                      );
+                    }),
                 Text('Retirar por sucursal'),
               ],
             ),
@@ -351,7 +366,12 @@ class RealizarOp extends StatelessWidget {
                     Icons.comment_bank,
                     size: 20.0,
                   ),
-                  onPressed: null,
+                 onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TranfBrou()),
+                      );
+                    }
                 ),
                 Text('Transferencia bancaria'),
               ],
@@ -427,7 +447,7 @@ class RealizarOp extends StatelessWidget {
         padding: EdgeInsets.all(25),
         children: <Widget>[
           SizedBox(height: 30.0),
-          _tiposDeCambio(bloc, context,simula),
+          _tiposDeCambio(bloc, context, simula),
           SizedBox(height: 30.0),
           _resumenOp(bloc),
         ],
