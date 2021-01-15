@@ -29,7 +29,10 @@ class SimularOpModel {
   double tcAplicado;
   UsuarioModel usuario;
 
-  factory SimularOpModel.fromJson(Map<String, dynamic> json) => SimularOpModel(
+  factory SimularOpModel.fromJson(Map<String, dynamic> json) {
+    if (json["Usuario"] != null) {
+      //pregunto si es nulo usuario
+      return SimularOpModel(
         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
         importeTengo: json["ImporteTengo"].toDouble(),
@@ -37,7 +40,17 @@ class SimularOpModel {
         tcAplicado: json["TcAplicado"],
         usuario: UsuarioModel.fromJson(json["Usuario"]),
       );
-
+    } else {
+      return SimularOpModel(
+        monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
+        monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
+        importeTengo: json["ImporteTengo"].toDouble(),
+        importeQuiero: json["ImporteQuiero"].toDouble(),
+        tcAplicado: json["TcAplicado"],
+        usuario: null,
+      );
+    }
+  }
   Map<String, dynamic> toJson() => {
         "MonedaTengo": monedaTengo.toJson(),
         "MonedaQuiero": monedaQuiero.toJson(),
