@@ -24,8 +24,15 @@ class LoginBloc with Validators {
       passwordStream,
       (e, p) => true); //retultado de pass y email, si estan llenos retorno true
 
+
+
   Stream<String> get nombreStream =>
       _nombreController.stream.transform(validarUsuario);
+ 
+//  //valido usuario 
+//  Stream<bool> get formValidUsuarioStream => Observable.fromIterable([nom]
+//        usuarioStream,
+//       (usuarioStream) => true); 
 
 
 
