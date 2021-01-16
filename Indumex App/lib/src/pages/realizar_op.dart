@@ -59,19 +59,19 @@ class RealizarOp extends StatelessWidget {
               _resumenOp(blocLogin),
               Text('FORMAS DE PAGO',
                   style: TextStyle(color: Colors.white, fontSize: 20.0)),
-             
+
               Center(
                 child: Row(
                   children: [
                     SizedBox(height: 10.0),
-                   // _formasDePago(blocLogin),
+                    // _formasDePago(blocLogin),
                     _crearBotonTipoLiquidacionReturarSuc(blocLogin),
                     _crearBotonTipoLiquidacionMoney(blocLogin),
                     _crearBotonTipoLiquidacionTransf(blocLogin)
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
             ],
@@ -98,7 +98,7 @@ class RealizarOp extends StatelessWidget {
       LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
     final usr = bloc.usuario;
 
-    if (usr.id == null) {
+    if (usr == null) {
       LoginBloc us = new LoginBloc();
 
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
@@ -264,25 +264,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.credit_card,
-                    size: 20.0,
-                  ),
-               onPressed: () {
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.credit_card,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => TranfMoney()),
                       );
-                    }
-                ),
+                    }),
                 Text('Deposito Moneycard'),
               ],
             ),
@@ -354,25 +353,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.comment_bank,
-                    size: 20.0,
-                  ),
-                 onPressed: () {
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.comment_bank,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => TranfBrou()),
                       );
-                    }
-                ),
+                    }),
                 Text('Transferencia bancaria'),
               ],
             ),
