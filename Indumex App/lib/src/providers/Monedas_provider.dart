@@ -39,7 +39,7 @@ class MonedasProvider {
     MonedaModel retorno;
 
     for (int i = 0; i < monedas.length; i++) {
-      if (monedas[i].descripcion == descripcion.toUpperCase()) {
+      if (monedas[i].descripcion == descripcion) {
         retorno = monedas[i];
         return retorno;
       }

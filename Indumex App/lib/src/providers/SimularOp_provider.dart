@@ -81,11 +81,6 @@ class SimularOpProvider extends InheritedWidget {
           'Content-Type': 'application/json; charset=UTF-8'
         });
 
-    //dale ahi ,
-    //segui mirando queres, tengo que largar un rato
-    //tiene else?
-    //hasta ahi no llega. se cae al principio
-
     final decodedData = json.decode(resp.body);
 
     modeloSimularOp = SimularOpModel.fromJson(decodedData);
