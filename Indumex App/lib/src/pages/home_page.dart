@@ -564,7 +564,7 @@ class _HomePageState extends State<HomePage> {
           jp.monedaQuiero,
           importeTengo,
           importeQuiero,
-          0, //TC APLICADO, lo calcula la API
+          //0, //TC APLICADO, lo calcula la API : en nuevo modelo no va mas
           bloc.usuario != null ? bloc.usuario : null,
           context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
