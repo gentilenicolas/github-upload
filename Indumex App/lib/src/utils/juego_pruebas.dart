@@ -12,9 +12,9 @@ final String urlApi = 'http://10.1.3.215:7010/api';
 UsuarioModel usuarioLogueado;
 List<MonedaModel> monedas = new List();
 
-MonedaModel monedaTengo = MonedasProvider().buscarMoneda('PESOS URUGUAYOS');
+MonedaModel monedaTengo = MonedasProvider().buscarMoneda('Pesos');
 
-MonedaModel monedaQuiero = MonedasProvider().buscarMoneda('DOLARES');
+MonedaModel monedaQuiero = MonedasProvider().buscarMoneda('Dolares');
 
 TextEditingController nombre = new TextEditingController();
 TextEditingController apellido = new TextEditingController();

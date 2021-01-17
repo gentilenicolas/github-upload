@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
@@ -29,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = 'PESOS URUGUAYOS';
-  String _monedaSeleccionadaQuiero = 'DOLARES';
+  String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru
+  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom
 
@@ -296,6 +297,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _btnTengoQuiero(LoginBloc bloc) {
+    final blocSimular = SimularOpProvider.of(context);
+
     return Container(
       margin: EdgeInsets.all(15),
       child: Column(
@@ -358,6 +361,10 @@ class _HomePageState extends State<HomePage> {
                     onFocusChange: (value) {
                       if (value) {
                         simularOp(bloc, context);
+                        // importeTengoController.text =
+                        //     blocSimular.simularOP.importeTengo.toString();
+                        // importeQuieroController.text =
+                        //     blocSimular.simularOP.importeQuiero.toString();
                       }
                     },
                     child: TextField(
@@ -432,7 +439,6 @@ class _HomePageState extends State<HomePage> {
                                     _monedaSeleccionadaQuiero = newValue;
                                     jp.monedaQuiero = MonedasProvider()
                                         .buscarMoneda(newValue);
-                                    //simularOp(bloc);
                                   });
                                 },
                                 items: monedasMenuItem()
@@ -468,6 +474,10 @@ class _HomePageState extends State<HomePage> {
                     onFocusChange: (value) {
                       if (value) {
                         simularOp(bloc, context);
+                        // importeTengoController.text =
+                        //     blocSimular.simularOP.importeTengo.toString();
+                        // importeQuieroController.text =
+                        //     blocSimular.simularOP.importeQuiero.toString();
                       }
                     },
                     child: TextField(
@@ -566,11 +576,53 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Column(
           children: <Widget>[
+            // Container(
+            //   //largo boton
+            //   height: 70.0,
+            //   //ancho
+            //   width: 167,
+            //   child: RaisedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => RealizarOp(),
+            //         ),
+            //       );
+            //     },
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(15.0)),
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Ink(
+            //       decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [Colors.deepOrange, Colors.orangeAccent],
+            //             begin: Alignment.centerLeft,
+            //             end: Alignment.centerRight,
+            //           ),
+            //           borderRadius: BorderRadius.circular(15.0)),
+            //       child: Container(
+            //         constraints:
+            //             BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           "SIMULAR OPERACIÓN",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(color: Colors.white, fontSize: 20),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 10,
+            // ),
             Container(
               //largo boton
               height: 70.0,
               //ancho
-              width: 400,
+              width:
+                  400, //167,   //medida para hacerlo con 2 botones en lugar de 1
               child: RaisedButton(
                 onPressed: () {
                   Navigator.push(
@@ -596,9 +648,9 @@ class _HomePageState extends State<HomePage> {
                         BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
                     alignment: Alignment.center,
                     child: Text(
-                      "GENERAR OPERACION",
+                      "REALIZAR OPERACIÓN",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
@@ -633,6 +685,14 @@ class _HomePageState extends State<HomePage> {
             height:
                 87 /*size.height * 0.1*/, // no se porque me saca un cachito..
             child: Container(
+              // child: RaisedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => SolicitudMoneycard(),
+              //         ));
+              //   },
               child: Image.asset(
                 'assets/images/MoneyBottom.png',
                 fit: BoxFit.cover,
@@ -640,6 +700,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          //),
         ],
       ),
     );
