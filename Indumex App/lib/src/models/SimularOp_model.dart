@@ -14,52 +14,143 @@ String simularOpModelToJson(SimularOpModel data) => json.encode(data.toJson());
 
 class SimularOpModel {
   SimularOpModel({
+    this.idSimulacion,
     this.monedaTengo,
     this.monedaQuiero,
     this.importeTengo,
     this.importeQuiero,
     this.tcAplicado,
+    this.tcPizarra,
+    this.tcUsuarioApp,
+    this.tcClientePref,
+    this.tcDescuentoMax,
     this.usuario,
   });
 
+  int idSimulacion;
   MonedaModel monedaTengo;
   MonedaModel monedaQuiero;
   double importeTengo;
   double importeQuiero;
   double tcAplicado;
+  double tcPizarra;
+  double tcUsuarioApp;
+  double tcClientePref;
+  double tcDescuentoMax;
   UsuarioModel usuario;
 
   factory SimularOpModel.fromJson(Map<String, dynamic> json) {
     if (json["Usuario"] != null) {
       //pregunto si es nulo usuario
       return SimularOpModel(
+        idSimulacion: json["idSimulacion"],
         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
         importeTengo: json["ImporteTengo"].toDouble(),
         importeQuiero: json["ImporteQuiero"].toDouble(),
-        tcAplicado: json["TcAplicado"],
+        tcAplicado: json["TcAplicado"].toDouble(),
+        tcPizarra: json["TcPizarra"].toDouble(),
+        tcUsuarioApp: json["TcUsuarioApp"].toDouble(),
+        tcClientePref: json["TcClientePref"].toDouble(),
+        tcDescuentoMax: json["TcDescuentoMax"].toDouble(),
         usuario: UsuarioModel.fromJson(json["Usuario"]),
       );
     } else {
       return SimularOpModel(
+        idSimulacion: json["idSimulacion"],
         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
         importeTengo: json["ImporteTengo"].toDouble(),
         importeQuiero: json["ImporteQuiero"].toDouble(),
-        tcAplicado: json["TcAplicado"],
+        tcAplicado: json["TcAplicado"].toDouble(),
+        tcPizarra: json["TcPizarra"].toDouble(),
+        tcUsuarioApp: json["TcUsuarioApp"].toDouble(),
+        tcClientePref: json["TcClientePref"].toDouble(),
+        tcDescuentoMax: json["TcDescuentoMax"].toDouble(),
         usuario: null,
       );
     }
   }
+
   Map<String, dynamic> toJson() => {
+        "idSimulacion": idSimulacion,
         "MonedaTengo": monedaTengo.toJson(),
         "MonedaQuiero": monedaQuiero.toJson(),
         "ImporteTengo": importeTengo,
         "ImporteQuiero": importeQuiero,
         "TcAplicado": tcAplicado,
+        "TcPizarra": tcPizarra,
+        "TcUsuarioApp": tcUsuarioApp,
+        "TcClientePref": tcClientePref,
+        "TcDescuentoMax": tcDescuentoMax,
         "Usuario": usuario != null ? usuario.toJson() : null
       };
 }
+
+//MODELO ANTES DEL CAMBIO DE ALE:
+
+// To parse this JSON data, do
+//
+//     final simularOpModel = simularOpModelFromJson(jsonString);
+
+// import 'dart:convert';
+
+// import 'package:formvalidation/src/models/Moneda_model.dart';
+// import 'package:formvalidation/src/models/Usuario_model.dart';
+
+// SimularOpModel simularOpModelFromJson(String str) =>
+//     SimularOpModel.fromJson(json.decode(str));
+
+// String simularOpModelToJson(SimularOpModel data) => json.encode(data.toJson());
+
+// class SimularOpModel {
+//   SimularOpModel({
+//     this.monedaTengo,
+//     this.monedaQuiero,
+//     this.importeTengo,
+//     this.importeQuiero,
+//     this.tcAplicado,
+//     this.usuario,
+//   });
+
+//   MonedaModel monedaTengo;
+//   MonedaModel monedaQuiero;
+//   double importeTengo;
+//   double importeQuiero;
+//   double tcAplicado;
+//   UsuarioModel usuario;
+
+//   factory SimularOpModel.fromJson(Map<String, dynamic> json) {
+//     if (json["Usuario"] != null) {
+//       //pregunto si es nulo usuario
+//       return SimularOpModel(
+//         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
+//         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
+//         importeTengo: json["ImporteTengo"].toDouble(),
+//         importeQuiero: json["ImporteQuiero"].toDouble(),
+//         tcAplicado: json["TcAplicado"],
+//         usuario: UsuarioModel.fromJson(json["Usuario"]),
+//       );
+//     } else {
+//       return SimularOpModel(
+//         monedaTengo: MonedaModel.fromJson(json["MonedaTengo"]),
+//         monedaQuiero: MonedaModel.fromJson(json["MonedaQuiero"]),
+//         importeTengo: json["ImporteTengo"].toDouble(),
+//         importeQuiero: json["ImporteQuiero"].toDouble(),
+//         tcAplicado: json["TcAplicado"],
+//         usuario: null,
+//       );
+//     }
+//   }
+//   Map<String, dynamic> toJson() => {
+//         "MonedaTengo": monedaTengo.toJson(),
+//         "MonedaQuiero": monedaQuiero.toJson(),
+//         "ImporteTengo": importeTengo,
+//         "ImporteQuiero": importeQuiero,
+//         "TcAplicado": tcAplicado,
+//         "Usuario": usuario != null ? usuario.toJson() : null
+//       };
+// }
 
 // class MonedaModel {
 //   MonedaModel({
