@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
-  String _monedaSeleccionadaQuiero = 'Dolares';
+  String _monedaSeleccionadaTengo = 'PESOS URUGUAYOS';
+  String _monedaSeleccionadaQuiero = 'DOLARES';
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom
 
@@ -325,31 +325,21 @@ class _HomePageState extends State<HomePage> {
                           child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButton<String>(
-                              // hint: Image.asset(
-                              //   'assets/images/uruguay.png',
-                              //   width: 25,
-                              // ),
-                              isDense: true,
-                              //hint: new Text("Seleccione una moneda"),
-                              value: _monedaSeleccionadaTengo,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  _monedaSeleccionadaTengo = newValue;
-                                  jp.monedaTengo =
-                                      MonedasProvider().buscarMoneda(newValue);
-                                });
-                              },
-                              items: jp.banderasJson.map((Map map) {
-                                return new DropdownMenuItem<String>(
-                                  value: map["combo"].toString(),
-                                  // value: _mySelection,
-                                  child: Image.asset(
-                                    map["image"],
-                                    width: 25,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
+                                // hint: Image.asset(
+                                //   'assets/images/uruguay.png',
+                                //   width: 25,
+                                // ),
+                                isDense: true,
+                                //hint: new Text("Seleccione una moneda"),
+                                value: _monedaSeleccionadaTengo,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _monedaSeleccionadaTengo = newValue;
+                                    jp.monedaTengo = MonedasProvider()
+                                        .buscarMoneda(newValue);
+                                  });
+                                },
+                                items: monedasMenuItem()),
                           ),
                         ),
                       ),
@@ -434,27 +424,32 @@ class _HomePageState extends State<HomePage> {
                           child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButton(
-                              isDense: true,
-                              //hint: new Text("Seleccione una moneda"),
-                              value: _monedaSeleccionadaQuiero,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  _monedaSeleccionadaQuiero = newValue;
-                                  jp.monedaQuiero =
-                                      MonedasProvider().buscarMoneda(newValue);
-                                  //simularOp(bloc);
-                                });
-                              },
-                              items: jp.banderasJson.map((Map map) {
-                                return new DropdownMenuItem(
-                                  value: map["combo"].toString(),
-                                  child: Image.asset(
-                                    map["image"],
-                                    width: 25,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
+                                isDense: true,
+                                //hint: new Text("Seleccione una moneda"),
+                                value: _monedaSeleccionadaQuiero,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _monedaSeleccionadaQuiero = newValue;
+                                    jp.monedaQuiero = MonedasProvider()
+                                        .buscarMoneda(newValue);
+                                    //simularOp(bloc);
+                                  });
+                                },
+                                items: monedasMenuItem()
+
+                                //harcodeado:
+
+                                // jp.banderasJson.map((Map map) {
+                                //   return new DropdownMenuItem(
+                                //     value: map["combo"].toString(),
+                                //     child: Image.asset(
+                                //       map["image"],
+                                //       width: 25,
+                                //     ),
+                                //   );
+                                // }).toList(),
+
+                                ),
                           ),
                         ),
                       ),
@@ -616,39 +611,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-
     LoginBloc bloc = new LoginBloc();
     //  final size = MediaQuery.of(context).size;
-   // if (bloc.usuario.id != null) {
-      return Expanded(
-        child: Stack(
-          children: [
-            Align(
+    // if (bloc.usuario.id != null) {
+    return Expanded(
+      child: Stack(
+        children: [
+          Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: RaisedButton(onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SolicitudMoneycard(),
+                    ));
+              })),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height:
+                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Container(
+              child: Image.asset(
+                'assets/images/MoneyBottom.png',
+                fit: BoxFit.cover,
                 alignment: FractionalOffset.bottomCenter,
-                child: RaisedButton(onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),
-                      ));
-                })),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height:
-                  87 /*size.height * 0.1*/, // no se porque me saca un cachito..
-              child: Container(
-                child: Image.asset(
-                  'assets/images/MoneyBottom.png',
-                  fit: BoxFit.cover,
-                  alignment: FractionalOffset.bottomCenter,
-                ),
               ),
             ),
-          ],
-       ),
-       );
+          ),
+        ],
+      ),
+    );
     // } else {
     //   return Expanded(
     //     child: Align(
@@ -670,6 +664,31 @@ class _HomePageState extends State<HomePage> {
     //     ),
     //   );
     // }
+  }
+
+  monedasMenuItem() {
+    List<DropdownMenuItem<String>> lista = new List();
+    for (int i = 0; i < jp.monedas.length; i++) {
+      lista.add(DropdownMenuItem<String>(
+        value: jp.monedas[i].descripcion,
+        child: Image.asset(
+          'assets/${jp.monedas[i].imagen}',
+          width: 25,
+        ),
+      ));
+
+      // jp.banderasJson.map((Map map) {
+      //   return new DropdownMenuItem(
+      //     value: map["combo"].toString(),
+      //     child: Image.asset(
+      //       map["image"],
+      //       width: 25,
+      //     ),
+      //   );
+      // }).toList(),
+
+    }
+    return lista;
   }
 
 //bottom navigator
