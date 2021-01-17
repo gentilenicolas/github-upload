@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
+import 'package:formvalidation/src/pages/ayuda_page.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
@@ -616,60 +617,57 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-
-    LoginBloc bloc = new LoginBloc();
     //  final size = MediaQuery.of(context).size;
-   // if (bloc.usuario.id != null) {
+
+    if (bloc.usuario == null) {
       return Expanded(
         child: Stack(
-          children: [
+          children: [            
             Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: RaisedButton(onPressed: () {
-                  Navigator.push(
+               child: MaterialButton(
+                  onPressed: () => {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),
-                      ));
-                })),
+                        builder: (context) => SolicitudMoneycard(),   //no me esta haciendo la redireccion
+                      ),
+                    ),
+                  },
+                ),
+                ),
             Positioned(
               bottom: 0,
               left: 0,
               right: 0,
-              height:
-                  87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+              // height:
+              //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
               child: Container(
                 child: Image.asset(
                   'assets/images/MoneyBottom.png',
                   fit: BoxFit.cover,
-                  alignment: FractionalOffset.bottomCenter,
+                  alignment: FractionalOffset.bottomRight,
                 ),
               ),
             ),
           ],
-       ),
-       );
-    // } else {
-    //   return Expanded(
-    //     child: Align(
-    //       alignment: FractionalOffset.bottomCenter,
-    //       child: MaterialButton(
-    //           onPressed: () => {
-    //                 Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(
-    //                     builder: (context) => SolicitudMoneycard(),
-    //                   ),
-    //                 ),
-    //               },
-    //           child: Image.asset(
-    //             'assets/images/MoneyBottom.png',
-    //             fit: BoxFit.cover,
-    //             alignment: FractionalOffset.bottomCenter,
-    //           )),
-    //     ),
-    //   );
-    // }
+        ),
+      );
+    } else {
+      return Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: MaterialButton(
+            onPressed: () => {
+                  Navigator.of(context).push(                    
+                    MaterialPageRoute(
+                      builder: (context) => AyudaPage(),
+                    ),
+                  ),
+                },
+          
+          ),
+      );
+    }
   }
 
 //bottom navigator

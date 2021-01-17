@@ -25,7 +25,8 @@ import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 class RealizarOp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final blocLogin = LoginProvider.of(context);
+    //final blocLogin = LoginProvider.of(context);
+    final blocLogin = LoginBloc();
     final simularBl = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -48,7 +49,7 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(blocLogin, context, simularBl),
+              _tiposDeCambio(blocLogin,context, simularBl),
               SizedBox(
                 width: size.width * 0.10,
               ),
@@ -59,19 +60,20 @@ class RealizarOp extends StatelessWidget {
               _resumenOp(blocLogin),
               Text('FORMAS DE PAGO',
                   style: TextStyle(color: Colors.white, fontSize: 20.0)),
-             
+
               Center(
                 child: Row(
                   children: [
                     SizedBox(height: 10.0),
-                   // _formasDePago(blocLogin),
+                    // _formasDePago(blocLogin),
                     _crearBotonTipoLiquidacionReturarSuc(blocLogin),
                     _crearBotonTipoLiquidacionMoney(blocLogin),
-                    _crearBotonTipoLiquidacionTransf(blocLogin)
+                    _crearBotonTipoLiquidacionTransf(blocLogin),
+                     prueba(),
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
             ],
@@ -94,57 +96,58 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _usuarioValido(
-      LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
-    final usr = bloc.usuario;
-
-    if (usr.id == null) {
-      LoginBloc us = new LoginBloc();
-
+  UsuarioModel _existeUsuario(LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
+   
+   
+       if (bloc.usuario == null) {
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
-      print("debe esar logueado");
-      _tiposDeCambio(us, context, blSimular);
+    
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else {}
-    return usr;
+    } else {
+        
+      _tiposDeCambio(bloc,context, blSimular);
+    }
+
+   
   }
 
 //contenedor info tipos de cambio (card)
-  Widget _tiposDeCambio(
-      LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
-    final usr = _usuarioValido(bloc, context, simularBloc);
+  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
+   
+    final usr = _existeUsuario(bloc, context, simularBloc);
 
     if (usr == null) {
-      mostrarAlerta(context, "Debe loguearce para realizar esta accción");
       usr.nombreCompleto = "";
+      mostrarAlerta(context, "");
+    } else {
+      return Card(
+        elevation: 24.0,
+        child: Column(children: <Widget>[
+          ListTile(
+            title: Text('Moneda :' /*+ usr.nombreCompleto*/),
+            subtitle: Text('para abajo los distintos tipos de cambio'),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Tc pizarra : PITO PITO", textAlign: TextAlign.start),
+                  SizedBox(height: 5.0),
+                  Text("Tc cliente : PITO PITO"),
+                  SizedBox(height: 5.0),
+                  Text("Tc moneycard : PITO PITO"),
+                  SizedBox(height: 5.0),
+                ],
+              )
+            ],
+          )
+        ]),
+      );
     }
-    return Card(
-      elevation: 24.0,
-      child: Column(children: <Widget>[
-        ListTile(
-          title: Text('Moneda :' /*+ usr.nombreCompleto*/),
-          subtitle: Text('para abajo los distintos tipos de cambio'),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Tc pizarra : PITO PITO", textAlign: TextAlign.start),
-                SizedBox(height: 5.0),
-                Text("Tc cliente : PITO PITO"),
-                SizedBox(height: 5.0),
-                Text("Tc moneycard : PITO PITO"),
-                SizedBox(height: 5.0),
-              ],
-            )
-          ],
-        )
-      ]),
-    );
   }
 
 //contenedor resumen de operacion
@@ -264,25 +267,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.credit_card,
-                    size: 20.0,
-                  ),
-               onPressed: () {
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.credit_card,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => TranfMoney()),
                       );
-                    }
-                ),
+                    }),
                 Text('Deposito Moneycard'),
               ],
             ),
@@ -354,25 +356,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.comment_bank,
-                    size: 20.0,
-                  ),
-                 onPressed: () {
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.comment_bank,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => TranfBrou()),
                       );
-                    }
-                ),
+                    }),
                 Text('Transferencia bancaria'),
               ],
             ),
@@ -386,6 +387,44 @@ class RealizarOp extends StatelessWidget {
         );
       },
     );
+  }
+
+
+
+  Widget prueba(){
+return  Container(
+          margin:EdgeInsets.all(8.0),
+          child: Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            child: InkWell(
+              onTap: () => print("ciao"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      topRight: Radius.circular(8.0),
+                    ),
+                    child: Image.network(
+                        'https://placeimg.com/640/480/any',
+                       // width: 300,
+                        height: 150,
+                        fit:BoxFit.fill
+
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Pub 1'),
+                    subtitle: Text('Location 1'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+
+
   }
 
 /*
@@ -436,8 +475,7 @@ class RealizarOp extends StatelessWidget {
   }
 
 //
-  _contenidoRealizarOp(
-      BuildContext context, LoginBloc bloc, SimularBloc simula) {
+  _contenidoRealizarOp( BuildContext context, LoginBloc bloc, SimularBloc simula) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
@@ -447,7 +485,7 @@ class RealizarOp extends StatelessWidget {
         padding: EdgeInsets.all(25),
         children: <Widget>[
           SizedBox(height: 30.0),
-          _tiposDeCambio(bloc, context, simula),
+          _tiposDeCambio(bloc,context, simula),
           SizedBox(height: 30.0),
           _resumenOp(bloc),
         ],
