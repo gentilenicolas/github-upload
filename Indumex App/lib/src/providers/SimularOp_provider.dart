@@ -52,7 +52,7 @@ class SimularOpProvider extends InheritedWidget {
       MonedaModel monedaQuiero,
       double importeTengo,
       double importeQuiero,
-      double tcAplicado,
+      //double tcAplicado,
       UsuarioModel usuario,
       BuildContext context) async {
     SimularOpModel modeloSimularOp = new SimularOpModel();
@@ -75,16 +75,11 @@ class SimularOpProvider extends InheritedWidget {
             monedaQuiero: monedaQuiero,
             importeTengo: importeTengo,
             importeQuiero: importeQuiero,
-            tcAplicado: tcAplicado,
+            //tcAplicado: tcAplicado,
             usuario: usuario)),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         });
-
-    //dale ahi ,
-    //segui mirando queres, tengo que largar un rato
-    //tiene else?
-    //hasta ahi no llega. se cae al principio
 
     final decodedData = json.decode(resp.body);
 
