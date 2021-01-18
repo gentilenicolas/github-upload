@@ -368,14 +368,14 @@ class RealizarOp extends StatelessWidget {
                       Icons.comment_bank,
                       size: 20.0,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TranfBrou()),
-                      );
-                    }),
-                Text('Transferencia bancaria'),
-              ],
+                    // onPressed: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => TranfBrou()),
+                    //   );
+                    // }),
+               // Text('Transferencia bancaria'),
+                 ) ],
             ),
 
             width: 100,
