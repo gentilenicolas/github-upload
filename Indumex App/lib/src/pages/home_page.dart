@@ -435,27 +435,31 @@ class _HomePageState extends State<HomePage> {
                           child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButton(
-                              isDense: true,
-                              //hint: new Text("Seleccione una moneda"),
-                              value: _monedaSeleccionadaQuiero,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  _monedaSeleccionadaQuiero = newValue;
-                                  jp.monedaQuiero =
-                                      MonedasProvider().buscarMoneda(newValue);
-                                  //simularOp(bloc);
-                                });
-                              },
-                              items: jp.banderasJson.map((Map map) {
-                                return new DropdownMenuItem(
-                                  value: map["combo"].toString(),
-                                  child: Image.asset(
-                                    map["image"],
-                                    width: 25,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
+                                isDense: true,
+                                //hint: new Text("Seleccione una moneda"),
+                                value: _monedaSeleccionadaQuiero,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _monedaSeleccionadaQuiero = newValue;
+                                    jp.monedaQuiero = MonedasProvider()
+                                        .buscarMoneda(newValue);
+                                  });
+                                },
+                                items: monedasMenuItem()
+
+                                //harcodeado!:
+
+                                // jp.banderasJson.map((Map map) {
+                                //   return new DropdownMenuItem(
+                                //     value: map["combo"].toString(),
+                                //     child: Image.asset(
+                                //       map["image"],
+                                //       width: 25,
+                                //     ),
+                                //   );
+                                // }).toList(),
+
+                                ),
                           ),
                         ),
                       ),
@@ -560,7 +564,7 @@ class _HomePageState extends State<HomePage> {
           jp.monedaQuiero,
           importeTengo,
           importeQuiero,
-   //TC APLICADO, lo calcula la API
+          //0, //TC APLICADO, lo calcula la API : en nuevo modelo no va mas, lo dejo comentado
           bloc.usuario != null ? bloc.usuario : null,
           context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
@@ -673,6 +677,31 @@ class _HomePageState extends State<HomePage> {
   Widget menu() {
     Future.microtask(() => Navigator.push(
         context, MaterialPageRoute(builder: (context) => AyudaPage())));
+  }
+
+  monedasMenuItem() {
+    List<DropdownMenuItem<String>> lista = new List();
+    for (int i = 0; i < jp.monedas.length; i++) {
+      lista.add(DropdownMenuItem<String>(
+        value: jp.monedas[i].descripcion,
+        child: Image.asset(
+          'assets/${jp.monedas[i].imagen}',
+          width: 25,
+        ),
+      ));
+
+      // jp.banderasJson.map((Map map) {
+      //   return new DropdownMenuItem(
+      //     value: map["combo"].toString(),
+      //     child: Image.asset(
+      //       map["image"],
+      //       width: 25,
+      //     ),
+      //   );
+      // }).toList(),
+
+    }
+    return lista;
   }
 
 //bottom navigator
