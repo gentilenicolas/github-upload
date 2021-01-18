@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'package:formvalidation/src/models/Moneycard_model.dart';
 import 'package:formvalidation/src/providers/localidades_provider.dart';
 import 'package:formvalidation/src/providers/moneycard_provider.dart';
@@ -18,8 +17,7 @@ class SolicitudMoneycard extends StatefulWidget {
 
 //usando Provider para los combos Departamentos/Localidades
 
-class _SolicitudMoneycardState extends State<SolicitudMoneycard>
-    with ChangeNotifier {
+class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNotifier {
   //VALIDACIONES
 
   bool _validarNombre = true;
@@ -43,8 +41,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
   Widget build(BuildContext context) {
     final bloc = LoginProvider.of(context);
 
-    final MoneycardModel moneycardData =
-        ModalRoute.of(context).settings.arguments;
+    final MoneycardModel moneycardData = ModalRoute.of(context).settings.arguments;
 
     if (moneycardData != null) {
       moneycard = moneycardData;
@@ -233,7 +230,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
   }
 
   Widget _inputFechaDeNacimiento(BuildContext context) {
-    moneycard.fechaNacimiento = DateTime(1980, 1, 1);
+    moneycard.fechaNacimiento = DateTime(1891, 1, 1);
 
     return TextField(
       controller: textEditingControllerDate,

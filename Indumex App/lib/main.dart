@@ -42,7 +42,7 @@ class InduApp extends StatelessWidget {
         //Provider<Clase> (create: (_) => new Clase())    como ejemplo, clase puede ser login, loguead, lo que venga fijate
       ],
       child: SimularOpProvider(
-        child: RealizarOpProvider(
+        child: RealizarOpProvider( // la meti ,porque no se si necesita que traiga a lsog s los providers sino se va
           child: LoginProvider(
             child: GestureDetector(
               onTap: () {
