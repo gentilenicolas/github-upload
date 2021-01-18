@@ -681,8 +681,8 @@ class _HomePageState extends State<HomePage> {
             bottom: 0,
             left: 0,
             right: 0,
-            height:
-                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            // height:
+            //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
             child: Container(
               // child: RaisedButton(
               //   onPressed: () {
