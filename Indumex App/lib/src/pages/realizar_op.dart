@@ -118,7 +118,7 @@ class RealizarOp extends StatelessWidget {
     final usr = _existeUsuario(bloc, context, simularBloc);
 
     if (usr == null) {
-      usr.nombreCompleto = "";
+     // usr.nombreCompleto = "";
       mostrarAlerta(context, "");
     } else {
       return Card(

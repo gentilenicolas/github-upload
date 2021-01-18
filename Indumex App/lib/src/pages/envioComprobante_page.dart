@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:formvalidation/src/models/Pizarra_model.dart';
-import 'package:formvalidation/src/providers/Pizarra_provider.dart';
+
 import 'package:formvalidation/src/providers/realizarOp_provider.dart';
-import 'package:formvalidation/src/utils/funciones.dart' as funciones;
+
 import 'package:image_picker/image_picker.dart';
 
 class EnvioComprobante extends StatefulWidget {

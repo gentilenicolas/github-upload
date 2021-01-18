@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
@@ -30,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru
+  String _monedaSeleccionadaTengo = jp.monedas[0].descripcion; //pesos uru
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom

@@ -14,7 +14,7 @@ class TranfBrou extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            child: envioComprobante(context),
+           // child: envioComprobante(context),
           ),
         ),
       ),
