@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/ayuda_page.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
@@ -31,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru
-  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares
+  String _monedaSeleccionadaTengo = 'Pesos Uruguayos';
+  String _monedaSeleccionadaQuiero = 'Dolares';
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom
 
@@ -298,8 +297,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _btnTengoQuiero(LoginBloc bloc) {
-    final blocSimular = SimularOpProvider.of(context);
-
     return Container(
       margin: EdgeInsets.all(15),
       child: Column(
@@ -329,21 +326,31 @@ class _HomePageState extends State<HomePage> {
                           child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButton<String>(
-                                // hint: Image.asset(
-                                //   'assets/images/uruguay.png',
-                                //   width: 25,
-                                // ),
-                                isDense: true,
-                                //hint: new Text("Seleccione una moneda"),
-                                value: _monedaSeleccionadaTengo,
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _monedaSeleccionadaTengo = newValue;
-                                    jp.monedaTengo = MonedasProvider()
-                                        .buscarMoneda(newValue);
-                                  });
-                                },
-                                items: monedasMenuItem()),
+                              // hint: Image.asset(
+                              //   'assets/images/uruguay.png',
+                              //   width: 25,
+                              // ),
+                              isDense: true,
+                              //hint: new Text("Seleccione una moneda"),
+                              value: _monedaSeleccionadaTengo,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  _monedaSeleccionadaTengo = newValue;
+                                  jp.monedaTengo =
+                                      MonedasProvider().buscarMoneda(newValue);
+                                });
+                              },
+                              items: jp.banderasJson.map((Map map) {
+                                return new DropdownMenuItem<String>(
+                                  value: map["combo"].toString(),
+                                  // value: _mySelection,
+                                  child: Image.asset(
+                                    map["image"],
+                                    width: 25,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ),
@@ -362,10 +369,6 @@ class _HomePageState extends State<HomePage> {
                     onFocusChange: (value) {
                       if (value) {
                         simularOp(bloc, context);
-                        // importeTengoController.text =
-                        //     blocSimular.simularOP.importeTengo.toString();
-                        // importeQuieroController.text =
-                        //     blocSimular.simularOP.importeQuiero.toString();
                       }
                     },
                     child: TextField(
@@ -432,31 +435,27 @@ class _HomePageState extends State<HomePage> {
                           child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButton(
-                                isDense: true,
-                                //hint: new Text("Seleccione una moneda"),
-                                value: _monedaSeleccionadaQuiero,
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _monedaSeleccionadaQuiero = newValue;
-                                    jp.monedaQuiero = MonedasProvider()
-                                        .buscarMoneda(newValue);
-                                  });
-                                },
-                                items: monedasMenuItem()
-
-                                //harcodeado:
-
-                                // jp.banderasJson.map((Map map) {
-                                //   return new DropdownMenuItem(
-                                //     value: map["combo"].toString(),
-                                //     child: Image.asset(
-                                //       map["image"],
-                                //       width: 25,
-                                //     ),
-                                //   );
-                                // }).toList(),
-
-                                ),
+                              isDense: true,
+                              //hint: new Text("Seleccione una moneda"),
+                              value: _monedaSeleccionadaQuiero,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  _monedaSeleccionadaQuiero = newValue;
+                                  jp.monedaQuiero =
+                                      MonedasProvider().buscarMoneda(newValue);
+                                  //simularOp(bloc);
+                                });
+                              },
+                              items: jp.banderasJson.map((Map map) {
+                                return new DropdownMenuItem(
+                                  value: map["combo"].toString(),
+                                  child: Image.asset(
+                                    map["image"],
+                                    width: 25,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ),
@@ -475,10 +474,6 @@ class _HomePageState extends State<HomePage> {
                     onFocusChange: (value) {
                       if (value) {
                         simularOp(bloc, context);
-                        // importeTengoController.text =
-                        //     blocSimular.simularOP.importeTengo.toString();
-                        // importeQuieroController.text =
-                        //     blocSimular.simularOP.importeQuiero.toString();
                       }
                     },
                     child: TextField(
@@ -565,7 +560,7 @@ class _HomePageState extends State<HomePage> {
           jp.monedaQuiero,
           importeTengo,
           importeQuiero,
-          //0, //TC APLICADO, lo calcula la API : en nuevo modelo no va mas
+   //TC APLICADO, lo calcula la API
           bloc.usuario != null ? bloc.usuario : null,
           context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
     }
@@ -577,53 +572,11 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Column(
           children: <Widget>[
-            // Container(
-            //   //largo boton
-            //   height: 70.0,
-            //   //ancho
-            //   width: 167,
-            //   child: RaisedButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => RealizarOp(),
-            //         ),
-            //       );
-            //     },
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(15.0)),
-            //     padding: EdgeInsets.all(0.0),
-            //     child: Ink(
-            //       decoration: BoxDecoration(
-            //           gradient: LinearGradient(
-            //             colors: [Colors.deepOrange, Colors.orangeAccent],
-            //             begin: Alignment.centerLeft,
-            //             end: Alignment.centerRight,
-            //           ),
-            //           borderRadius: BorderRadius.circular(15.0)),
-            //       child: Container(
-            //         constraints:
-            //             BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-            //         alignment: Alignment.center,
-            //         child: Text(
-            //           "SIMULAR OPERACIÓN",
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(color: Colors.white, fontSize: 20),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   width: 10,
-            // ),
             Container(
               //largo boton
               height: 70.0,
               //ancho
-              width:
-                  400, //167,   //medida para hacerlo con 2 botones en lugar de 1
+              width: 400,
               child: RaisedButton(
                 onPressed: () {
                   Navigator.push(
@@ -649,9 +602,9 @@ class _HomePageState extends State<HomePage> {
                         BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
                     alignment: Alignment.center,
                     child: Text(
-                      "REALIZAR OPERACIÓN",
+                      "GENERAR OPERACION",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
                 ),
@@ -664,26 +617,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
-<<<<<<< HEAD
     //  final size = MediaQuery.of(context).size;
 
     if (bloc.usuario == null) {
       return Expanded(
         child: Stack(
-          children: [            
+          children: [
             Align(
-                alignment: FractionalOffset.bottomCenter,
-               child: MaterialButton(
-                  onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),   //no me esta haciendo la redireccion
-                      ),
+              alignment: FractionalOffset.bottomCenter,
+              child: MaterialButton(
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SolicitudMoneycard(), //no me esta haciendo la redireccion
                     ),
-                  },
-                ),
-                ),
+                  ),
+                },
+              ),
+            ),
             Positioned(
               bottom: 0,
               left: 0,
@@ -705,106 +658,21 @@ class _HomePageState extends State<HomePage> {
       return Align(
         alignment: FractionalOffset.bottomCenter,
         child: MaterialButton(
-            onPressed: () => {
-                  Navigator.of(context).push(                    
-                    MaterialPageRoute(
-                      builder: (context) => AyudaPage(),
-                    ),
-                  ),
-                },
-          
-          ),
-      );
-    }
-=======
-    LoginBloc bloc = new LoginBloc();
-    //  final size = MediaQuery.of(context).size;
-    // if (bloc.usuario.id != null) {
-    return Expanded(
-      child: Stack(
-        children: [
-          Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: RaisedButton(onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SolicitudMoneycard(),
-                    ));
-              })),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height:
-                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              // child: RaisedButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => SolicitudMoneycard(),
-              //         ));
-              //   },
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.bottomCenter,
+          onPressed: () => {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AyudaPage(),
               ),
             ),
-          ),
-          //),
-        ],
-      ),
-    );
-    // } else {
-    //   return Expanded(
-    //     child: Align(
-    //       alignment: FractionalOffset.bottomCenter,
-    //       child: MaterialButton(
-    //           onPressed: () => {
-    //                 Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(
-    //                     builder: (context) => SolicitudMoneycard(),
-    //                   ),
-    //                 ),
-    //               },
-    //           child: Image.asset(
-    //             'assets/images/MoneyBottom.png',
-    //             fit: BoxFit.cover,
-    //             alignment: FractionalOffset.bottomCenter,
-    //           )),
-    //     ),
-    //   );
-    // }
->>>>>>> 8140775ec21f080dce2bdb3f733f909023d07ef6
+          },
+        ),
+      );
+    }
   }
 
-  monedasMenuItem() {
-    List<DropdownMenuItem<String>> lista = new List();
-    for (int i = 0; i < jp.monedas.length; i++) {
-      lista.add(DropdownMenuItem<String>(
-        value: jp.monedas[i].descripcion,
-        child: Image.asset(
-          'assets/${jp.monedas[i].imagen}',
-          width: 25,
-        ),
-      ));
-
-      // jp.banderasJson.map((Map map) {
-      //   return new DropdownMenuItem(
-      //     value: map["combo"].toString(),
-      //     child: Image.asset(
-      //       map["image"],
-      //       width: 25,
-      //     ),
-      //   );
-      // }).toList(),
-
-    }
-    return lista;
+  Widget menu() {
+    Future.microtask(() => Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AyudaPage())));
   }
 
 //bottom navigator

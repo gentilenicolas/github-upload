@@ -96,24 +96,14 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-<<<<<<< HEAD
   UsuarioModel _existeUsuario(LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
    
    
        if (bloc.usuario == null) {
-=======
-  UsuarioModel _usuarioValido(
-      LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
-    final usr = bloc.usuario;
-
-    if (usr == null) {
-      LoginBloc us = new LoginBloc();
-
->>>>>>> 8140775ec21f080dce2bdb3f733f909023d07ef6
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
     
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => LoginPage()));
     } else {
         
       _tiposDeCambio(bloc,context, blSimular);
