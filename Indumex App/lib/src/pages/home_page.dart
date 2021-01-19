@@ -1,5 +1,7 @@
 //import 'dart:ffi';
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,11 +31,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double importeTengoCalculator = 0;
-  double importeQuieroCalculator = 0;
-
-  final importeTengoController = new TextEditingController();
-  final importeQuieroController = new TextEditingController();
+  // final importeTengoController = new TextEditingController();
+  //final importeQuieroController = new TextEditingController();
 
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
@@ -336,42 +335,42 @@ class _HomePageState extends State<HomePage> {
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                             alignedDropdown: true,
-                            child: FocusScope(
-                              onFocusChange: (value) {
-                                // if (!value) {
-                                if (importeQuieroController.text == '' &&
-                                    importeTengoController.text != '') {
-                                  simularOp(bloc, context);
-                                  importeQuieroController.text = blocSimular
-                                      .simularOP.importeQuiero
-                                      .toString();
-                                }
-                                if (importeTengoController.text == '' &&
-                                    importeQuieroController.text != '') {
-                                  simularOp(bloc, context);
-                                  importeTengoController.text = blocSimular
-                                      .simularOP.importeTengo
-                                      .toString();
-                                }
-                                //  }
-                              },
-                              child: DropdownButton(
-                                  // hint: Image.asset(
-                                  //   'assets/images/uruguay.png',
-                                  //   width: 25,
-                                  // ),
-                                  isDense: true,
-                                  //hint: new Text("Seleccione una moneda"),
-                                  value: _monedaSeleccionadaTengo,
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _monedaSeleccionadaTengo = newValue;
-                                      jp.monedaTengo = MonedasProvider()
-                                          .buscarMoneda(newValue);
-                                    });
-                                  },
-                                  items: monedasMenuItem()),
-                            ),
+                            // child: FocusScope(
+                            //   onFocusChange: (value) {
+                            //     // if (!value) {
+                            //     if (importeQuieroController.text == '' &&
+                            //         importeTengoController.text != '') {
+                            //       simularOp(bloc, context);
+                            //       importeQuieroController.text = blocSimular
+                            //           .simularOP.importeQuiero
+                            //           .toString();
+                            //     }
+                            //     if (importeTengoController.text == '' &&
+                            //         importeQuieroController.text != '') {
+                            //       simularOp(bloc, context);
+                            //       importeTengoController.text = blocSimular
+                            //           .simularOP.importeTengo
+                            //           .toString();
+                            //     }
+                            //     //  }
+                            //   },
+                            child: DropdownButton(
+                                // hint: Image.asset(
+                                //   'assets/images/uruguay.png',
+                                //   width: 25,
+                                // ),
+                                isDense: true,
+                                //hint: new Text("Seleccione una moneda"),
+                                value: _monedaSeleccionadaTengo,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _monedaSeleccionadaTengo = newValue;
+                                    jp.monedaTengo = MonedasProvider()
+                                        .buscarMoneda(newValue);
+                                  });
+                                },
+                                items: monedasMenuItem()),
+                            //),
                           ),
                         ),
                       ),
@@ -382,75 +381,91 @@ class _HomePageState extends State<HomePage> {
                   width: 12,
                 ),
                 Container(
-                  width: 140,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.white),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: FocusScope(
-                    onFocusChange: (value) {
-                      if (!value) {
-                        if (importeTengoController.text != '') {
-                          importeQuieroController.text = '';
-                          simularOp(bloc, context);
-                          importeQuieroController.text =
-                              blocSimular.simularOP.importeQuiero.toString();
-                        }
-                      }
-                    },
-
-                    // child: CalculatorTextField(
-                    //   controller: importeTengoController,
-                    //   key: Key('tengo'),
-                    //   initialValue: tengoQuieroProvider
-                    //       .tengoCalculator, //importeQuieroCalculator,
-                    //   onSubmitted: (value) {
-                    //     setState(() {
-                    //       importeTengoController.text = '$value';
-                    //       tengoQuieroProvider.tengoCalculator = value;
-                    //       //CalculatorTextField(key: Key('quiero'))
-                    //       //    .onSubmitted(importeTengoCalculator = 2.5);
-                    //       tengoQuieroProvider.setearQuiero(1);
-                    //     });
+                    width: 140,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(10)),
+                    // child: FocusScope(
+                    //   onFocusChange: (value) {
+                    //     if (!value) {
+                    //       if (importeTengoController.text != '') {
+                    //         importeQuieroController.text = '';
+                    //         simularOp(bloc, context);
+                    //         importeQuieroController.text =
+                    //             blocSimular.simularOP.importeQuiero.toString();
+                    //       }
+                    //     }
                     //   },
-                    // )
-                    child: TextField(
-                      controller: importeTengoController,
-                      cursorColor: Colors.white,
+
+                    child: CalculatorTextField(
                       style: TextStyle(color: Colors.white),
-                      keyboardType: TextInputType.number,
-                      // inputFormatters: [
-                      //   new FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                      // ],
-                      autofocus: false,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                          focusColor: Colors.white,
-                          labelStyle: TextStyle(
-                              color: Colors.white,
-                              backgroundColor: Colors.blueAccent[500]),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          //contador de letras, ver si sirve y lo agregamos
-                          //counter: Text('Letras ${_nombre.length}'),
-                          // hintText: '',
-                          labelText: '$_monedaSeleccionadaTengo',
-                          //'$opcionMonedaSeleccionadaTengo',
-                          //ayuda al completar, lo saco. si quieren lo probamos. para mi no suma
-                          //helperText: 'Solo el $dato',
-                          suffixIcon: Icon(
-                            Icons.attach_money,
-                            color: Colors.white,
-                          )),
-                      onChanged: (valor) {
+                      key: UniqueKey(),
+                      initialValue: tengoQuieroProvider
+                          .tengoCalculator, //importeQuieroCalculator,
+                      onSubmitted: (value) {
                         setState(() {
-                          importeQuieroController.text = '';
-                          //importeTengoController.text = '';
+                          if (value != 0) {
+                            tengoQuieroProvider.quieroCalculator = 0;
+                            tengoQuieroProvider.tengoCalculator = value;
+                            // if (tengoQuieroProvider.tengoCalculator == 0) {
+                            simularOp(
+                                bloc,
+                                context,
+                                tengoQuieroProvider.tengoCalculator,
+                                tengoQuieroProvider.quieroCalculator);
+                            Timer(Duration(milliseconds: 300), () {
+                              tengoQuieroProvider.setearQuiero(
+                                  blocSimular.simularOP.importeQuiero);
+                            });
+                          }
+
+                          // tengoQuieroProvider.tengoCalculator = value;
+                          // if (tengoQuieroProvider.quieroCalculator == 0) {
+                          //   simularOp(bloc, context);
+                          //   tengoQuieroProvider.setearQuiero(
+                          //       blocSimular.simularOP.importeQuiero);
+                          // }
                         });
                       },
-                    ),
-                  ),
-                )
+                    )
+                    //   child: TextField(
+                    //     controller: importeTengoController,
+                    //     cursorColor: Colors.white,
+                    //     style: TextStyle(color: Colors.white),
+                    //     keyboardType: TextInputType.number,
+                    //     // inputFormatters: [
+                    //     //   new FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    //     // ],
+                    //     autofocus: false,
+                    //     textCapitalization: TextCapitalization.sentences,
+                    //     decoration: InputDecoration(
+                    //         focusColor: Colors.white,
+                    //         labelStyle: TextStyle(
+                    //             color: Colors.white,
+                    //             backgroundColor: Colors.blueAccent[500]),
+                    //         border: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.white),
+                    //             borderRadius: BorderRadius.circular(10.0)),
+                    //         //contador de letras, ver si sirve y lo agregamos
+                    //         //counter: Text('Letras ${_nombre.length}'),
+                    //         // hintText: '',
+                    //         labelText: '$_monedaSeleccionadaTengo',
+                    //         //'$opcionMonedaSeleccionadaTengo',
+                    //         //ayuda al completar, lo saco. si quieren lo probamos. para mi no suma
+                    //         //helperText: 'Solo el $dato',
+                    //         suffixIcon: Icon(
+                    //           Icons.attach_money,
+                    //           color: Colors.white,
+                    //         )),
+                    //     onChanged: (valor) {
+                    //       setState(() {
+                    //         importeQuieroController.text = '';
+                    //         //importeTengoController.text = '';
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
+                    )
               ]),
           SizedBox(
             height: 4,
@@ -477,59 +492,59 @@ class _HomePageState extends State<HomePage> {
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                             alignedDropdown: true,
-                            child: FocusScope(
-                              onFocusChange: (value) {
-                                // if (!value) {
-                                if (importeQuieroController.text == '' &&
-                                    importeTengoController.text != '') {
-                                  simularOp(bloc, context);
-                                  importeQuieroController.text = blocSimular
-                                      .simularOP.importeQuiero
-                                      .toString();
-                                }
-                                if (importeTengoController.text == '' &&
-                                    importeQuieroController.text != '') {
-                                  simularOp(bloc, context);
-                                  importeTengoController.text = blocSimular
-                                      .simularOP.importeTengo
-                                      .toString();
-                                }
-                                //}
-                              },
-                              child: DropdownButton(
-                                  isDense: true,
-                                  //hint: new Text("Seleccione una moneda"),
-                                  value: _monedaSeleccionadaQuiero,
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _monedaSeleccionadaQuiero = newValue;
-                                      jp.monedaQuiero = MonedasProvider()
-                                          .buscarMoneda(newValue);
-                                      // if (importeQuieroController.text != '' ||
-                                      //     importeTengoController.text != '') {
-                                      //   simularOp(bloc, context);
-                                      // }
-                                    });
-                                  },
-                                  items: monedasMenuItem()
+                            // child: FocusScope(
+                            //   onFocusChange: (value) {
+                            //     // if (!value) {
+                            //     if (importeQuieroController.text == '' &&
+                            //         importeTengoController.text != '') {
+                            //       simularOp(bloc, context);
+                            //       importeQuieroController.text = blocSimular
+                            //           .simularOP.importeQuiero
+                            //           .toString();
+                            //     }
+                            //     if (importeTengoController.text == '' &&
+                            //         importeQuieroController.text != '') {
+                            //       simularOp(bloc, context);
+                            //       importeTengoController.text = blocSimular
+                            //           .simularOP.importeTengo
+                            //           .toString();
+                            //     }
+                            //     //}
+                            //   },
+                            child: DropdownButton(
+                                isDense: true,
+                                //hint: new Text("Seleccione una moneda"),
+                                value: _monedaSeleccionadaQuiero,
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _monedaSeleccionadaQuiero = newValue;
+                                    jp.monedaQuiero = MonedasProvider()
+                                        .buscarMoneda(newValue);
+                                    // if (importeQuieroController.text != '' ||
+                                    //     importeTengoController.text != '') {
+                                    //   simularOp(bloc, context);
+                                    // }
+                                  });
+                                },
+                                items: monedasMenuItem()
 
-                                  //harcodeado!:
+                                //harcodeado!:
 
-                                  // jp.banderasJson.map((Map map) {
-                                  //   return new DropdownMenuItem(
-                                  //     value: map["combo"].toString(),
-                                  //     child: Image.asset(
-                                  //       map["image"],
-                                  //       width: 25,
-                                  //     ),
-                                  //   );
-                                  // }).toList(),
+                                // jp.banderasJson.map((Map map) {
+                                //   return new DropdownMenuItem(
+                                //     value: map["combo"].toString(),
+                                //     child: Image.asset(
+                                //       map["image"],
+                                //       width: 25,
+                                //     ),
+                                //   );
+                                // }).toList(),
 
-                                  ),
-                            ),
+                                ),
                           ),
                         ),
                       ),
+                      //),
                     ],
                   ),
                 ),
@@ -537,124 +552,137 @@ class _HomePageState extends State<HomePage> {
                   width: 12,
                 ),
                 Container(
-                  width: 140,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.white),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: FocusScope(
-                    onFocusChange: (value) {
-                      if (!value) {
-                        if (importeQuieroController.text != '') {
-                          importeTengoController.text = '';
-                          simularOp(bloc, context);
-                          importeTengoController.text =
-                              blocSimular.simularOP.importeTengo.toString();
-                        }
-                      }
-                    },
-                    child: TextField(
-                      //enabled: false,
+                    width: 140,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(10)),
+                    // child: FocusScope(
+                    //   onFocusChange: (value) {
+                    //     if (!value) {
+                    //       if (importeQuieroController.text != '') {
+                    //         importeTengoController.text = '';
+                    //         simularOp(bloc, context);
+                    //         importeTengoController.text =
+                    //             blocSimular.simularOP.importeTengo.toString();
+                    //       }
+                    //     }
+                    //   },
+                    //   child: TextField(
+                    //     //enabled: false,
 
-                      //Use focusNode and enableInteractiveSelection to make a
-                      //TextField in Flutter readonly so that it can respond to the onTap events:
+                    //     //Use focusNode and enableInteractiveSelection to make a
+                    //     //TextField in Flutter readonly so that it can respond to the onTap events:
 
-                      //focusNode: FocusNode(),
-                      //enableInteractiveSelection: false,
-                      controller: importeQuieroController,
-                      cursorColor: Colors.white,
+                    //     //focusNode: FocusNode(),
+                    //     //enableInteractiveSelection: false,
+                    //     controller: importeQuieroController,
+                    //     cursorColor: Colors.white,
+                    //     style: TextStyle(color: Colors.white),
+                    //     keyboardType: TextInputType.number,
+                    //     //autofocus: false,
+                    //     textCapitalization: TextCapitalization.sentences,
+                    //     decoration: InputDecoration(
+                    //         hoverColor: Colors.white,
+                    //         fillColor: Colors.white,
+                    //         labelStyle: TextStyle(color: Colors.white),
+                    //         border: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.white),
+                    //             borderRadius: BorderRadius.circular(10.0)),
+                    //         //contador de letras, ver si sirve y lo agregamos
+                    //         //counter: Text('Letras ${_nombre.length}'),
+                    //         // hintText: '',
+                    //         labelText: '$_monedaSeleccionadaQuiero',
+                    //         //ayuda al completar, lo saco. si quieren lo probamos. para mi no suma
+                    //         //helperText: 'Solo el $dato',
+                    //         suffixIcon: Icon(
+                    //           Icons.attach_money,
+                    //           color: Colors.white,
+                    //         )),
+                    //     onChanged: (valor) {
+                    //       setState(() {
+                    //         importeTengoController.text = '';
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
+                    child: CalculatorTextField(
                       style: TextStyle(color: Colors.white),
-                      keyboardType: TextInputType.number,
-                      //autofocus: false,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                          hoverColor: Colors.white,
-                          fillColor: Colors.white,
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          //contador de letras, ver si sirve y lo agregamos
-                          //counter: Text('Letras ${_nombre.length}'),
-                          // hintText: '',
-                          labelText: '$_monedaSeleccionadaQuiero',
-                          //ayuda al completar, lo saco. si quieren lo probamos. para mi no suma
-                          //helperText: 'Solo el $dato',
-                          suffixIcon: Icon(
-                            Icons.attach_money,
-                            color: Colors.white,
-                          )),
-                      onChanged: (valor) {
+                      key: UniqueKey(),
+                      initialValue: tengoQuieroProvider
+                          .quieroCalculator, //importeTengoCalculator,
+                      onSubmitted: (value) {
                         setState(() {
-                          importeTengoController.text = '';
+                          if (value != 0) {
+                            tengoQuieroProvider.tengoCalculator = 0;
+                            tengoQuieroProvider.quieroCalculator = value;
+                            // if (tengoQuieroProvider.tengoCalculator == 0) {
+                            simularOp(
+                                bloc,
+                                context,
+                                tengoQuieroProvider.tengoCalculator,
+                                tengoQuieroProvider.quieroCalculator);
+                            Timer(Duration(milliseconds: 300), () {
+                              tengoQuieroProvider.setearTengo(
+                                  blocSimular.simularOP.importeTengo);
+                            });
+                          }
+                          // }
                         });
                       },
-                    ),
-                  ),
-                  // child: CalculatorTextField(
-                  //   controller: importeQuieroController,
-                  //   key: Key('quiero'),
-                  //   initialValue: tengoQuieroProvider
-                  //       .quieroCalculator, //importeTengoCalculator,
-                  //   onSubmitted: (value) {
-                  //     setState(() {
-                  //       importeQuieroController.text = '$value';
-                  //       tengoQuieroProvider.quieroCalculator = value;
-                  //       //CalculatorTextField(key: Key('ponele'))
-                  //       //  .onSubmitted(importeQuieroCalculator = 1.0);
-                  //       tengoQuieroProvider.setearTengo(1111111);
-                  //     });
-                  //   },
-                  // )
-                )
+                    ))
               ]),
         ],
       ),
     );
   }
 
-  void simularOp(LoginBloc bloc, BuildContext context) {
-    if (importeQuieroController.text != '' ||
-        importeTengoController.text != '') {
-      double importeTengo;
-      double importeQuiero;
-      String tengoString;
-      String quieroString;
+  void simularOp(
+      LoginBloc bloc, BuildContext context, double tengo, double quiero) {
+    // if (importeQuieroController.text != '' ||
+    //     importeTengoController.text != '') {
 
-      if (importeTengoController.text == '') {
-        tengoString = '0';
-      } else {
-        tengoString = importeTengoController.text;
-      }
+    //   double importeTengo;
+    //   double importeQuiero;
+    //   String tengoString;
+    //   String quieroString;
 
-      if (importeQuieroController.text == '') {
-        quieroString = '0';
-      } else {
-        quieroString = importeQuieroController.text;
-      }
+    //   if (importeTengoController.text == '') {
+    //     tengoString = '0';
+    //   } else {
+    //     tengoString = importeTengoController.text;
+    //   }
 
-      try {
-        importeTengo = double.parse(tengoString);
-      } catch (e) {
-        importeTengo = 0;
-        //print(e);
-      }
+    //   if (importeQuieroController.text == '') {
+    //     quieroString = '0';
+    //   } else {
+    //     quieroString = importeQuieroController.text;
+    //   }
 
-      try {
-        importeQuiero = double.parse(quieroString);
-      } catch (e) {
-        importeQuiero = 0;
-        //print(e);
-      }
+    //   try {
+    //     importeTengo = double.parse(tengoString);
+    //   } catch (e) {
+    //     importeTengo = 0;
+    //     //print(e);
+    //   }
 
-      simularOpProvider.enviarSimulacionOp(
-          jp.monedaTengo,
-          jp.monedaQuiero,
-          importeTengo,
-          importeQuiero,
-          //0, //TC APLICADO, lo calcula la API : en nuevo modelo no va mas, lo dejo comentado
-          bloc.usuario != null ? bloc.usuario : null,
-          context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
-    }
+    //   try {
+    //     importeQuiero = double.parse(quieroString);
+    //   } catch (e) {
+    //     importeQuiero = 0;
+    //     //print(e);
+    //   }
+
+    simularOpProvider.enviarSimulacionOp(
+        jp.monedaTengo,
+        jp.monedaQuiero,
+        //importeTengo,
+        //importeQuiero,
+        tengo,
+        quiero,
+
+        //0, //TC APLICADO, lo calcula la API : en nuevo modelo no va mas, lo dejo comentado
+        bloc.usuario != null ? bloc.usuario : null,
+        context); //UsuarioModel(tipodoc: Tipodoc(pais: Pais()))
   }
 
   Widget _btnGenerarOp() {
