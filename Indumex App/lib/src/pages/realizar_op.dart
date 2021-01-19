@@ -111,22 +111,6 @@ class RealizarOp extends StatelessWidget {
       //     context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
   }
-void mostrarAlerta(BuildContext context, String mensaje) async {
- await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Algo no esta bien'),
-          content: Text (mensaje),
-          actions: <Widget>[
-            FlatButton( child: Text ('ok', style: TextStyle(color:Colors.red)),
-                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        onPressed: ()=>Navigator.of(context).pop),
-          ],
-        );
-      });
-}
-
 
 
 
@@ -153,11 +137,11 @@ void mostrarAlerta(BuildContext context, String mensaje) async {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Tc pizarra : PITO PITO", textAlign: TextAlign.start),
+                  Text("Tc pizarra : XXXXXXXXXXX", textAlign: TextAlign.start),
                   SizedBox(height: 5.0),
-                  Text("Tc cliente : PITO PITO"),
+                  Text("Tc cliente : XXXXXXXXXXX"),
                   SizedBox(height: 5.0),
-                  Text("Tc moneycard : PITO PITO"),
+                  Text("Tc moneycard : XXXXXXXXXX"),
                   SizedBox(height: 5.0),
                 ],
               )
@@ -182,9 +166,9 @@ void mostrarAlerta(BuildContext context, String mensaje) async {
             Column(
               children: [
                 SizedBox(height: 5.0),
-                Text("Entrega : pito "),
+                Text("Entrega :XXXXXXXXX"),
                 SizedBox(height: 5.0),
-                Text("Tipo de cambio : mas pito "),
+                Text("Tipo de cambio :XXXXXXXX "),
                 SizedBox(height: 10.0),
                 SizedBox(height: 5.0),
               ],

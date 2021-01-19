@@ -3,6 +3,8 @@ import 'package:formvalidation/src/pages/home_page.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 
+
+
 class AyudaPage extends StatefulWidget {
   @override
   _MyBottomBarDemoState createState() => new _MyBottomBarDemoState();
@@ -47,7 +49,7 @@ class _MyBottomBarDemoState extends State<AyudaPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem( icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: "Moneycard"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "RealizarOp"),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: "Sucursales"),
        //  BottomNavigationBarItem(icon: Icon(Icons.person), label: "Login"),
      
         ],

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
+import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
@@ -27,7 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
-  final bloc = LoginBloc();
+  // final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
   String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru 2
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 //boton generar operacion
                 _btnGenerarOp(),
                 //banner
-                _imagenBottom(),
+                _imagenBottom(bloc.usuario),
               ],
             ),
           ),
@@ -616,12 +617,14 @@ class _HomePageState extends State<HomePage> {
             // SizedBox(
             //   width: 10,
             // ),
+
             Container(
               //largo boton
               height: 70.0,
               //ancho
               width:
                   400, //167,   //medida para hacerlo con 2 botones en lugar de 1
+
               child: RaisedButton(
                 onPressed: () {
                   Navigator.push(
@@ -661,69 +664,68 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _imagenBottom() {
-    LoginBloc bloc = new LoginBloc();
+  Widget _imagenBottom(UsuarioModel usr) {
     //  final size = MediaQuery.of(context).size;
-    // if (bloc.usuario.id != null) {
-    return Expanded(
-      child: Stack(
-        children: [
-          Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: RaisedButton(onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SolicitudMoneycard(),
-                    ));
-              })),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            // height:
-            //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              // child: RaisedButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => SolicitudMoneycard(),
-              //         ));
-              //   },
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.bottomCenter,
+    if (usr == null) {
+      return Expanded(
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height:
+                  90 /*size.height * 0.1*/, // no se porque me saca un cachito..
+              child: Container(
+                child: RaisedButton(
+                 onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SolicitudMoneycard(),
+                        ));
+                  },
+                  child: Image.asset(
+                    'assets/imges/MoneyBottom.png',
+                    fit: BoxFit.cover,
+                    alignment: FractionalOffset.bottomCenter,
+                  ),
+                ),
               ),
             ),
-          ),
-          //),
-        ],
-      ),
-    );
-    // } else {
-    //   return Expanded(
-    //     child: Align(
-    //       alignment: FractionalOffset.bottomCenter,
-    //       child: MaterialButton(
-    //           onPressed: () => {
-    //                 Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(
-    //                     builder: (context) => SolicitudMoneycard(),
-    //                   ),
-    //                 ),
-    //               },
-    //           child: Image.asset(
-    //             'assets/images/MoneyBottom.png',
-    //             fit: BoxFit.cover,
-    //             alignment: FractionalOffset.bottomCenter,
-    //           )),
-    //     ),
-    //   );
-    // }
+            Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: RaisedButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolicitudMoneycard(),
+                      ));
+                })),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+        child: Align(
+          alignment: FractionalOffset.bottomCenter,
+          child: MaterialButton(
+              onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolicitudMoneycard(),
+                      ),
+                    ),
+                  },
+              child: Image.asset(
+                'assets/imges/MoneyBottom.png',
+                fit: BoxFit.cover,
+                alignment: FractionalOffset.bottomCenter,
+              )),
+        ),
+      );
+    }
   }
 
   monedasMenuItem() {
