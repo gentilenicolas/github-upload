@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 //boton generar operacion
                 _btnGenerarOp(),
                 //banner
-                _imagenBottom(bloc.usuario),
+                _imagenBottom(),
               ],
             ),
           ),
@@ -751,69 +751,75 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _imagenBottom(UsuarioModel usr) {
+  
+
+
+Widget _imagenBottom() {
+    LoginBloc bloc = new LoginBloc();
     //  final size = MediaQuery.of(context).size;
-    if (usr == null) {
-      return Expanded(
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height:
-                  90 /*size.height * 0.1*/, // no se porque me saca un cachito..
-              child: Container(
-                child: RaisedButton(
-                 onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SolicitudMoneycard(),
-                        ));
-                  },
-                  child: Image.asset(
-                    'assets/imges/MoneyBottom.png',
-                    fit: BoxFit.cover,
-                    alignment: FractionalOffset.bottomCenter,
-                  ),
-                ),
-              ),
-            ),
-            Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: RaisedButton(onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),
-                      ));
-                })),
-          ],
-        ),
-      );
-    } else {
-      return Expanded(
-        child: Align(
-          alignment: FractionalOffset.bottomCenter,
-          child: MaterialButton(
-              onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),
-                      ),
-                    ),
-                  },
+    // if (bloc.usuario != null) {
+    return Expanded(
+      child: Stack(
+        children: [
+          Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: RaisedButton(onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SolicitudMoneycard(),
+                    ));
+              })),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            // height:
+            //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            child: Container(
+              // child: RaisedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => SolicitudMoneycard(),
+              //         ));
+              //   },
               child: Image.asset(
-                'assets/imges/MoneyBottom.png',
+                'assets/images/MoneyBottom.png',
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.bottomCenter,
-              )),
-        ),
-      );
-    }
+              ),
+            ),
+          ),
+          //),
+        ],
+      ),
+    );
+    // } else {
+    //   return Expanded(
+    //     child: Align(
+    //       alignment: FractionalOffset.bottomCenter,
+    //       child: MaterialButton(
+    //           onPressed: () => {
+    //                 Navigator.push(
+    //                   context,
+    //                   MaterialPageRoute(
+    //                     builder: (context) => SolicitudMoneycard(),
+    //                   ),
+    //                 ),
+    //               },
+    //           child: Image.asset(
+    //             'assets/images/MoneyBottom.png',
+    //             fit: BoxFit.cover,
+    //             alignment: FractionalOffset.bottomCenter,
+    //           )),
+    //     ),
+    //   );
+    // }
   }
+
+
 
   monedasMenuItem() {
     List<DropdownMenuItem<String>> lista = new List();
