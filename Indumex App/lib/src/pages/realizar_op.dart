@@ -49,17 +49,21 @@ class RealizarOp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
-              _tiposDeCambio(blocLogin,context, simularBl),
+              _tiposDeCambio(blocLogin, context, simularBl),
               SizedBox(
                 width: size.width * 0.10,
               ),
               SizedBox(height: 10.0),
-              Text('RESUMEN DE OPERACION',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              Center(
+                child: Text('RESUMEN DE OPERACION',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              ),
               SizedBox(height: 10.0),
               _resumenOp(blocLogin),
-              Text('FORMAS DE PAGO',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              Center(
+                child: Text('FORMAS DE PAGO',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              ),
 
               Center(
                 child: Row(
@@ -69,7 +73,7 @@ class RealizarOp extends StatelessWidget {
                     _crearBotonTipoLiquidacionReturarSuc(blocLogin),
                     _crearBotonTipoLiquidacionMoney(blocLogin),
                     _crearBotonTipoLiquidacionTransf(blocLogin),
-                     prueba(),
+                    prueba(),
                   ],
                 ),
               ),
@@ -96,29 +100,43 @@ class RealizarOp extends StatelessWidget {
 
 //validarion usuario
 
-  UsuarioModel _existeUsuario(LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
-   
-   
-       if (bloc.usuario == null) {
+  UsuarioModel _existeUsuario(
+      LoginBloc bloc, BuildContext context, SimularBloc blSimular) {
+        print(bloc.usuario);
+    if (bloc != null) {
+      _tiposDeCambio(bloc, context, blSimular);
+    } else {
       mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
-    
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else {
-        
-      _tiposDeCambio(bloc,context, blSimular);
     }
-
-   
   }
+void mostrarAlerta(BuildContext context, String mensaje) async {
+ await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Algo no esta bien'),
+          content: Text (mensaje),
+          actions: <Widget>[
+            FlatButton( child: Text ('ok', style: TextStyle(color:Colors.red)),
+                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                        onPressed: ()=>Navigator.of(context).pop),
+          ],
+        );
+      });
+}
+
+
+
 
 //contenedor info tipos de cambio (card)
-  Widget _tiposDeCambio(LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
-   
+  Widget _tiposDeCambio(
+      LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
     final usr = _existeUsuario(bloc, context, simularBloc);
 
     if (usr == null) {
-     // usr.nombreCompleto = "";
+      // usr.nombreCompleto = "";
       mostrarAlerta(context, "");
     } else {
       return Card(
@@ -389,42 +407,36 @@ class RealizarOp extends StatelessWidget {
     );
   }
 
-
-
-  Widget prueba(){
-return  Container(
-          margin:EdgeInsets.all(8.0),
-          child: Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            child: InkWell(
-              onTap: () => print("ciao"),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      topRight: Radius.circular(8.0),
-                    ),
-                    child: Image.network(
-                        'https://placeimg.com/640/480/any',
-                       // width: 300,
-                        height: 150,
-                        fit:BoxFit.fill
-
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Pub 1'),
-                    subtitle: Text('Location 1'),
-                  ),
-                ],
+  Widget prueba() {
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        child: InkWell(
+          onTap: () => print("Chau"),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch, // add this
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+                child: Image.network('https://placeimg.com/640/480/any',
+                    // width: 300,
+                    height: 150,
+                    fit: BoxFit.fill),
               ),
-            ),
+              ListTile(
+                title: Text('Pub 1'),
+                subtitle: Text('Location 1'),
+              ),
+            ],
           ),
-        );
-
-
+        ),
+      ),
+    );
   }
 
 /*
@@ -475,7 +487,8 @@ return  Container(
   }
 
 //
-  _contenidoRealizarOp( BuildContext context, LoginBloc bloc, SimularBloc simula) {
+  _contenidoRealizarOp(
+      BuildContext context, LoginBloc bloc, SimularBloc simula) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
@@ -485,7 +498,7 @@ return  Container(
         padding: EdgeInsets.all(25),
         children: <Widget>[
           SizedBox(height: 30.0),
-          _tiposDeCambio(bloc,context, simula),
+          _tiposDeCambio(bloc, context, simula),
           SizedBox(height: 30.0),
           _resumenOp(bloc),
         ],
