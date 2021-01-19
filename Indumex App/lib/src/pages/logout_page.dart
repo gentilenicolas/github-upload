@@ -59,7 +59,7 @@ class LogOut extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[400],
+       // backgroundColor: Colors.blueAccent[400],
         actions: [],
       ),
       //fondo gradiente
@@ -71,14 +71,14 @@ class LogOut extends StatelessWidget {
               _salir(bloc, context),
             ],
           ),
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [estilos.gradientStart, estilos.gradientEnd],
-                begin: const FractionalOffset(0.5, 0.0),
-                end: const FractionalOffset(0.0, 0.5),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
-          ),
+          // decoration: new BoxDecoration(
+          //   gradient: new LinearGradient(
+          //       colors: [estilos.gradientStart, estilos.gradientEnd],
+          //       begin: const FractionalOffset(0.5, 0.0),
+          //       end: const FractionalOffset(0.0, 0.5),
+          //       stops: [0.0, 1.0],
+          //       tileMode: TileMode.clamp),
+          //),
         ),
       ),
     );

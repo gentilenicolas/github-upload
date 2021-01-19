@@ -150,18 +150,18 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             );
           },
         ),*/
-        ListTile(
-          title: Text('PAGINA DE PRUEBAS'),
-          leading: Icon(Icons.sensor_door),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MonedaPage(),
-              ),
-            );
-          },
-        ),
+        // ListTile(
+        //   title: Text('PAGINA DE PRUEBAS'),
+        //   leading: Icon(Icons.sensor_door),
+        //   onTap: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => MonedaPage(),
+        //       ),
+        //     );
+        //   },
+        // ),
       ],
     ),
   );
@@ -170,7 +170,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
 //redireccion al context
 
 Widget _redireccionAlBottom(BuildContext context, LoginBloc bloc) {
-  if (bloc.usuario.id != null) {
+  if (bloc.usuario != null) {
     return ListTile(
       title: Text('AYUDA'),
       leading: Icon(Icons.help),
