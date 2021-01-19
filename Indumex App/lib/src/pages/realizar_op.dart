@@ -392,8 +392,8 @@ void mostrarAlerta(BuildContext context, String mensaje) async {
                         MaterialPageRoute(builder: (context) => TranfBrou()),
                       );
                     }),
-                Text('Transferencia bancaria'),
-              ],
+               Text('Transferencia bancaria'),
+                  ],
             ),
 
             width: 100,

@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   final importeQuieroController = new TextEditingController();
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = jp.monedas[1].descripcion; //pesos uru
-  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares
+  String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru 2
+  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom
 
@@ -681,8 +681,8 @@ class _HomePageState extends State<HomePage> {
             bottom: 0,
             left: 0,
             right: 0,
-            height:
-                87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+            // height:
+            //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
             child: Container(
               // child: RaisedButton(
               //   onPressed: () {

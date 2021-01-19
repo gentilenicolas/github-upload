@@ -170,7 +170,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
 //redireccion al context
 
 Widget _redireccionAlBottom(BuildContext context, LoginBloc bloc) {
-  if (bloc.usuario.id != null) {
+  if (bloc.usuario != null) {
     return ListTile(
       title: Text('AYUDA'),
       leading: Icon(Icons.help),
