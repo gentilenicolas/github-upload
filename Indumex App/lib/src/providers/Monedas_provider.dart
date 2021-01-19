@@ -33,9 +33,6 @@ class MonedasProvider {
   }
 
   MonedaModel buscarMoneda(String descripcion) {
-    if (descripcion == 'Euros') {
-      descripcion = 'Euro';
-    }
     MonedaModel retorno;
 
     for (int i = 0; i < monedas.length; i++) {

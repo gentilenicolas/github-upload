@@ -14,7 +14,7 @@ class LoginProvider extends InheritedWidget {
   factory LoginProvider({Key key, Widget child}) {
     if (_instancia == null) {
       _instancia = new LoginProvider._internal(
-          key: key,
+          key: key, //te muestro que no se usa
           child:
               child); //creo el constructor privado par aqu eno se inicialice desde afuera
     }
@@ -31,7 +31,6 @@ class LoginProvider extends InheritedWidget {
   final loginBloc = LoginBloc(); // es una propiedad de instancia de login bloc
 
   @override
-  
   bool updateShouldNotify(InheritedWidget oldWidget) =>
       true; // esto es para que se actualice todo el dia.
 
