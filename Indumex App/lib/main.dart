@@ -6,6 +6,7 @@ import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/localidades_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:formvalidation/src/providers/realizarOp_provider.dart';
+import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
 import 'package:formvalidation/src/routes/routes.dart';
 import 'package:formvalidation/src/share_prefs/preferencias_usuario.dart';
 import 'package:formvalidation/src/utils/funciones.dart';
@@ -38,11 +39,14 @@ class InduApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LocalidadesProvider>(
             create: (_) => new LocalidadesProvider()),
+        ChangeNotifierProvider<TengoQuieroProvider>(
+            create: (_) => new TengoQuieroProvider()),
         //aca van los demas providers, podes hacerte un provider de logueado
         //Provider<Clase> (create: (_) => new Clase())    como ejemplo, clase puede ser login, loguead, lo que venga fijate
       ],
       child: SimularOpProvider(
-        child: RealizarOpProvider( // la meti ,porque no se si necesita que traiga a lsog s los providers sino se va
+        child: RealizarOpProvider(
+          // la meti ,porque no se si necesita que traiga a lsog s los providers sino se va
           child: LoginProvider(
             child: GestureDetector(
               onTap: () {

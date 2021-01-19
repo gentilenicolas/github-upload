@@ -96,6 +96,7 @@ import 'package:formvalidation/src/models/Moneycard_model.dart';
 import 'package:formvalidation/src/utils/funciones.dart' as funciones;
 import 'package:formvalidation/src/utils/juego_pruebas.dart';
 
+
 void main() => runApp(Sucursales());
 
 //   @override
@@ -120,17 +121,31 @@ class _Sucursales extends State<Sucursales> with ChangeNotifier {
       title: 'Sucursales',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          backgroundColor: Colors.blue,
+          actions: <Widget>[],
+          title: Image(
+            image: AssetImage('assets/images/indumex-logo.png'),
+            width: 200,
+          ),
         ),
         body: Row(
           children: [
             Column(
               children: [
                 _inputSucursales('Sucursal', sucursales),
+                imagen(),
               ],
             ),
           ],
         ),
+        // decoration: new BoxDecoration(
+        //   gradient: new LinearGradient(
+        //       colors: [estilos.gradientStart, estilos.gradientEnd],
+        //       begin: const FractionalOffset(0.5, 0.0),
+        //       end: const FractionalOffset(0.0, 0.5),
+        //       stops: [0.0, 1.0],
+        //       tileMode: TileMode.clamp),
+        // ),
       ),
     );
   }
@@ -138,22 +153,45 @@ class _Sucursales extends State<Sucursales> with ChangeNotifier {
   Widget _inputSucursales(String titulo, List<String> lista) {
     moneycard.sucursalRetiro = opcionSeleccionadaSucursal;
 
-    return Row(
-      children: [
-        SizedBox(
-          width: 20.0,
+    return Container(
+     
+        child: Center(
+          child: Row(
+            children: [
+              SizedBox(
+                width: 20.0,
+              ),
+              DropdownButton(
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  value: opcionSeleccionadaSucursal,
+                  items: funciones.obtenerValorDelDropdownList(lista),
+                  onChanged: (opt) {
+                    setState(() {
+                      opcionSeleccionadaSucursal = opt;
+                      moneycard.sucursalRetiro = opt;
+                    });
+                  })
+            ],
+          ),
         ),
-        DropdownButton(
-            style: TextStyle(fontSize: 15, color: Colors.black),
-            value: opcionSeleccionadaSucursal,
-            items: funciones.obtenerValorDelDropdownList(lista),
-            onChanged: (opt) {
-              setState(() {
-                opcionSeleccionadaSucursal = opt;
-                moneycard.sucursalRetiro = opt;
-              });
-            })
-      ],
+    
+    );
+  }
+
+  Widget imagen() {
+    return Container(
+      child: Card(
+        child: Center(
+          child: Image(
+            image: AssetImage('assets/images/sucursales.PNG'),
+            fit: BoxFit.contain,
+            //fadeOutDuration: Duration(milliseconds: 9000),
+            //fadeInDuration: Duration(milliseconds: 1000),
+            height: 100,
+            width: 170,
+          ),
+        ),
+      ),
     );
   }
 }

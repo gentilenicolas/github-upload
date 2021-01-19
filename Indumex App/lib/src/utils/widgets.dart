@@ -150,18 +150,18 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             );
           },
         ),*/
-        ListTile(
-          title: Text('PAGINA DE PRUEBAS'),
-          leading: Icon(Icons.sensor_door),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MonedaPage(),
-              ),
-            );
-          },
-        ),
+        // ListTile(
+        //   title: Text('PAGINA DE PRUEBAS'),
+        //   leading: Icon(Icons.sensor_door),
+        //   onTap: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => MonedaPage(),
+        //       ),
+        //     );
+        //   },
+        // ),
       ],
     ),
   );
