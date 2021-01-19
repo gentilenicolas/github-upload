@@ -12,10 +12,13 @@ import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/providers/Pizarra_provider.dart';
+import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:input_calculator/input_calculator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -26,8 +29,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double importeTengoCalculator = 0;
+  double importeQuieroCalculator = 0;
+
   final importeTengoController = new TextEditingController();
   final importeQuieroController = new TextEditingController();
+
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
   String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru
@@ -297,6 +304,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _btnTengoQuiero(LoginBloc bloc) {
+    final tengoQuieroProvider = Provider.of<TengoQuieroProvider>(context);
+
     final blocSimular = SimularOpProvider.of(context);
 
     return Container(
@@ -327,22 +336,42 @@ class _HomePageState extends State<HomePage> {
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                             alignedDropdown: true,
-                            child: DropdownButton<String>(
-                                // hint: Image.asset(
-                                //   'assets/images/uruguay.png',
-                                //   width: 25,
-                                // ),
-                                isDense: true,
-                                //hint: new Text("Seleccione una moneda"),
-                                value: _monedaSeleccionadaTengo,
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _monedaSeleccionadaTengo = newValue;
-                                    jp.monedaTengo = MonedasProvider()
-                                        .buscarMoneda(newValue);
-                                  });
-                                },
-                                items: monedasMenuItem()),
+                            child: FocusScope(
+                              onFocusChange: (value) {
+                                // if (!value) {
+                                if (importeQuieroController.text == '' &&
+                                    importeTengoController.text != '') {
+                                  simularOp(bloc, context);
+                                  importeQuieroController.text = blocSimular
+                                      .simularOP.importeQuiero
+                                      .toString();
+                                }
+                                if (importeTengoController.text == '' &&
+                                    importeQuieroController.text != '') {
+                                  simularOp(bloc, context);
+                                  importeTengoController.text = blocSimular
+                                      .simularOP.importeTengo
+                                      .toString();
+                                }
+                                //  }
+                              },
+                              child: DropdownButton(
+                                  // hint: Image.asset(
+                                  //   'assets/images/uruguay.png',
+                                  //   width: 25,
+                                  // ),
+                                  isDense: true,
+                                  //hint: new Text("Seleccione una moneda"),
+                                  value: _monedaSeleccionadaTengo,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _monedaSeleccionadaTengo = newValue;
+                                      jp.monedaTengo = MonedasProvider()
+                                          .buscarMoneda(newValue);
+                                    });
+                                  },
+                                  items: monedasMenuItem()),
+                            ),
                           ),
                         ),
                       ),
@@ -359,14 +388,31 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(10)),
                   child: FocusScope(
                     onFocusChange: (value) {
-                      if (value) {
-                        simularOp(bloc, context);
-                        // importeTengoController.text =
-                        //     blocSimular.simularOP.importeTengo.toString();
-                        // importeQuieroController.text =
-                        //     blocSimular.simularOP.importeQuiero.toString();
+                      if (!value) {
+                        if (importeTengoController.text != '') {
+                          importeQuieroController.text = '';
+                          simularOp(bloc, context);
+                          importeQuieroController.text =
+                              blocSimular.simularOP.importeQuiero.toString();
+                        }
                       }
                     },
+
+                    // child: CalculatorTextField(
+                    //   controller: importeTengoController,
+                    //   key: Key('tengo'),
+                    //   initialValue: tengoQuieroProvider
+                    //       .tengoCalculator, //importeQuieroCalculator,
+                    //   onSubmitted: (value) {
+                    //     setState(() {
+                    //       importeTengoController.text = '$value';
+                    //       tengoQuieroProvider.tengoCalculator = value;
+                    //       //CalculatorTextField(key: Key('quiero'))
+                    //       //    .onSubmitted(importeTengoCalculator = 2.5);
+                    //       tengoQuieroProvider.setearQuiero(1);
+                    //     });
+                    //   },
+                    // )
                     child: TextField(
                       controller: importeTengoController,
                       cursorColor: Colors.white,
@@ -399,6 +445,7 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (valor) {
                         setState(() {
                           importeQuieroController.text = '';
+                          //importeTengoController.text = '';
                         });
                       },
                     ),
@@ -430,32 +477,56 @@ class _HomePageState extends State<HomePage> {
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                             alignedDropdown: true,
-                            child: DropdownButton(
-                                isDense: true,
-                                //hint: new Text("Seleccione una moneda"),
-                                value: _monedaSeleccionadaQuiero,
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _monedaSeleccionadaQuiero = newValue;
-                                    jp.monedaQuiero = MonedasProvider()
-                                        .buscarMoneda(newValue);
-                                  });
-                                },
-                                items: monedasMenuItem()
+                            child: FocusScope(
+                              onFocusChange: (value) {
+                                // if (!value) {
+                                if (importeQuieroController.text == '' &&
+                                    importeTengoController.text != '') {
+                                  simularOp(bloc, context);
+                                  importeQuieroController.text = blocSimular
+                                      .simularOP.importeQuiero
+                                      .toString();
+                                }
+                                if (importeTengoController.text == '' &&
+                                    importeQuieroController.text != '') {
+                                  simularOp(bloc, context);
+                                  importeTengoController.text = blocSimular
+                                      .simularOP.importeTengo
+                                      .toString();
+                                }
+                                //}
+                              },
+                              child: DropdownButton(
+                                  isDense: true,
+                                  //hint: new Text("Seleccione una moneda"),
+                                  value: _monedaSeleccionadaQuiero,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _monedaSeleccionadaQuiero = newValue;
+                                      jp.monedaQuiero = MonedasProvider()
+                                          .buscarMoneda(newValue);
+                                      // if (importeQuieroController.text != '' ||
+                                      //     importeTengoController.text != '') {
+                                      //   simularOp(bloc, context);
+                                      // }
+                                    });
+                                  },
+                                  items: monedasMenuItem()
 
-                                //harcodeado!:
+                                  //harcodeado!:
 
-                                // jp.banderasJson.map((Map map) {
-                                //   return new DropdownMenuItem(
-                                //     value: map["combo"].toString(),
-                                //     child: Image.asset(
-                                //       map["image"],
-                                //       width: 25,
-                                //     ),
-                                //   );
-                                // }).toList(),
+                                  // jp.banderasJson.map((Map map) {
+                                  //   return new DropdownMenuItem(
+                                  //     value: map["combo"].toString(),
+                                  //     child: Image.asset(
+                                  //       map["image"],
+                                  //       width: 25,
+                                  //     ),
+                                  //   );
+                                  // }).toList(),
 
-                                ),
+                                  ),
+                            ),
                           ),
                         ),
                       ),
@@ -472,12 +543,13 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(10)),
                   child: FocusScope(
                     onFocusChange: (value) {
-                      if (value) {
-                        simularOp(bloc, context);
-                        // importeTengoController.text =
-                        //     blocSimular.simularOP.importeTengo.toString();
-                        // importeQuieroController.text =
-                        //     blocSimular.simularOP.importeQuiero.toString();
+                      if (!value) {
+                        if (importeQuieroController.text != '') {
+                          importeTengoController.text = '';
+                          simularOp(bloc, context);
+                          importeTengoController.text =
+                              blocSimular.simularOP.importeTengo.toString();
+                        }
                       }
                     },
                     child: TextField(
@@ -518,6 +590,21 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
+                  // child: CalculatorTextField(
+                  //   controller: importeQuieroController,
+                  //   key: Key('quiero'),
+                  //   initialValue: tengoQuieroProvider
+                  //       .quieroCalculator, //importeTengoCalculator,
+                  //   onSubmitted: (value) {
+                  //     setState(() {
+                  //       importeQuieroController.text = '$value';
+                  //       tengoQuieroProvider.quieroCalculator = value;
+                  //       //CalculatorTextField(key: Key('ponele'))
+                  //       //  .onSubmitted(importeQuieroCalculator = 1.0);
+                  //       tengoQuieroProvider.setearTengo(1111111);
+                  //     });
+                  //   },
+                  // )
                 )
               ]),
         ],
@@ -549,14 +636,14 @@ class _HomePageState extends State<HomePage> {
         importeTengo = double.parse(tengoString);
       } catch (e) {
         importeTengo = 0;
-        print(e);
+        //print(e);
       }
 
       try {
         importeQuiero = double.parse(quieroString);
       } catch (e) {
         importeQuiero = 0;
-        print(e);
+        //print(e);
       }
 
       simularOpProvider.enviarSimulacionOp(

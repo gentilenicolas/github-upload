@@ -17,23 +17,22 @@ class Productos extends StatelessWidget {
                 }),s
           ),*/
           body: StreamBuilder(
-            stream: productosBloc.getProductos,
-            builder: (_, AsyncSnapshot snapshot) {
-              final productos = snapshot.data ?? [];
-            //contador de productos
-              return ListView.builder(
-                 // itemCount: productos.length,
-                  itemBuilder: (_, i) {
-                    return ListTile(
-                        title: Text(productos[i]),
-                       
-                        onTap: () {
-                          const url = 'https://www.google.com';
-                          launch(url);
-                        });
-                  });
-            },
-          )),
+        stream: productosBloc.getProductos,
+        builder: (_, AsyncSnapshot snapshot) {
+          final productos = snapshot.data ?? [];
+          //contador de productos
+          return ListView.builder(
+              // itemCount: productos.length,
+              itemBuilder: (_, i) {
+            return ListTile(
+                title: Text(productos[i]),
+                onTap: () {
+                  const url = 'https://www.google.com';
+                  launch(url);
+                });
+          });
+        },
+      )),
     );
   }
 /*
