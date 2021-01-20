@@ -14,10 +14,10 @@ import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/pages/realizar_op.dart';
 import 'package:formvalidation/src/providers/Pizarra_provider.dart';
-import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
 import 'package:formvalidation/src/utils/estilos.dart' as estilos;
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart' as jp;
+import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:input_calculator/input_calculator.dart';
@@ -398,10 +398,10 @@ class _HomePageState extends State<HomePage> {
                     //   },
 
                     child: CalculatorTextField(
+                      allowNegativeResult: false,
                       style: TextStyle(color: Colors.white),
                       key: UniqueKey(),
-                      initialValue: tengoQuieroProvider
-                          .tengoCalculator, //importeQuieroCalculator,
+                      initialValue: tengoQuieroProvider.tengoCalculator,
                       onSubmitted: (value) {
                         setState(() {
                           if (value != 0) {
@@ -413,10 +413,10 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 tengoQuieroProvider.tengoCalculator,
                                 tengoQuieroProvider.quieroCalculator);
-                            Timer(Duration(milliseconds: 300), () {
-                              tengoQuieroProvider.setearQuiero(
-                                  blocSimular.simularOP.importeQuiero);
-                            });
+                            // Timer(Duration(milliseconds: 300), () {
+                            //   tengoQuieroProvider.setearQuiero(
+                            //       blocSimular.simularOP.importeQuiero);
+                            // });
                           }
 
                           // tengoQuieroProvider.tengoCalculator = value;
@@ -606,10 +606,11 @@ class _HomePageState extends State<HomePage> {
                     //   ),
                     // ),
                     child: CalculatorTextField(
+                      allowNegativeResult: false,
                       style: TextStyle(color: Colors.white),
                       key: UniqueKey(),
-                      initialValue: tengoQuieroProvider
-                          .quieroCalculator, //importeTengoCalculator,
+                      initialValue: tengoQuieroProvider.quieroCalculator,
+                      //onTap: () => tengoQuieroProvider.setearQuiero(0),
                       onSubmitted: (value) {
                         setState(() {
                           if (value != 0) {
@@ -621,10 +622,10 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 tengoQuieroProvider.tengoCalculator,
                                 tengoQuieroProvider.quieroCalculator);
-                            Timer(Duration(milliseconds: 300), () {
-                              tengoQuieroProvider.setearTengo(
-                                  blocSimular.simularOP.importeTengo);
-                            });
+                            // Timer(Duration(milliseconds: 300), () {
+                            //   tengoQuieroProvider.setearTengo(
+                            //       blocSimular.simularOP.importeTengo);
+                            // });
                           }
                           // }
                         });
@@ -779,10 +780,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  
-
-
-Widget _imagenBottom() {
+  Widget _imagenBottom() {
     LoginBloc bloc = new LoginBloc();
     //  final size = MediaQuery.of(context).size;
     // if (bloc.usuario != null) {
@@ -846,8 +844,6 @@ Widget _imagenBottom() {
     //   );
     // }
   }
-
-
 
   monedasMenuItem() {
     List<DropdownMenuItem<String>> lista = new List();
