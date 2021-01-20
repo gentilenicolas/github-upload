@@ -7,6 +7,7 @@ import 'package:formvalidation/src/utils/juego_pruebas.dart';
 class TengoQuieroProvider with ChangeNotifier {
   double tengoCalculator = 0;
   double quieroCalculator = 0;
+  double _prueba = 0;
 
   setearTengo(double tengo) {
     tengoCalculator = tengo;
