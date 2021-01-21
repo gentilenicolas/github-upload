@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/pages/tranfe_money_page.dart';
 import 'package:formvalidation/src/pages/transfe_brou_page.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
@@ -44,11 +45,11 @@ class RealizarOp extends StatelessWidget {
               //_contenidoRealizarOp(context , bloc)/*
               _tiposDeCambio(bloc, context),
               SizedBox(
-                width: size.width * 0.10,
+                width: size.width * 0.15,
               ),
-              Text('RESUMEN DE OPERACION',
-                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-              SizedBox(height: 10.0),
+              // Text('RESUMEN DE OPERACION',
+              //     style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+              SizedBox(height: 15.0),
               _resumenOp(bloc),
 
               SizedBox(height: 10.0),
@@ -58,15 +59,7 @@ class RealizarOp extends StatelessWidget {
               _formasDePago(bloc),
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
-              // Center(
-              //   child: Row(
-              //     children: [
-              //       _crearBotonTipoLiquidacionReturarSuc(bloc),
-              //       _crearBotonTipoLiquidacionMoney(bloc),
-              //       _crearBotonTipoLiquidacionTransf(bloc)
-              //     ],
-              //   ),
-              // ),
+           
             ],
           ), /*
         decoration: new BoxDecoration(
@@ -138,6 +131,8 @@ class RealizarOp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+               Text('RESUMEN DE OPERACION',
+                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               ListTile(
                 title: Text('Entrego y recibo :' /*+ usr.nombreCompleto*/),
                               ),
@@ -335,7 +330,7 @@ class RealizarOp extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TranfMoney()),
+                        MaterialPageRoute(builder: (context) => Sucursales()),
                       );
                     }),
                 Text('Retirar por sucursal'),
