@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   final bloc = LoginBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = jp.monedas[1].descripcion; //pesos uru 2
+  String _monedaSeleccionadaTengo = jp.monedas[0].descripcion; //pesos uru 2
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
   final pizarraProvider = new PizarraProvider();
   int _selectedIndex = 0; // bottom

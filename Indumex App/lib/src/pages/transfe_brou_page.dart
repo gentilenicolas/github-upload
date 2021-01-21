@@ -10,7 +10,7 @@ class TranfBrou extends StatelessWidget {
       title: 'Tranfe Brou',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          title: Text('Transferencia por Brou'),
         ),
         body: Center(
           child: Container(

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
+import 'package:formvalidation/src/pages/tranfe_money_page.dart';
+import 'package:formvalidation/src/pages/transfe_brou_page.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
@@ -36,7 +38,7 @@ class RealizarOp extends StatelessWidget {
       //fondo gradiente
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          margin: EdgeInsets.all(15),
           child: Column(
             children: <Widget>[
               //_contenidoRealizarOp(context , bloc)/*
@@ -56,15 +58,15 @@ class RealizarOp extends StatelessWidget {
               _formasDePago(bloc),
               SizedBox(height: 10.0),
               _btnRealizarOp(context),
-              Center(
-                child: Row(
-                  children: [
-                    _crearBotonTipoLiquidacionReturarSuc(bloc),
-                    _crearBotonTipoLiquidacionMoney(bloc),
-                    _crearBotonTipoLiquidacionTransf(bloc)
-                  ],
-                ),
-              ),
+              // Center(
+              //   child: Row(
+              //     children: [
+              //       _crearBotonTipoLiquidacionReturarSuc(bloc),
+              //       _crearBotonTipoLiquidacionMoney(bloc),
+              //       _crearBotonTipoLiquidacionTransf(bloc)
+              //     ],
+              //   ),
+              // ),
             ],
           ), /*
         decoration: new BoxDecoration(
@@ -78,125 +80,116 @@ class RealizarOp extends StatelessWidget {
         ),
       ),
 
-     // bottomNavigationBar: _bottomNavigationBar(),
+      // bottomNavigationBar: _bottomNavigationBar(),
       endDrawer: master.menuDrawer(context, bloc),
     );
   }
 
-//validarion usuario
-
-  UsuarioModel _usuario(LoginBloc bloc, BuildContext context) {
-    final usr = bloc.usuario;
-
-    if (_validar == false) {
-      _tiposDeCambio(bloc, context);
-      mostrarAlerta(context, 'Debe estar logueado para realizar la operacion');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else {
-      UsuarioModel usuario = new UsuarioModel();
-      return usuario;
-    }
-    return usr;
-  }
-
-  bool _validar(LoginBloc bloc, BuildContext context) {
-    bool ok = false;
-  }
-
 //contenedor info tipos de cambio (card)
   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context) {
-    final usr = _usuario(bloc, context);
+    // final usr = bloc.usuario;
 
-    if (usr == null) {
-      mostrarAlerta(context, "Debe loguearce para realizar esta accción");
-      usr.nombreCompleto = "";
-    }
-    return Card(
-      elevation: 24.0,
-      child: Column(children: <Widget>[
-        ListTile(
-          title: Text('Moneda :' /*+ usr.nombreCompleto*/),
-          subtitle: Text('para abajo los distintos tipos de cambio'),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Tc pizarra : xxxxxxxxxxx", textAlign: TextAlign.start),
-                SizedBox(height: 5.0),
-                Text("Tc cliente : xxxxxxxxxxx"),
-                SizedBox(height: 5.0),
-                Text("Tc moneycard :xxxxxxxxxx"),
-                SizedBox(height: 5.0),
-              ],
-            )
-          ],
-        )
-      ]),
+    //mostrarAlerta(context, "Debe loguearce para realizar esta accción");
+
+    return Center(
+      child: Card(
+        elevation: 24.0,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ListTile(
+                title: Text('Moneda :' /*+ usr.nombreCompleto*/),
+                subtitle: Text('Cotizaciones para distinto tipo de usuario:'),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 15),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Tc pizarra : xxxxhhhhhxxxxxxxxxx",
+                          style: TextStyle(fontSize: 15)),
+                    ),
+                    Padding(
+                      child: Text("Tc cliente : xxddddddffffrrrrrxxxxxxxx",
+                          style: TextStyle(fontSize: 15)),
+                      padding: const EdgeInsets.all(8.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Tc moneycard :xrrrxxffffffffssssxxx",
+                          style: TextStyle(fontSize: 15)),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+      ),
     );
   }
 
 //contenedor resumen de operacion
   Widget _resumenOp(LoginBloc bloc) {
-    return Card(
-      elevation: 24.0,
-      child: Column(children: <Widget>[
-        ListTile(
-          title: Text('Resumen de operacion'),
-          subtitle: Text('resumen'),
-        ),
-        Column(
-          children: <Widget>[
-            Column(
-              children: [
-                SizedBox(height: 5.0),
-                Text("Entrega :xxxxxxxxxxx "),
-                SizedBox(height: 5.0),
-                Text("Tipo de cambio : xxxxxxxxxx "),
-                SizedBox(height: 10.0),
-                SizedBox(height: 5.0),
-              ],
-            )
-          ],
-        ),
-      ]),
+    return Center(
+      child: Card(
+        elevation: 24.0,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ListTile(
+                title: Text('Entrego y recibo :' /*+ usr.nombreCompleto*/),
+                              ),
+              Container(
+                margin: EdgeInsets.only(left: 15),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Tc pizarra : xxxxhhhhhxxxxxxxxxx",
+                          style: TextStyle(fontSize: 15)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Tc moneycard :xrrrxxffffffffssssxxx",
+                          style: TextStyle(fontSize: 20)),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+      ),
     );
   }
 
-  //contenedor resumen de operacion
+  //contenedor botones tipo op
   Widget _formasDePago(LoginBloc bloc) {
     return Card(
       elevation: 24.0,
-      child: Column(children: <Widget>[
-        ListTile(
-          title: Text('Resumen de operacion'),
-          subtitle: Text('resumen'),
-        ),
-        Column(
+      child: Container(
+         margin: EdgeInsets.all(15),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+
           children: <Widget>[
-            Column(
-              children: [
-                SizedBox(height: 5.0),
-                Text("Entrega :xxxxxxxxxxxxxx"),
-                SizedBox(height: 5.0),
-                Text("Tipo de cambio : xxxxxxxxxx "),
-                SizedBox(height: 10.0),
-                SizedBox(height: 5.0),
-              ],
-            )
-          ],
-        ),
-      ]),
+          Row(
+            children: [
+              _crearBotonTipoLiquidacionMoney(bloc),
+              _crearBotonTipoLiquidacionReturarSuc(bloc),
+              _crearBotonTipoLiquidacionTransf(bloc),
+            ],
+          )
+        ]),
+      ),
     );
   }
 
+  //confirmar OP
+
   Widget _btnRealizarOp(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+      //margin: EdgeInsets.all(05),
       child: Center(
         child: Column(
           children: <Widget>[
@@ -283,20 +276,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.credit_card,
-                    size: 20.0,
-                  ),
-                  onPressed: null,
-                ),
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.credit_card,
+                      size: 25.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TranfMoney()),
+                      );
+                    }),
                 Text('Deposito Moneycard'),
               ],
             ),
@@ -311,7 +308,6 @@ class RealizarOp extends StatelessWidget {
       },
     );
   }
-
   //liquidacion por surcursal
 
   Widget _crearBotonTipoLiquidacionReturarSuc(LoginBloc bloc) {
@@ -324,20 +320,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.store,
-                    size: 20.0,
-                  ),
-                  onPressed: null,
-                ),
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.map,
+                     size: 25.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TranfMoney()),
+                      );
+                    }),
                 Text('Retirar por sucursal'),
               ],
             ),
@@ -364,20 +364,24 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          color: Colors.orange[600],
-                          style: BorderStyle.solid)),
-                  elevation: 24.0,
-                  color: Colors.orange[500],
-                  textColor: Colors.white,
-                  child: Icon(
-                    Icons.comment_bank,
-                    size: 20.0,
-                  ),
-                  onPressed: null,
-                ),
+                    shape: CircleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.orange[600],
+                            style: BorderStyle.solid)),
+                    elevation: 24.0,
+                    color: Colors.orange[500],
+                    textColor: Colors.white,
+                    child: Icon(
+                      Icons.credit_card,
+                      size: 25.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TranfBrou()),
+                      );
+                    }),
                 Text('Transferencia bancaria'),
               ],
             ),
@@ -389,26 +393,6 @@ class RealizarOp extends StatelessWidget {
             //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
           ),
         );
-
-        // return Container(
-        //   color: Colors.blue,
-        //   width: 100,
-        //   height: 80,
-        //   alignment: Alignment.centerRight,
-        //   //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-        //   child: MaterialButton(
-        //     shape: CircleBorder(
-        //         side: BorderSide(
-        //             width: 2,
-        //             color: Colors.orange[600],
-        //             style: BorderStyle.solid)),
-        //     elevation: 0.0,
-        //     color: Colors.orange[500],
-        //     textColor: Colors.white,
-        //     onPressed: null,
-        //     child: Text('Transferencia Bancaria'),
-        //   ),
-        // );
       },
     );
   }
@@ -460,8 +444,6 @@ class RealizarOp extends StatelessWidget {
     );
   }
 }
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:formvalidation/src/bloc/simular_bloc.dart';
@@ -577,8 +559,6 @@ class RealizarOp extends StatelessWidget {
 //   //   }
 //   // }
 
-
-
 // //contenedor info tipos de cambio (card)
 //   Widget _tiposDeCambio(LoginBloc bloc, BuildContext context, SimularBloc simularBloc) {
 //    // final usr = _existeUsuario(bloc, context, simularBloc);
@@ -670,101 +650,51 @@ class RealizarOp extends StatelessWidget {
 //     );
 //   }
 
-//   Widget _btnRealizarOp(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
-//       child: Center(
-//         child: Column(
-//           children: <Widget>[
-//             Container(
-//               //largo boton
-//               height: 70.0,
-//               //ancho
-//               width: 400,
-//               child: RaisedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                       builder: (context) => RealizarOp(),
-//                     ),
-//                   );
-//                 },
-//                 shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(15.0)),
-//                 padding: EdgeInsets.all(0.0),
-//                 child: Ink(
-//                   decoration: BoxDecoration(
-//                       gradient: LinearGradient(
-//                         colors: [Colors.deepOrange, Colors.orangeAccent],
-//                         begin: Alignment.centerLeft,
-//                         end: Alignment.centerRight,
-//                       ),
-//                       borderRadius: BorderRadius.circular(15.0)),
-//                   child: Container(
-//                     constraints:
-//                         BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-//                     alignment: Alignment.center,
-//                     child: Text(
-//                       "CONFIRMAR OPERACION",
-//                       textAlign: TextAlign.center,
-//                       style: TextStyle(color: Colors.white, fontSize: 25),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
 //   //botones tipos de liquidacion
 //   //liquidacion por medio de moneycard
 
-//   Widget _crearBotonTipoLiquidacionMoney(LoginBloc bloc) {
-//     return StreamBuilder(
-//       stream: bloc.formValidStream,
-//       builder: (BuildContext context, AsyncSnapshot snapshot) {
-//         return Flexible(
-//           flex: 4,
-//           child: Container(
-//             child: Column(
-//               children: <Widget>[
-//                 MaterialButton(
-//                     shape: CircleBorder(
-//                         side: BorderSide(
-//                             width: 1,
-//                             color: Colors.orange[600],
-//                             style: BorderStyle.solid)),
-//                     elevation: 24.0,
-//                     color: Colors.orange[500],
-//                     textColor: Colors.white,
-//                     child: Icon(
-//                       Icons.credit_card,
-//                       size: 20.0,
-//                     ),
-//                     onPressed: () {
-//                       Navigator.push(
-//                         context,
-//                         MaterialPageRoute(builder: (context) => TranfMoney()),
-//                       );
-//                     }),
-//                 Text('Deposito Moneycard'),
-//               ],
-//             ),
-
-//             width: 100,
-//             height: 100,
-//             alignment: Alignment.center,
-
-//             //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+// Widget _crearBotonTipoLiquidacionMoney(LoginBloc bloc) {
+//   return StreamBuilder(
+//     stream: bloc.formValidStream,
+//     builder: (BuildContext context, AsyncSnapshot snapshot) {
+//       return Flexible(
+//         flex: 4,
+//         child: Container(
+//           child: Column(
+//             children: <Widget>[
+//               MaterialButton(
+//                   shape: CircleBorder(
+//                       side: BorderSide(
+//                           width: 1,
+//                           color: Colors.orange[600],
+//                           style: BorderStyle.solid)),
+//                   elevation: 24.0,
+//                   color: Colors.orange[500],
+//                   textColor: Colors.white,
+//                   child: Icon(
+//                     Icons.credit_card,
+//                     size: 20.0,
+//                   ),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(builder: (context) => TranfMoney()),
+//                     );
+//                   }),
+//               Text('Deposito Moneycard'),
+//             ],
 //           ),
-//         );
-//       },
-//     );
-//   }
+
+//           width: 100,
+//           height: 100,
+//           alignment: Alignment.center,
+
+//           //  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+//         ),
+//       );
+//     },
+//   );
+// }
 
 //   //liquidacion por surcursal
 
@@ -893,7 +823,7 @@ class RealizarOp extends StatelessWidget {
 //       return null;
 //     } else {
 //       return () {
-       
+
 //       };
 //     }
 //   }
@@ -960,4 +890,3 @@ class RealizarOp extends StatelessWidget {
 
 //     //else return Container (child: Text('Debe de estar logueado para poder realizar operaciones'));
 //   }
-
