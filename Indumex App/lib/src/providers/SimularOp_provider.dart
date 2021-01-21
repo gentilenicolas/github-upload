@@ -5,8 +5,10 @@ import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Moneda_model.dart';
 import 'package:formvalidation/src/models/SimularOp_model.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
+import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 export 'package:formvalidation/src/models/SimularOp_model.dart';
 
 class SimularOpProvider extends InheritedWidget {
@@ -55,6 +57,8 @@ class SimularOpProvider extends InheritedWidget {
       //double tcAplicado,
       UsuarioModel usuario,
       BuildContext context) async {
+    final tengoQuieroProvider =
+        Provider.of<TengoQuieroProvider>(context, listen: false);
     SimularOpModel modeloSimularOp = new SimularOpModel();
     final blocSimular = SimularOpProvider.of(context);
 
@@ -80,21 +84,15 @@ class SimularOpProvider extends InheritedWidget {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         });
-
+    if (resp.statusCode == 400) return false;
     final decodedData = json.decode(resp.body);
-
     modeloSimularOp = SimularOpModel.fromJson(decodedData);
     print(decodedData);
     blocSimular.changeSimularOp(modeloSimularOp);
-    if (resp.statusCode == 400) return false; //null;
+    tengoQuieroProvider.setearQuiero(modeloSimularOp.importeQuiero);
+    tengoQuieroProvider.setearTengo(modeloSimularOp.importeTengo);
 
-    // if (importeTengo == 0) {
-    //   bloc.simularOP.importeTengo;
-    // } else {
-    //   return modelo.importeTengo;
-    // }
-
-    return true; //blocSimular.simularOP;
+    return true;
   }
 
   // Future<List<DatoModel>> recibirSimulacionOp() async {
