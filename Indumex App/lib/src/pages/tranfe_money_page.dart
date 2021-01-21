@@ -9,11 +9,11 @@ class TranfMoney extends StatelessWidget {
       title: 'tranfe Money',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          title: Text('Deposito a Moneycard'),
         ),
         body: Center(
           child: Container(
-            child: Text('Hello World'),
+            child: Text('Depo a Money'),
           ),
         ),
       ),
