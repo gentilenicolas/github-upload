@@ -67,14 +67,14 @@ class RealizarOp extends StatelessWidget {
               ),
             ],
           ), /*
-        decoration: new BoxDecoration(
+        //decoration: new BoxDecoration(
           gradient: new LinearGradient(
               colors: [estilos.gradientStart, estilos.gradientEnd],
               begin: const FractionalOffset(0.5, 0.0),
               end: const FractionalOffset(0.0, 0.5),
               stops: [0.0, 1.0],
               tileMode: TileMode.clamp),
-        ),*/
+       // ),*/
         ),
       ),
 
