@@ -62,8 +62,12 @@ TextEditingController apartamento = new TextEditingController();
 //Sucursal de retiro
 
 List<String> sucursales = new List();
-
 String opcionSeleccionadaSucursal = sucursales[0];
+
+//Sucursales por id
+
+// List<int> sucursalesId = new List();
+// int sucursalSeleccionada = sucursalesId[99];
 
 //controlador necesario para el Widget de fecha de nacimiento
 

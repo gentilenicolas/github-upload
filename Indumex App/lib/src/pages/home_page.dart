@@ -1,12 +1,10 @@
 //import 'dart:ffi';
 
-import 'dart:async';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
-import 'package:formvalidation/src/models/Usuario_model.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
@@ -39,9 +37,10 @@ class _HomePageState extends State<HomePage> {
   String _monedaSeleccionadaTengo = jp.monedas[0].descripcion; //pesos uru 2
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
   final pizarraProvider = new PizarraProvider();
-  int _selectedIndex = 0; // bottom
+ // int _selectedIndex = 0; // bottom
 
   @override
+  
   Widget build(BuildContext context) {
     //_prefs.ultimaPagina = HomePage().routeName = 'home';
     final bloc = LoginProvider.of(context);
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 //Boton tengo & quiero
                 _btnTengoQuiero(bloc),
                 //boton generar operacion
-                _btnGenerarOp(),
+                _btnGenerarOp(bloc),
                 //banner
                 _imagenBottom(),
               ],
@@ -495,7 +494,9 @@ class _HomePageState extends State<HomePage> {
         quiero, bloc.usuario != null ? bloc.usuario : null, context);
   }
 
-  Widget _btnGenerarOp() {
+  Widget _btnGenerarOp(LoginBloc bloc) {
+    final usuario = bloc.usuario;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
       child: Center(
@@ -552,12 +553,18 @@ class _HomePageState extends State<HomePage> {
 
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RealizarOp(),
-                    ),
-                  );
+                  if (usuario == null) {
+                     mostrarAlerta2(context, "Luego de ingresar veras los distintos tipos de cambio a ofrecerte");
+                  
+                    
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RealizarOp(),
+                      ),
+                    );
+                  }
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0)),
@@ -589,10 +596,55 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void mostrarAlerta2(BuildContext context, String mensaje) {
+   
+    Widget cancelBoton = FlatButton(
+        child: Text("Cancelar"),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        });
+    Widget continuarBoton = FlatButton(
+      child: Text("Continuar"),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      },
+    );
+
+    
+    AlertDialog alerta = AlertDialog(
+      title: Text("Deberias loguearte para realizar esta acción!!"),
+      content: Text(mensaje),
+      actions: [
+        cancelBoton,
+        continuarBoton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+
   Widget _imagenBottom() {
-    LoginBloc bloc = new LoginBloc();
+
+      final usuario = bloc.usuario;
+   
     //  final size = MediaQuery.of(context).size;
-    // if (bloc.usuario != null) {
+    if (usuario == null) {
     return Expanded(
       child: Stack(
         children: [
@@ -631,27 +683,27 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-    // } else {
-    //   return Expanded(
-    //     child: Align(
-    //       alignment: FractionalOffset.bottomCenter,
-    //       child: MaterialButton(
-    //           onPressed: () => {
-    //                 Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(
-    //                     builder: (context) => SolicitudMoneycard(),
-    //                   ),
-    //                 ),
-    //               },
-    //           child: Image.asset(
-    //             'assets/images/MoneyBottom.png',
-    //             fit: BoxFit.cover,
-    //             alignment: FractionalOffset.bottomCenter,
-    //           )),
-    //     ),
-    //   );
-    // }
+    } else {
+      return Expanded(
+        child: Align(
+          alignment: FractionalOffset.bottomCenter,
+          child: MaterialButton(
+              onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolicitudMoneycard(),
+                      ),
+                    ),
+                  },
+              child: Image.asset(
+                '',
+                fit: BoxFit.cover,
+                alignment: FractionalOffset.bottomCenter,
+              )),
+        ),
+      );
+    }
   }
 
   monedasMenuItem() {

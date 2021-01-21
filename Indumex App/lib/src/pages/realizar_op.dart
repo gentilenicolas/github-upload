@@ -5,6 +5,7 @@ import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/pages/tranfe_money_page.dart';
 import 'package:formvalidation/src/pages/transfe_brou_page.dart';
+import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
@@ -23,6 +24,7 @@ class RealizarOp extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = LoginProvider.of(context);
     final size = MediaQuery.of(context).size;
+    final blocSimular = SimularOpProvider.of(context);
 
     //final _prefs = new PreferenciasUsuario();
     //  print (_prefs.nombre);
@@ -237,8 +239,9 @@ class RealizarOp extends StatelessWidget {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();
     final usr = bloc.usuario;
+    //este metodo creo no lo estoy llamando todavia.
 
-    if (usr.id != null) {
+    if (usr != null) {
       return ListView(
         padding: EdgeInsets.all(25),
         children: <Widget>[
