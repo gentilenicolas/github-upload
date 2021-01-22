@@ -556,7 +556,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   if (usuario == null) {
                     mostrarAlerta2(context,
-                        "Luego de ingresar veras los distintos tipos de cambio a ofrecerte");
+                        "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
                   } else if (simular == null) {
                     mostrarAlerta2(context,
                         "Recuerde que todavia no ha simulado una operacion para poder realizar esta accion!");
@@ -609,11 +609,11 @@ class _HomePageState extends State<HomePage> {
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
-          Navigator.push(
+          Navigator.pop(
             context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
+            // MaterialPageRoute(
+            //   builder: (context) => HomePage(),
+            // ),
           );
         });
     Widget continuarBoton = FlatButton(
@@ -691,23 +691,22 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return Expanded(
-        child: Align(
-          alignment: FractionalOffset.bottomCenter,
-          child: MaterialButton(
-              onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SolicitudMoneycard(),
-                      ),
-                    ),
-                  },
-              child: Image.asset(
-                '',
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.bottomCenter,
-              )),
-        ),
+      //   child: Align(
+      //     alignment: FractionalOffset.bottomCenter,
+      //     child: MaterialButton(
+      //         onPressed: () => {
+      //               Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                   builder: (context) => SolicitudMoneycard(),
+      //                 ),
+      //               ),
+      //             },
+      //         child: Image.asset('',
+      //           fit: BoxFit.cover,
+      //           alignment: FractionalOffset.bottomCenter,
+      //         )),
+      //  ),
       );
     }
   }
