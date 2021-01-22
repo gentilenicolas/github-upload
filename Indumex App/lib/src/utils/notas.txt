@@ -1,0 +1,13 @@
+pagina para convertir objetos json
+https://app.quicktype.io/?share=4Ik8Upww0mN33e2CBVmq
+
+ formato decimales
+import 'package:intl/intl.dart';
+
+NumberFormat f = new NumberFormat("#,##0.00", "es_AR");
+
+print(f.format(1000000));
+
+=> 1.000.000,00
+
+ 

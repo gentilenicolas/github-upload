@@ -5,8 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 //es una propiedad que instancia a todas las propiedades del login con esta propiedad de bloc
 class LoginBloc with Validators {
-  final _emailController = BehaviorSubject<
-      String>(); //se escuchan los cambios sin hacer un brodcast la propiedad Beahavior
+  final _emailController = BehaviorSubject<String>(); //se escuchan los cambios sin hacer un brodcast la propiedad Beahavior
   //lo hace en lugar de la sTREAMcONTOELLER
   final _passwordController = BehaviorSubject<String>();
   final _nombreController = BehaviorSubject<String>();

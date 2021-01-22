@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
 import 'package:formvalidation/src/pages/ayuda_page.dart';
+import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
@@ -493,10 +494,10 @@ class _HomePageState extends State<HomePage> {
         quiero, bloc.usuario != null ? bloc.usuario : null, context);
   }
 
-  Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blocS) {
+  Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blo) {
     final usuario = bloc.usuario;
-    final simular = blocS.simularOP;
-    print (simular);
+    final simular = blo.simularOP; 
+    print (simular); 
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
@@ -557,15 +558,16 @@ class _HomePageState extends State<HomePage> {
                   if (usuario == null) {
                     mostrarAlerta2(context,
                         "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
-                  } else if (simular == null) {
-                    mostrarAlerta2(context,
-                        "Recuerde que todavia no ha simulado una operacion para poder realizar esta accion!");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AyudaPage(),
-                      ),
-                    );
+                  } 
+                  if (simular == null) {
+                    mostrarAlerta3(context,
+                        "Recuerda que todavia no ha simulado una operacion para poder realizar esta accion!");
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => AyudaPage(),
+                    //   ),
+                    // );
                   } else {
                     Navigator.push(
                       context,
@@ -605,15 +607,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void mostrarAlerta2(BuildContext context, String mensaje) {
+ void mostrarAlerta3(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
           Navigator.pop(
             context,
-            // MaterialPageRoute(
-            //   builder: (context) => HomePage(),
-            // ),
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
           );
         });
     Widget continuarBoton = FlatButton(
@@ -623,6 +625,48 @@ class _HomePageState extends State<HomePage> {
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(),
+          ),
+        );
+      },
+    );
+
+    AlertDialog alerta = AlertDialog(
+      title: Text("No simulaste una operacion!!"),
+      content: Text(mensaje),
+      actions: [
+        cancelBoton,
+        continuarBoton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+
+
+  void mostrarAlerta2(BuildContext context, String mensaje) {
+    Widget cancelBoton = FlatButton(
+        child: Text("Cancelar"),
+        onPressed: () {
+          Navigator.pop(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        });
+    Widget continuarBoton = FlatButton(
+      child: Text("Continuar"),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
           ),
         );
       },
