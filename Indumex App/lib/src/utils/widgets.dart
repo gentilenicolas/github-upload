@@ -245,6 +245,12 @@ Widget incio(LoginBloc bloc) {
   }
 }
 
+
+
+
+
+
+
 //fondo gradiente , debe ir dentro del body
 Widget fondoGradiente() {
   Color gradientStart = Colors.blue[900]; //para cambiar los colores aca

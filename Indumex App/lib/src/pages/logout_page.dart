@@ -51,6 +51,7 @@ Future<void> cerrarSesion(BuildContext context, LoginBloc bloc) async {
   );
 }
 
+
 class LogOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -69,8 +70,8 @@ class LogOut extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Column(
             children: <Widget>[
-//mostrarAlerta2( context,  mensaje),
-             // _salir(bloc, context),
+
+              _salir(bloc, context),
             ],
           ),
           // decoration: new BoxDecoration(
@@ -137,48 +138,48 @@ class LogOut extends StatelessWidget {
 
 
 
- void mostrarAlerta2(BuildContext context, String mensaje) {
+//  void mostrarAlerta2(BuildContext context, String mensaje) {
    
-    Widget cancelBoton = FlatButton(
-        child: Text("Cancelar"),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-          );
-        });
-    Widget continuarBoton = FlatButton(
-      child: Text("Continuar"),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      },
-    );
+//     Widget cancelBoton = FlatButton(
+//         child: Text("Cancelar"),
+//         onPressed: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => HomePage(),
+//             ),
+//           );
+//         });
+//     Widget continuarBoton = FlatButton(
+//       child: Text("Continuar"),
+//       onPressed: () {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) => HomePage(),
+//           ),
+//         );
+//       },
+//     );
 
     
-    AlertDialog alerta = AlertDialog(
-     title: Text('Esta seguro que desea salir?'),
-      content: Text(mensaje),
-      actions: [
-        cancelBoton,
-        continuarBoton,
-      ],
-    );
+//     AlertDialog alerta = AlertDialog(
+//      title: Text('Esta seguro que desea salir?'),
+//       content: Text(mensaje),
+//       actions: [
+//         cancelBoton,
+//         continuarBoton,
+//       ],
+//     );
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alerta;
-      },
-    );
-  }
+//     // show the dialog
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return alerta;
+//       },
+//     );
+//   }
 
 
 }

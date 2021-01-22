@@ -1,10 +1,10 @@
 //import 'dart:ffi';
 
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
+import 'package:formvalidation/src/pages/ayuda_page.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
 import 'package:formvalidation/src/providers/Monedas_provider.dart';
@@ -33,14 +33,14 @@ class _HomePageState extends State<HomePage> {
   //final importeQuieroController = new TextEditingController();
 
   final bloc = LoginBloc();
+  final blocS = SimularBloc();
   final simularOpProvider = new SimularOpProvider();
   String _monedaSeleccionadaTengo = jp.monedas[0].descripcion; //pesos uru 2
-  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
+  String _monedaSeleccionadaQuiero = jp.monedas[1].descripcion; // dólares 0
   final pizarraProvider = new PizarraProvider();
- // int _selectedIndex = 0; // bottom
+  // int _selectedIndex = 0; // bottom
 
   @override
-  
   Widget build(BuildContext context) {
     //_prefs.ultimaPagina = HomePage().routeName = 'home';
     final bloc = LoginProvider.of(context);
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 //Boton tengo & quiero
                 _btnTengoQuiero(bloc),
                 //boton generar operacion
-                _btnGenerarOp(bloc),
+                _btnGenerarOp(bloc, blocS),
                 //banner
                 _imagenBottom(),
               ],
@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
         endDrawer: master.menuDrawer(context, bloc));
   }
 
+//link a sucursales de la pagina
   Widget _sucursales(LoginBloc bloc) {
     if (bloc.nombre != null) {
       return
@@ -304,8 +305,6 @@ class _HomePageState extends State<HomePage> {
   Widget _btnTengoQuiero(LoginBloc bloc) {
     final tengoQuieroProvider = Provider.of<TengoQuieroProvider>(context);
 
-    final blocSimular = SimularOpProvider.of(context);
-
     return Container(
       margin: EdgeInsets.all(15),
       child: Column(
@@ -494,8 +493,10 @@ class _HomePageState extends State<HomePage> {
         quiero, bloc.usuario != null ? bloc.usuario : null, context);
   }
 
-  Widget _btnGenerarOp(LoginBloc bloc) {
+  Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blocS) {
     final usuario = bloc.usuario;
+    final simular = blocS.simularOP;
+    print (simular);
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
@@ -554,9 +555,17 @@ class _HomePageState extends State<HomePage> {
               child: RaisedButton(
                 onPressed: () {
                   if (usuario == null) {
-                     mostrarAlerta2(context, "Luego de ingresar veras los distintos tipos de cambio a ofrecerte");
-                  
-                    
+                    mostrarAlerta2(context,
+                        "Luego de ingresar veras los distintos tipos de cambio a ofrecerte");
+                  } else if (simular == null) {
+                    mostrarAlerta2(context,
+                        "Recuerde que todavia no ha simulado una operacion para poder realizar esta accion!");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AyudaPage(),
+                      ),
+                    );
                   } else {
                     Navigator.push(
                       context,
@@ -597,7 +606,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void mostrarAlerta2(BuildContext context, String mensaje) {
-   
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
@@ -620,7 +628,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
 
-    
     AlertDialog alerta = AlertDialog(
       title: Text("Deberias loguearte para realizar esta acción!!"),
       content: Text(mensaje),
@@ -640,49 +647,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _imagenBottom() {
+    final usuario = bloc.usuario;
 
-      final usuario = bloc.usuario;
-   
     //  final size = MediaQuery.of(context).size;
     if (usuario == null) {
-    return Expanded(
-      child: Stack(
-        children: [
-          Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: RaisedButton(onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SolicitudMoneycard(),
-                    ));
-              })),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            // height:
-            //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
-            child: Container(
-              // child: RaisedButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => SolicitudMoneycard(),
-              //         ));
-              //   },
-              child: Image.asset(
-                'assets/images/MoneyBottom.png',
-                fit: BoxFit.cover,
+      return Expanded(
+        child: Stack(
+          children: [
+            Align(
                 alignment: FractionalOffset.bottomCenter,
+                child: RaisedButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolicitudMoneycard(),
+                      ));
+                })),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              // height:
+              //     87 /*size.height * 0.1*/, // no se porque me saca un cachito..
+              child: Container(
+                // child: RaisedButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => SolicitudMoneycard(),
+                //         ));
+                //   },
+                child: Image.asset(
+                  'assets/images/MoneyBottom.png',
+                  fit: BoxFit.cover,
+                  alignment: FractionalOffset.bottomCenter,
+                ),
               ),
             ),
-          ),
-          //),
-        ],
-      ),
-    );
+            //),
+          ],
+        ),
+      );
     } else {
       return Expanded(
         child: Align(
