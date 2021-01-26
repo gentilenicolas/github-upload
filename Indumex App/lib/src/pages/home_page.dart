@@ -36,8 +36,8 @@ class _HomePageState extends State<HomePage> {
   final bloc = LoginBloc();
   final blocS = SimularBloc();
   final simularOpProvider = new SimularOpProvider();
-  String _monedaSeleccionadaTengo = jp.monedas[0].descripcion; //pesos uru 2
-  String _monedaSeleccionadaQuiero = jp.monedas[1].descripcion; // dólares 0
+  String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru 2
+  String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
   final pizarraProvider = new PizarraProvider();
   // int _selectedIndex = 0; // bottom
 
@@ -496,8 +496,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blo) {
     final usuario = bloc.usuario;
-    final simular = blo.simularOP; 
-    print (simular); 
+    final simular = blo.simularOP;
+    print(simular);
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
@@ -558,7 +558,7 @@ class _HomePageState extends State<HomePage> {
                   if (usuario == null) {
                     mostrarAlerta2(context,
                         "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
-                  } 
+                  }
                   if (simular == null) {
                     mostrarAlerta3(context,
                         "Recuerda que todavia no ha simulado una operacion para poder realizar esta accion!");
@@ -607,7 +607,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
- void mostrarAlerta3(BuildContext context, String mensaje) {
+  void mostrarAlerta3(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
@@ -647,7 +647,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
 
   void mostrarAlerta2(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
@@ -735,23 +734,23 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return Expanded(
-      //   child: Align(
-      //     alignment: FractionalOffset.bottomCenter,
-      //     child: MaterialButton(
-      //         onPressed: () => {
-      //               Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                   builder: (context) => SolicitudMoneycard(),
-      //                 ),
-      //               ),
-      //             },
-      //         child: Image.asset('',
-      //           fit: BoxFit.cover,
-      //           alignment: FractionalOffset.bottomCenter,
-      //         )),
-      //  ),
-      );
+          //   child: Align(
+          //     alignment: FractionalOffset.bottomCenter,
+          //     child: MaterialButton(
+          //         onPressed: () => {
+          //               Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                   builder: (context) => SolicitudMoneycard(),
+          //                 ),
+          //               ),
+          //             },
+          //         child: Image.asset('',
+          //           fit: BoxFit.cover,
+          //           alignment: FractionalOffset.bottomCenter,
+          //         )),
+          //  ),
+          );
     }
   }
 
