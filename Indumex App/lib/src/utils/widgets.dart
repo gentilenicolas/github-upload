@@ -13,7 +13,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
 
   return Drawer(
     child: ListView(
-      //padding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       children: <Widget>[
         tamanoDeNotch(context),
         incio(bloc),
@@ -28,6 +28,9 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
           },
         ),
         Divider(),
+        SizedBox(
+          height: 10,
+        ),
         ListTile(
           title: Text('LOGIN'),
           leading: Icon(Icons.accessibility),
@@ -36,9 +39,11 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             _redireccionAlBottom(context, bloc);
           },
         ),
+        // Divider(),
         SizedBox(
           height: 10,
         ),
+
         ListTile(
           title: Text('HOME'),
           leading: Icon(Icons.home),
@@ -46,6 +51,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             Navigator.pushReplacementNamed(context, 'home');
           },
         ),
+        // Divider(),
         SizedBox(
           height: 10,
         ),
@@ -61,6 +67,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             );
           },
         ),
+        // Divider(),
         SizedBox(
           height: 10,
         ),
@@ -76,39 +83,40 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             );
           },
         ),
+        // SizedBox(
+        //   height: 10,
+        //  ),
+        // ListTile(
+        //   title: Text('SUCURSALES'),
+        //   leading: Icon(Icons.location_city),
+        //   onTap: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => Sucursales(),
+        //       ),
+        //     );
+        //   },
+        // ),
+        // Divider(),
         SizedBox(
           height: 10,
         ),
-        ListTile(
-          title: Text('SUCURSALES'),
-          leading: Icon(Icons.location_city),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Sucursales(),
-              ),
-            );
-          },
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        ListTile(
-          title: Text('PRODUCTOS'),
-          leading: Icon(Icons.mood),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Productos(),
-              ),
-            );
-          },
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        // ListTile(
+        //   title: Text('PRODUCTOS'),
+        //   leading: Icon(Icons.mood),
+        //   onTap: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => Productos(),
+        //       ),
+        //     );
+        //   },
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         ListTile(
           title: Text('AYUDA'),
           leading: Icon(Icons.help),
@@ -116,6 +124,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             Navigator.pushReplacementNamed(context, 'ayuda');
           },
         ),
+        // Divider(),
         SizedBox(
           height: 10,
         ),
@@ -134,6 +143,7 @@ Drawer menuDrawer(BuildContext context, LoginBloc bloc) {
             );
           },
         ),
+        // Divider()
         /*
           ListTile(
           title: Text('CERRAR SESION'),
@@ -213,7 +223,6 @@ String bienvenido(LoginBloc bloc) {
 
 //Drawer Inicio
 Widget incio(LoginBloc bloc) {
-  
   if (bloc.nombre != null) {
     return ListTile(
         // leading: Icon(Icons.account_box,color: Colors.white),
@@ -244,12 +253,6 @@ Widget incio(LoginBloc bloc) {
         ));
   }
 }
-
-
-
-
-
-
 
 //fondo gradiente , debe ir dentro del body
 Widget fondoGradiente() {
