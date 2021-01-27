@@ -9,7 +9,6 @@ import 'package:formvalidation/src/utils/funciones.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart';
 
-
 class SolicitudMoneycard extends StatefulWidget {
   @override
   _SolicitudMoneycardState createState() => _SolicitudMoneycardState();
@@ -17,7 +16,8 @@ class SolicitudMoneycard extends StatefulWidget {
 
 //usando Provider para los combos Departamentos/Localidades
 
-class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNotifier {
+class _SolicitudMoneycardState extends State<SolicitudMoneycard>
+    with ChangeNotifier {
   //VALIDACIONES
 
   bool _validarNombre = true;
@@ -41,7 +41,8 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNot
   Widget build(BuildContext context) {
     final bloc = LoginProvider.of(context);
 
-    final MoneycardModel moneycardData = ModalRoute.of(context).settings.arguments;
+    final MoneycardModel moneycardData =
+        ModalRoute.of(context).settings.arguments;
 
     if (moneycardData != null) {
       moneycard = moneycardData;
@@ -106,7 +107,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNot
               ],
             ),
           ),
-       ),
+        ),
         //menu hamburguesa
         endDrawer: master.menuDrawer(context, bloc));
   }
@@ -673,15 +674,6 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNot
     //onPressed: (_guardando) ? null : _submit);
   }
 
-  void mostrarSnackBar(String mensaje) {
-    final snackbar = SnackBar(
-        content: Text(mensaje), duration: Duration(milliseconds: 1500));
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scaffoldKey.currentState.showSnackBar(snackbar);
-    });
-  }
-
   void _submit() async {
     if (!formKey.currentState.validate()) return;
 
@@ -692,9 +684,10 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>  with ChangeNot
 
     if (_validarFormulario &&
         await moneycardProvider.crearMoneycard(moneycard)) {
-      mostrarSnackBar('Solicitud de Moneycard enviada');
+      master.mostrarSnackBar('Solicitud de Moneycard enviada', scaffoldKey);
     } else {
-      mostrarSnackBar('Solicitud no enviada, corrija errores');
+      master.mostrarSnackBar(
+          'Solicitud no enviada, corrija errores', scaffoldKey);
     }
 
     //Navigator.pop(context);
