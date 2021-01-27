@@ -70,13 +70,16 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            child: FlatButton(
-              child: Text('Crear una nueva cuenta'),
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'registro'),
-            ),
-          ),
+
+          //crear cuenta comentado para una proxima version!
+
+          // Container(
+          //   child: FlatButton(
+          //     child: Text('Crear una nueva cuenta'),
+          //     onPressed: () =>
+          //         Navigator.pushReplacementNamed(context, 'registro'),
+          //   ),
+          // ),
           FlatButton(
             child: Text('Salir'),
             onPressed: () => Navigator.pushReplacementNamed(context, 'home'),
@@ -104,7 +107,8 @@ class LoginPage extends StatelessWidget {
                 counterText:
                     email, //snapshot.data, //cuando escribo en el input, me pone por debajo de la linea lo mismo que pongo en ese imput
                 errorText: snapshot.error),
-            onChanged: bloc.changeEmail, //cuando escriben en el campo, se lo manda al email
+            onChanged: bloc
+                .changeEmail, //cuando escriben en el campo, se lo manda al email
           ),
         );
       },
@@ -159,19 +163,17 @@ prefs.ultimaPagina= LoginPage().routeName;
 }
 */
 
-
   Future<UsuarioModel> _login(LoginBloc bloc, BuildContext context) async {
-    final user = await loginProvider.crearLogin(bloc.email, bloc.password, context);
+    final user =
+        await loginProvider.crearLogin(bloc.email, bloc.password, context);
 
     if (user.id != null) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
-
     } else {
       mostrarAlerta(context, 'Usuario no existe  o contraseña incorrecta');
-      
     }
-  
+
     return user;
   }
 
