@@ -216,7 +216,7 @@ Widget tamanoDeNotch(BuildContext context) {
 //mensaje bienveida
 String bienvenido(LoginBloc bloc) {
   if (bloc.nombre != null) {
-    return "Bienvenido :" + bloc.email + " !";
+    return "Bienvenido: " + bloc.usuario.nombre + " !";
   } else
     return "";
 }
@@ -231,7 +231,7 @@ Widget incio(LoginBloc bloc) {
           children: <Widget>[
             new Text(
               bienvenido(bloc),
-              style: new TextStyle(color: Colors.white, fontSize: 19.0),
+              style: new TextStyle(color: Colors.white, fontSize: 16.0),
             )
           ],
           mainAxisAlignment: MainAxisAlignment.start,
