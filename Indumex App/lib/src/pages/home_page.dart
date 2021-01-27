@@ -748,23 +748,29 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
-      return Expanded(
-          //   child: Align(
-          //     alignment: FractionalOffset.bottomCenter,
-          //     child: MaterialButton(
-          //         onPressed: () => {
-          //               Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => SolicitudMoneycard(),
-          //                 ),
-          //               ),
-          //             },
-          //         child: Image.asset('',
-          //           fit: BoxFit.cover,
-          //           alignment: FractionalOffset.bottomCenter,
-          //         )),
-          //  ),
+      return 
+      // Container(
+      //   child: Image.asset("")
+
+      //   );
+      
+      Expanded(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: MaterialButton(
+                  onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AyudaPage(),
+                          ),
+                        ),
+                      },
+                  child: Image.asset('',
+                    fit: BoxFit.cover,
+                    alignment: FractionalOffset.bottomCenter,
+                  )),
+           ),
           );
     }
   }
