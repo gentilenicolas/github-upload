@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
   // final importeTengoController = new TextEditingController();
   //final importeQuieroController = new TextEditingController();
 
-  final bloc = LoginBloc();
-  final blocS = SimularBloc();
+  //final bloc = LoginBloc();
+  //final blocS = SimularBloc();
   final simularOpProvider = new SimularOpProvider();
   String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru 2
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           child: Center(
             child: Column(
               children: <Widget>[
-                _sucursales(bloc),
+                _sucursales(blocLogin),
                 Container(
                   //Pizzarra
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -83,11 +83,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 //Boton tengo & quiero
-                _btnTengoQuiero(bloc),
+                _btnTengoQuiero(blocLogin),
                 //boton generar operacion
                 _btnGenerarOp(blocLogin, blocSimular),
                 //banner
-                _imagenBottom(),
+                _imagenBottom(blocLogin),
               ],
             ),
           ),
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
         //  //_widgetOptions.elementAt(_selectedIndex),
         //         ),
         //menu hamburguesa
-        endDrawer: master.menuDrawer(context, bloc));
+        endDrawer: master.menuDrawer(context, blocLogin));
   }
 
 //link a sucursales de la pagina
@@ -495,7 +495,7 @@ class _HomePageState extends State<HomePage> {
         quiero, bloc.usuario != null ? bloc.usuario : null, context);
   }
 
-  Widget _btnGenerarOp(LoginBloc bloc , SimularBloc blo) {
+  Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blo) {
     final usuario = bloc.usuario;
     final simular = blo.simularOP;
     print(simular);
@@ -556,20 +556,34 @@ class _HomePageState extends State<HomePage> {
 
               child: RaisedButton(
                 onPressed: () {
+
+                  if(usuario == null || simular == null){
+
                   if (usuario == null) {
-                    mostrarAlerta2(context,
+                    alertaLogin(context,
                         "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
                   }
                   if (simular == null) {
-                    mostrarAlerta3(context,
-                        "Recuerda que todavia no has simulado una combersion de dinero!");
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => AyudaPage(),
-                    //   ),
-                    // );
+                    alertaSimular(context,
+                        "Recuerda que todavia no has simulado una conbersion de dinero!");
+                    
                   } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    );
+                  }
+                }
+                else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -608,7 +622,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void mostrarAlerta3(BuildContext context, String mensaje) {
+  void alertaSimular(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
@@ -649,7 +663,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void mostrarAlerta2(BuildContext context, String mensaje) {
+  void alertaLogin(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
         child: Text("Cancelar"),
         onPressed: () {
@@ -690,7 +704,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _imagenBottom() {
+  Widget _imagenBottom(LoginBloc bloc) {
     final usuario = bloc.usuario;
 
     //  final size = MediaQuery.of(context).size;

@@ -8,7 +8,13 @@ import 'dart:io' show Platform, exit;
 
 // https://api.flutter.dev/flutter/material/AlertDialog-class.html
 
+
+
+
 Future<void> cerrarSesion(BuildContext context, LoginBloc bloc) async {
+
+   final blocLogin = LoginProvider.of(context);
+
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -35,9 +41,9 @@ Future<void> cerrarSesion(BuildContext context, LoginBloc bloc) async {
               if (Platform.isAndroid) {
                 //exit para android
                 SystemNavigator.pop();
-                bloc.dispose();
+                blocLogin.dispose();
               } else if (Platform.isIOS) {
-                bloc.dispose();
+                blocLogin.dispose();
                 Future.delayed(const Duration(milliseconds: 1500), () {
                   exit(0); //exit para ios
                 });
