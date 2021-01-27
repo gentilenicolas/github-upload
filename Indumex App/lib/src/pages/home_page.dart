@@ -44,7 +44,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     //_prefs.ultimaPagina = HomePage().routeName = 'home';
-    final bloc = LoginProvider.of(context);
+    final blocLogin = LoginProvider.of(context);
+    final blocSimular = SimularOpProvider.of(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 //Boton tengo & quiero
                 _btnTengoQuiero(bloc),
                 //boton generar operacion
-                _btnGenerarOp(bloc, blocS),
+                _btnGenerarOp(blocLogin, blocSimular),
                 //banner
                 _imagenBottom(),
               ],

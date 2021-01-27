@@ -17,6 +17,7 @@ class TranfMoney extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _datosDeCuentas(),
+                _enviarMoney( context),
               ],
             ),
             
