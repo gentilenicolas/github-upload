@@ -7,10 +7,10 @@ import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 
 class AyudaPage extends StatefulWidget {
   @override
-  _MyBottomBarDemoState createState() => new _MyBottomBarDemoState();
+  _BottomBar createState() => new _BottomBar();
 }
 
-class _MyBottomBarDemoState extends State<AyudaPage> {
+class _BottomBar extends State<AyudaPage> {
   int _pageIndex = 0;
   PageController _pageController;
 

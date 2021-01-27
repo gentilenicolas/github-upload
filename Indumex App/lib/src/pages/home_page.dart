@@ -556,34 +556,43 @@ class _HomePageState extends State<HomePage> {
 
               child: RaisedButton(
                 onPressed: () {
-
-                  if(usuario == null || simular == null){
-
-                  if (usuario == null) {
-                    alertaLogin(context,
-                        "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
+                  if (usuario == null || simular == null) {
+                    if (usuario == null) {
+                      alertaLogin(context,
+                          "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => LoginPage(),
+                      //   ),
+                      // );
+                    }
+                    // else {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => LoginPage(),
+                    //     ),
+                    //   );
+                    // }
+                    if (simular == null) {
+                      alertaSimular(context,
+                          "Recuerda que todavia no has simulado una conbersion de dinero!");
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => AyudaPage(),
+                      //   ),
+                      // );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
+                      );
+                    }
                   } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage(),
-                      ),
-                    );
-                  }
-                  if (simular == null) {
-                    alertaSimular(context,
-                        "Recuerda que todavia no has simulado una conbersion de dinero!");
-                    
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    );
-                  }
-                }
-                else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -748,30 +757,8 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
-      return 
-      // Container(
-      //   child: Image.asset("")
-
-      //   );
-      
-      Expanded(
-            child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: MaterialButton(
-                  onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AyudaPage(),
-                          ),
-                        ),
-                      },
-                  child: Image.asset('',
-                    fit: BoxFit.cover,
-                    alignment: FractionalOffset.bottomCenter,
-                  )),
-           ),
-          );
+      return Container(child: Image.asset(""));
+      // tengo que hacerle un push al ayuda , para que aparezca el menu
     }
   }
 
