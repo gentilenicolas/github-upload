@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:formvalidation/src/models/Usuario_model.dart';
@@ -5,16 +7,19 @@ import 'package:formvalidation/src/pages/home_page.dart';
 
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
+import 'package:formvalidation/src/utils/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   static final String routeName = 'login';
 // instancia de mi usuario provider
   final loginProvider = new LoginProvider();
   //final prefs = new PreferenciasUsuario();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       /*
       appBar: AppBar(
         actions: [
@@ -168,8 +173,12 @@ prefs.ultimaPagina= LoginPage().routeName;
         await loginProvider.crearLogin(bloc.email, bloc.password, context);
 
     if (user.id != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      mostrarSnackBar(
+          'Login correcto! reedireccionando a HomePage...', scaffoldKey);
+      Timer(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      });
     } else {
       mostrarAlerta(context, 'Usuario no existe  o contraseña incorrecta');
     }
