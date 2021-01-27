@@ -59,8 +59,7 @@ class RealizarOp extends StatelessWidget {
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               SizedBox(height: 10.0),
               _formasDePago(bloc),
-              SizedBox(height: 10.0),
-              _btnRealizarOp(context),
+             
            
             ],
           ), /*
@@ -182,59 +181,7 @@ class RealizarOp extends StatelessWidget {
     );
   }
 
-  //confirmar OP
-
-  Widget _btnRealizarOp(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(05),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              //largo boton
-              height: 70.0,
-              //ancho
-              width: 400,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RealizarOp(),
-                    ),
-                  );
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepOrange, Colors.orangeAccent],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "CONFIRMAR OPERACION",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-//
+ 
   _contenidoRealizarOp(BuildContext context, LoginBloc bloc) {
     // final prefs = new PreferenciasUsuario();
     // await prefs.initPrefs();

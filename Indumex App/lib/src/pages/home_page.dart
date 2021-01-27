@@ -494,7 +494,7 @@ class _HomePageState extends State<HomePage> {
         quiero, bloc.usuario != null ? bloc.usuario : null, context);
   }
 
-  Widget _btnGenerarOp(LoginBloc bloc, SimularBloc blo) {
+  Widget _btnGenerarOp(LoginBloc bloc , SimularBloc blo) {
     final usuario = bloc.usuario;
     final simular = blo.simularOP;
     print(simular);
@@ -561,7 +561,7 @@ class _HomePageState extends State<HomePage> {
                   }
                   if (simular == null) {
                     mostrarAlerta3(context,
-                        "Recuerda que todavia no ha simulado una operacion para poder realizar esta accion!");
+                        "Recuerda que todavia no has simulado una combersion de dinero!");
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
