@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 
-
-// alert con ok 
+// alert con ok
 void mostrarAlerta(BuildContext context, String mensaje) async {
- await showDialog(
+  await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Algo no esta bien'),
-          content: Text (mensaje),
+          title: Text('Algo no está bien'),
+          content: Text(mensaje),
           actions: <Widget>[
-            FlatButton( child: Text ('ok', style: TextStyle(color:Colors.red)),
-                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        onPressed: ()=>Navigator.of(context).pop),
+            FlatButton(
+                child: Text('ok', style: TextStyle(color: Colors.red)),
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0)),
+                onPressed: () =>
+                    Navigator.pop(context)), //Navigator.of(context).pop),
           ],
         );
       });
 }
+
 //alert sin ok
 void mostrarAlerta1(BuildContext context, String mensaje) async {
-    await showDialog(
-      context:  context,
-      barrierDismissible: true,
-      builder: (context) => AlertDialog(
-        title: Text('Algo no esta bien!'),
-        actions: [
-          new FlatButton(
-            child: new Text(mensaje,style: TextStyle(color: Colors.red)),
-             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-             onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
-
-  }
-
-
+  await showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (context) => AlertDialog(
+      title: Text('Algo no está bien!'),
+      actions: [
+        new FlatButton(
+          child: new Text(mensaje, style: TextStyle(color: Colors.red)),
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
+    ),
+  );
+}

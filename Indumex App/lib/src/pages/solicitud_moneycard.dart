@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,8 @@ import 'package:formvalidation/src/utils/funciones.dart' as funciones;
 import 'package:formvalidation/src/utils/funciones.dart';
 import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:formvalidation/src/utils/juego_pruebas.dart';
+
+import 'home_page.dart';
 
 class SolicitudMoneycard extends StatefulWidget {
   @override
@@ -507,7 +511,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
       controller: email,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          errorText: !_validarEmail ? 'Debe de ingresar su email' : null,
+          errorText: !_validarEmail ? 'Complete su email correctamente' : null,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
           hintText: 'Email',
           labelText: 'Email',
@@ -690,7 +694,12 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
 
     if (_validarFormulario &&
         await moneycardProvider.crearMoneycard(moneycard)) {
-      master.mostrarSnackBar('Solicitud de Moneycard enviada', scaffoldKey);
+      master.mostrarSnackBar(
+          'Solicitud de Moneycard enviada correctamente!', scaffoldKey);
+      Timer(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      });
     } else {
       master.mostrarSnackBar(
           'Solicitud no enviada, corrija errores', scaffoldKey);
@@ -719,6 +728,17 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
       return true;
   }
 
+  bool validarEmail(String email) {
+    Pattern patternEmail =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExpEM = new RegExp(patternEmail);
+    if (regExpEM.hasMatch(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   bool validarFormulario() {
     _validarNombre = validarTexto(nombre.text);
     _validarApellido = validarTexto(apellido.text);
@@ -727,7 +747,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
     _validarCalle = validarTexto(calle.text);
     _validarNroPuerta = validarTexto(numeroPuerta.text);
     _validarCodigoPostal = validarTexto(codigoPostal.text);
-    _validarEmail = validarTexto(email.text);
+    _validarEmail = validarEmail(email.text);
 
     return _validarNombre &&
         _validarApellido &&

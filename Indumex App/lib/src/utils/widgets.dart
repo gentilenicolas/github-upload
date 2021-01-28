@@ -274,7 +274,7 @@ Widget fondoGradiente() {
 
 void mostrarSnackBar(String mensaje, GlobalKey<ScaffoldState> key) {
   final snackbar =
-      SnackBar(content: Text(mensaje), duration: Duration(milliseconds: 1500));
+      SnackBar(content: Text(mensaje), duration: Duration(milliseconds: 2500));
 
   WidgetsBinding.instance.addPostFrameCallback((_) {
     key.currentState.showSnackBar(snackbar);
