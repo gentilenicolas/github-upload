@@ -633,7 +633,7 @@ class _HomePageState extends State<HomePage> {
 
   void alertaSimular(BuildContext context, String mensaje) {
     Widget cancelBoton = FlatButton(
-        child: Text("Cancelar"),
+        child: Text("Ok"),
         onPressed: () {
           Navigator.pop(
             context,
@@ -642,24 +642,24 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         });
-    Widget continuarBoton = FlatButton(
-      child: Text("Continuar"),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      },
-    );
+    // Widget continuarBoton = FlatButton(
+    //   child: Text("Continuar"),
+    //   onPressed: () {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => HomePage(),
+    //       ),
+    //     );
+    //    },
+    // );
 
     AlertDialog alerta = AlertDialog(
       title: Text("No simulaste una operacion!!"),
       content: Text(mensaje),
       actions: [
         cancelBoton,
-        continuarBoton,
+       // continuarBoton,
       ],
     );
 

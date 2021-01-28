@@ -51,11 +51,7 @@ class _EnvioComprobante extends State<EnvioComprobante> {
               key: formKey,
               child: Column(
                 children: [
-                  _mostrarFoto(),
-                 // _crearMoneda(),
-               //   _crearCompra(),
-                 // _crearVenta(),
-                  //_crearDisponible(),
+                  _mostrarFoto(),                
                   _crearBoton()
                 ],
               ),
@@ -63,55 +59,6 @@ class _EnvioComprobante extends State<EnvioComprobante> {
           ),
         ));
   }
-
-  // Widget _crearMoneda() {
-  //   return TextFormField(
-  //     initialValue: moneda.moneda,
-  //     textCapitalization: TextCapitalization.sentences,
-  //     onSaved: (valor) => moneda.moneda = valor,
-  //     validator: (value) {
-  //       if (value.length < 3) {
-  //         return 'Ingrese el nombre de la moneda';
-  //       } else {
-  //         return null;
-  //       }
-  //     },
-  //     decoration: InputDecoration(labelText: 'Moneda'),
-  //   );
-  // }
-
-  // Widget _crearCompra() {
-  //   return TextFormField(
-  //     initialValue: moneda.compra.toString(),
-  //     keyboardType: TextInputType.numberWithOptions(decimal: true),
-  //     onSaved: (valor) => moneda.compra = double.parse(valor),
-  //     validator: (value) {
-  //       if (funciones.esNumerico(value)) {
-  //         return null;
-  //       } else {
-  //         return 'solo numeros';
-  //       }
-  //     },
-  //     decoration: InputDecoration(labelText: 'Compra'),
-  //   );
-  // }
-
-  // Widget _crearVenta() {
-  //   return TextFormField(
-  //     initialValue: moneda.venta.toString(),
-  //     keyboardType: TextInputType.numberWithOptions(decimal: true),
-  //     onSaved: (valor) => moneda.venta = double.parse(valor),
-  //     validator: (value) {
-  //       if (funciones.esNumerico(value)) {
-  //         return null;
-  //       } else {
-  //         return 'solo numeros';
-  //       }
-  //     },
-  //     decoration: InputDecoration(labelText: 'Venta'),
-  //   );
-  // }
-
 
   Widget _crearBoton() {
     return RaisedButton.icon(
