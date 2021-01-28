@@ -73,9 +73,9 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
                 Divider(),
                 _inputSexo('Sexo:', sexo),
                 Divider(),
-                _inputTelefono('Teléfono', Icon(Icons.phone)),
-                Divider(),
                 _inputEstadoCivil('Estado civil:', estadoCivil),
+                Divider(),
+                _inputTelefono('Teléfono', Icon(Icons.phone)),
                 Divider(),
                 _inputCelular('Celular', Icon(Icons.phone_iphone)),
                 Divider(),
@@ -749,7 +749,7 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
     } else {
       return Container(
           child: Text(
-        'Su tarjeta MoneyCard se grabara: APELLIDO, NOMBRE',
+        'El nombre en su tarjeta MoneyCard se verá de la siguiente manera: APELLIDO, NOMBRE',
         textAlign: TextAlign.center,
       ));
     }
