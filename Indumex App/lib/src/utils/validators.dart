@@ -16,7 +16,7 @@ class Validators {
     if (regExpEM.hasMatch(usuario) | regExpCI.hasMatch(usuario)) {
       sink.add(usuario);
     } else {
-      return sink.addError('Correo electronico o cedula sin guion');
+      return sink.addError('Correo electrónico o cédula sin guion');
     }
   });
 /*
@@ -37,7 +37,6 @@ class Validators {
       sink.addError('Más de 6 caracteres por favor');
     }
   });
-
 
   final validarOusuario =
       StreamTransformer<UsuarioModel, UsuarioModel>.fromHandlers(

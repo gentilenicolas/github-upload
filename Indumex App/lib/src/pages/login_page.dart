@@ -107,8 +107,8 @@ class LoginPage extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 icon: Icon(Icons.accessibility, color: Colors.blue),
-                hintText: 'ejemplo@correo.com ó 41804390',
-                labelText: 'Correo electrónico ó documento de identificación',
+                hintText: 'ejemplo@correo.com ó 12345678',
+                labelText: 'Email o cédula de identidad',
                 counterText:
                     email, //snapshot.data, //cuando escribo en el input, me pone por debajo de la linea lo mismo que pongo en ese imput
                 errorText: snapshot.error),
@@ -131,7 +131,7 @@ class LoginPage extends StatelessWidget {
             decoration: InputDecoration(
                 icon: Icon(Icons.lock_outline, color: Colors.blue),
                 labelText: 'Contraseña',
-                counterText: snapshot.data,
+                //counterText: snapshot.data,
                 errorText: snapshot.error),
             onChanged: bloc.changePassword,
           ),
@@ -172,15 +172,15 @@ prefs.ultimaPagina= LoginPage().routeName;
     final user =
         await loginProvider.crearLogin(bloc.email, bloc.password, context);
 
-    if (user.id != null) {
-      mostrarSnackBar(
-          'Login correcto! reedireccionando a HomePage...', scaffoldKey);
+    if (user != null) {
+      mostrarSnackBar('Login correcto!', scaffoldKey);
       Timer(Duration(seconds: 3), () {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomePage()));
       });
     } else {
-      mostrarAlerta(context, 'Usuario no existe  o contraseña incorrecta');
+      mostrarAlerta(
+          context, 'El usuario no existe o la contraseña es incorrecta');
     }
 
     return user;
