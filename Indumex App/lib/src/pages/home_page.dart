@@ -28,7 +28,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
   //final String routeName = 'home';
 }
-//otro comentario a borrar
+
+// otro comentario pedorro
 class _HomePageState extends State<HomePage> {
   // final importeTengoController = new TextEditingController();
   //final importeQuieroController = new TextEditingController();
