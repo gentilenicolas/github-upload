@@ -50,7 +50,13 @@ class _SolicitudMoneycardState extends State<SolicitudMoneycard>
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-            backgroundColor: Colors.blue, title: Text('Solicitud Moneycard')),
+          backgroundColor: Colors.blue,
+          actions: <Widget>[],
+          title: Image(
+            image: AssetImage('assets/images/moneycard.png'),
+            width: 200,
+          ),
+        ),
         body: Container(
           child: Form(
             key: formKey,
