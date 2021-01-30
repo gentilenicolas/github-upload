@@ -561,30 +561,12 @@ class _HomePageState extends State<HomePage> {
                     if (usuario == null) {
                       alertaLogin(context,
                           "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => LoginPage(),
-                      //   ),
-                      // );
-                    }
-                    // else {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => LoginPage(),
-                    //     ),
-                    //   );
-                    // }
+                    
+                    }                   
                     if (simular == null) {
                       alertaSimular(context,
                           "Recuerda que todavia no has simulado una conbersion de dinero!");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => AyudaPage(),
-                      //   ),
-                      // );
+                    
                     } else {
                       Navigator.push(
                         context,
