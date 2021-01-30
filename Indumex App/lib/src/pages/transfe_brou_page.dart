@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +13,7 @@ class TranfBrou extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-             margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(15),
             child: Column(
               children: <Widget>[
                 _contenedorPersona(context),
@@ -30,6 +29,10 @@ class TranfBrou extends StatelessWidget {
                   height: 10,
                 ),
                 _enviarEmpresa(context),
+                SizedBox(
+                  height: 30,
+                ),
+                _cobrar(context),
               ],
             ),
 
@@ -51,7 +54,7 @@ class TranfBrou extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  Text("PERSONA"),
+                  Text("TRANSFERENCIA DE PERSONA"),
                 ],
               )
             ]),
@@ -69,7 +72,7 @@ class TranfBrou extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  Text("EMPRESA"),
+                  Text("TRANSFERENCIA CON EMPRESA"),
                 ],
               )
             ]),
@@ -181,11 +184,57 @@ class TranfBrou extends StatelessWidget {
   }
 
   _urlredirectEmpesa() async {
-    const url = 'https://www.canales.brou.com.uy/empresas/seguridad/loginFlow.htm?execution=e2s1';
+    const url =
+        'https://www.canales.brou.com.uy/empresas/seguridad/loginFlow.htm?execution=e2s1';
     if (await canLaunch(url)) {
       launch(url);
     } else {
       throw 'No pueden cargar el sitio : $url';
     }
+  }
+
+  Widget _cobrar(BuildContext context) {
+    return Container(
+      //margin: EdgeInsets.all(05),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Container(
+              //largo boton
+              height: 70.0,
+              //ancho
+              width: 400,
+              child: RaisedButton(
+                onPressed: () {
+                  _urlredirectPersona();
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.deepOrange, Colors.orangeAccent],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "COBRAR",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
