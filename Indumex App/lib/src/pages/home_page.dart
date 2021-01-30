@@ -561,12 +561,10 @@ class _HomePageState extends State<HomePage> {
                     if (usuario == null) {
                       alertaLogin(context,
                           "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
-                    
-                    }                   
+                    }
                     if (simular == null) {
                       alertaSimular(context,
-                          "Recuerda que todavia no has simulado una conbersion de dinero!");
-                    
+                          "Recuerda que todavia no has simulado una combersion de dinero!, utiliza a TENGO y QUIERO");
                     } else {
                       Navigator.push(
                         context,
@@ -642,7 +640,7 @@ class _HomePageState extends State<HomePage> {
       content: Text(mensaje),
       actions: [
         cancelBoton,
-       // continuarBoton,
+        // continuarBoton,
       ],
     );
 
@@ -740,7 +738,9 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
-      return Container(child: Image.asset(""));
+      return Container(
+        child: Image.asset(""),
+      );
       // tengo que hacerle un push al ayuda , para que aparezca el menu
     }
   }
@@ -770,62 +770,4 @@ class _HomePageState extends State<HomePage> {
     return lista;
   }
 
-//bottom navigator
-/*
-  Widget _bottomNavigator() {
-    return BottomNavigationBar(
-     
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-          
-        ),
-        BottomNavigationBarItem(
-                    icon: Icon(Icons.local_activity),
-          label: 'Sucursales',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.inbox),
-          label: 'Solicitud Moneycard',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Login',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.orange[800],
-      onTap: _onItemTapped,
-      
-    );
-  }
-    void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <Widget>[
-
-    Text(
-      'Index 0: home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: sucursales',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: solicitudMoneyCard',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: login',
-      style: optionStyle,
-    ),
-  ];*/
 }
