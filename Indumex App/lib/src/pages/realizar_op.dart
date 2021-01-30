@@ -81,38 +81,46 @@ class RealizarOp extends StatelessWidget {
       child: Card(
         elevation: 24.0,
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ListTile(
                 title: Text('TIPOS DE CAMBIO A OFRECERTE',
-                      style:
-                          TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+                    style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               ),
               Container(
-                margin: EdgeInsets.only(left: 15),
+                // margin: EdgeInsets.only(left: 15),
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.only(left: 8),
                       child: Text(
                           "Tc pizarra : " +
                               blSimular.simularOP.tcPizarra.toString(),
                           style: TextStyle(fontSize: 15)),
                     ),
+                    Divider(
+                      color: Colors.white,
+                    ),
                     Padding(
+                      padding: EdgeInsets.only(left: 8),
                       child: Text(
                           "Tc cliente : " +
                               blSimular.simularOP.tcUsuarioApp.toString(),
                           style: TextStyle(fontSize: 15)),
-                      padding: const EdgeInsets.all(8.0),
+                    ),
+                    Divider(
+                      color: Colors.white,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.only(left: 8),
                       child: Text(
-                          "Tc moneycard :" +
+                          "Con moneycard : " +
                               blSimular.simularOP.tcDescuentoMax.toString(),
-                          style: TextStyle(fontSize: 15)),
+                          style: TextStyle(fontSize: 30)),
+                    ),
+                    Divider(
+                      color: Colors.white,
                     ),
                   ],
                 ),
@@ -133,20 +141,24 @@ class RealizarOp extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-               //child: Center(
+                child: Center(
                   child: Text('RESUMEN DE OPERACIÓN',
                       style:
                           TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-                //),
+                ),
+              ),
+              Divider(
+                color: Colors.white,
               ),
               Column(
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                        'Moneda :' +
-                            blSimular.simularOP.monedaTengo.toString(),
-                        style: TextStyle(fontSize: 15.0)),
+                      "Tipo de cambio Aplicado : " +
+                          blSimular.simularOP.tcPizarra.toString(),
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
                 ],
               ),
@@ -158,14 +170,18 @@ class RealizarOp extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                        'Tengo :' + blSimular.simularOP.importeTengo.toString(),
+                        'Tengo : ' +
+                            blSimular.simularOP.importeTengo.toString() +
+                            ' moneda',
                         style: TextStyle(fontSize: 15.0)),
                   ),
+                  VerticalDivider(),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                        'Quiero :' +
-                            blSimular.simularOP.importeQuiero.toString(),
+                        'Quiero : ' +
+                            blSimular.simularOP.importeQuiero.toString() +
+                            ' moneda',
                         style: TextStyle(fontSize: 15.0)),
                   ),
                 ],
@@ -173,24 +189,19 @@ class RealizarOp extends StatelessWidget {
               Divider(
                 color: Colors.white,
               ),
+              Divider(
+                color: Colors.white,
+              ),
               Container(
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 8),
-                      child: Text(
-                        "Tipo de cambio Aplicado : " +
-                            blSimular.simularOP.tcPizarra.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
                     Divider(color: Colors.white),
                     Padding(
                       padding: EdgeInsets.only(left: 0),
-                      child: Text(
-                          "Con moneycard :" +
-                              blSimular.simularOP.tcDescuentoMax.toString(),
-                          style: TextStyle(fontSize: 30)),
+                      // child: Text(
+                      //     "Con moneycard :" +
+                      //         blSimular.simularOP.tcDescuentoMax.toString(),
+                      //     style: TextStyle(fontSize: 30)),
                     ),
                     Divider(color: Colors.white),
                   ],
@@ -217,9 +228,9 @@ class RealizarOp extends StatelessWidget {
               Row(
                 children: [
                   _crearBotonTipoLiquidacionReturarSuc(blUsuario),
-                  Divider(),
+                  Divider(color: Colors.white),
                   _crearBotonTipoLiquidacionMoney(blUsuario),
-                  Divider(),
+                  Divider(color: Colors.white),
                   _crearBotonTipoLiquidacionTransf(blUsuario),
                 ],
               )
@@ -338,7 +349,7 @@ class RealizarOp extends StatelessWidget {
                     color: Colors.orange[500],
                     textColor: Colors.white,
                     child: Icon(
-                      Icons.credit_card,
+                      Icons.food_bank_outlined,
                       size: 25.0,
                     ),
                     onPressed: () {

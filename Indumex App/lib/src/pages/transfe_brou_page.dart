@@ -9,18 +9,22 @@ class TranfBrou extends StatelessWidget {
       title: 'Tranfe Brou',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Transferencia por Brou'),
+          title: Text('Transferencia a Brou'),
         ),
         body: Center(
           child: Container(
             margin: EdgeInsets.all(15),
             child: Column(
               children: <Widget>[
+                 _cuentasIx( context) ,
+                  SizedBox(
+                  height: 10,
+                ),
                 _contenedorPersona(context),
                 SizedBox(
                   height: 10,
                 ),
-                _enviarPersona(context),
+                
                 SizedBox(
                   height: 10,
                 ),
@@ -28,7 +32,7 @@ class TranfBrou extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                _enviarEmpresa(context),
+               
                 SizedBox(
                   height: 30,
                 ),
@@ -43,6 +47,76 @@ class TranfBrou extends StatelessWidget {
     );
   }
 
+//contenedor DATOS DE CUENTAS iX
+  Widget _cuentasIx(BuildContext context) {
+    return Card(
+      elevation: 24.0,
+      child: Container(
+        margin: EdgeInsets.all(15),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Row(
+                children: [
+                  Text("cuentas de indumex"),
+                  
+                ],
+              ),
+              Divider(),
+                  Text("Brou aa6655909"),
+                Divider(color: Colors.white),
+                 Text("Brou 44454949"),
+                Divider(color: Colors.white),
+             
+            ]),
+      ),
+    );
+  }
+
+
+   void alertaLogin(BuildContext context, String mensaje) {
+    Widget cancelBoton = FlatButton(
+        child: Text("Cancelar"),
+        onPressed: () {
+          Navigator.pop(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>null,
+            ),
+          );
+        });
+    Widget continuarBoton = FlatButton(
+      child: Text("Continuar"),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TranfBrou(),
+          ),
+        );
+      },
+    );
+
+    AlertDialog alerta = AlertDialog(
+      title: Text("Recuede guardar el comprobante del mismo "),
+      content: Text(mensaje),
+      actions: [
+        cancelBoton,
+        continuarBoton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+
+
+
   //contenedor DATOS DE CUENTAS iX
   Widget _contenedorPersona(BuildContext context) {
     return Card(
@@ -54,9 +128,11 @@ class TranfBrou extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  Text("TRANSFERENCIA DE PERSONA"),
+                  Text("TRANSFERENCIA DEDE CUENTA PERSONA"),
                 ],
-              )
+              ),
+                Divider(color: Colors.white),
+              _enviarPersona(context),
             ]),
       ),
     );
@@ -74,7 +150,9 @@ class TranfBrou extends StatelessWidget {
                 children: [
                   Text("TRANSFERENCIA CON EMPRESA"),
                 ],
-              )
+              ),
+                  Divider(color: Colors.white),
+               _enviarEmpresa(context),
             ]),
       ),
     );
