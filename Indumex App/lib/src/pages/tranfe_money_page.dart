@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,13 +15,16 @@ class TranfMoney extends StatelessWidget {
         ),
         body: Center(
           child: Container(
+               margin: EdgeInsets.all(15),
             child: Column(
               children: <Widget>[
                 _datosDeCuentas(),
-                _enviarMoney( context),
+                SizedBox(
+                  height: 10,
+                ),
+                _enviarMoney(context),
               ],
             ),
-            
           ),
         ),
       ),
@@ -37,7 +41,9 @@ class TranfMoney extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Row(
-                children: [],
+                children: [
+                  Text("Recuerde ......................................ll"),
+                ],
               )
             ]),
       ),
@@ -59,12 +65,7 @@ class TranfMoney extends StatelessWidget {
               width: 400,
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => _btnRealizarMoneyPage(context),
-                    ),
-                  );
+                  _urlredirect();
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0)),
@@ -96,32 +97,6 @@ class TranfMoney extends StatelessWidget {
     );
   }
 
-//
-
-  Widget _btnRealizarMoneyPage(BuildContext context) {
-    return Container(
-        //margin: EdgeInsets.all(05),
-        child: Center(
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.person_pin_circle, size: 20, color: Colors.white),
-          InkWell(
-            child: Text(
-              'Redireccion al sitio Moneycard !',
-              style: new TextStyle(color: Colors.white, fontSize: 15.0),
-            ),
-            onTap: () async {
-              if (await canLaunch(_urlredirect())) {
-                await launch(_urlredirect());
-              }
-            },
-          ),
-        ],
-        mainAxisAlignment: MainAxisAlignment.center,
-      ),
-    ));
-  }
-
   _urlredirect() async {
     const url = 'https://auth.redpagos.com.uy/isam/sps/auth';
     if (await canLaunch(url)) {
@@ -130,4 +105,30 @@ class TranfMoney extends StatelessWidget {
       throw 'No pueden cargar el sitio : $url';
     }
   }
+
+// //
+
+//   Widget _btnRealizarMoneyPage(BuildContext context) {
+//     return Container(
+//         //margin: EdgeInsets.all(05),
+//         child: Center(
+//       child: Row(
+//         children: <Widget>[
+//           Icon(Icons.person_pin_circle, size: 20, color: Colors.white),
+//           InkWell(
+//             child: Text(
+//               'Redireccion al sitio Moneycard !',
+//               style: new TextStyle(color: Colors.white, fontSize: 15.0),
+//             ),
+//             onTap: () async {
+//               if (await canLaunch(_urlredirect())) {
+//                 await launch(_urlredirect());
+//               }
+//             },
+//           ),
+//         ],
+//         mainAxisAlignment: MainAxisAlignment.center,
+//       ),
+//     ));
+//   }
 }
