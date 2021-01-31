@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/models/Pizarra_model.dart';
-import 'package:formvalidation/src/pages/ayuda_page.dart';
+import 'package:flutter/src/rendering/box.dart';
+
 import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/pages/solicitud_moneycard.dart';
 import 'package:formvalidation/src/pages/sucursales_page.dart';
@@ -37,9 +38,9 @@ class _HomePageState extends State<HomePage> {
   //final bloc = LoginBloc();
   //final blocS = SimularBloc();
   final simularOpProvider = new SimularOpProvider();
+  final pizarraProvider = new PizarraProvider();
   String _monedaSeleccionadaTengo = jp.monedas[2].descripcion; //pesos uru 2
   String _monedaSeleccionadaQuiero = jp.monedas[0].descripcion; // dólares 0
-  final pizarraProvider = new PizarraProvider();
   // int _selectedIndex = 0; // bottom
 
   @override
@@ -61,48 +62,55 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         //body Home
-        body: Container(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                _sucursales(blocLogin),
-                Container(
-                  //Pizzarra
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: _crearPizarra(),
+        body: 
+        // SingleChildScrollView(
+        //   child: SizedBox(
+        //     height: 750,
+            //child: 
+            Container(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    _sucursales(blocLogin),
+                    Container(
+                      //Pizzarra
+                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      child: _crearPizarra(),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    //contenedor para los tres botones de operacion
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      //texto en mitad de pantalla home2
+                      child: Text(
+                        'SIMULADOR DE OPERACIONES',
+                        style: estilos.textoBotones,
+                      ),
+                    ),
+                    //Boton tengo & quiero
+                    _btnTengoQuiero(blocLogin),
+                    //boton generar operacion
+                    _btnGenerarOp(blocLogin, blocSimular),
+                    //banner
+                    _imagenBottom(blocLogin),
+                  ],
                 ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                //contenedor para los tres botones de operacion
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  //texto en mitad de pantalla home2
-                  child: Text(
-                    'SIMULADOR DE OPERACIONES',
-                    style: estilos.textoBotones,
-                  ),
-                ),
-                //Boton tengo & quiero
-                _btnTengoQuiero(blocLogin),
-                //boton generar operacion
-                _btnGenerarOp(blocLogin, blocSimular),
-                //banner
-                _imagenBottom(blocLogin),
-              ],
-            ),
-          ),
+              ),
 
-          //gradiente de scaffold
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [estilos.gradientStart, estilos.gradientEnd],
-                begin: const FractionalOffset(0.5, 0.0),
-                end: const FractionalOffset(0.0, 0.5),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
-          ),
-        ),
+              //gradiente de scaffold
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [estilos.gradientStart, estilos.gradientEnd],
+                    begin: const FractionalOffset(0.5, 0.0),
+                    end: const FractionalOffset(0.0, 0.5),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp),
+              ),
+            ),
+         // ),
+        //),
         // bottomNavigationBar: _bottomNavigator(
         //  //_widgetOptions.elementAt(_selectedIndex),
         //         ),
@@ -563,7 +571,7 @@ class _HomePageState extends State<HomePage> {
                           "Luego de ingresar al LOGIN veras los distintos tipos de cambio a ofrecerte");
                     }
                     if (simular == null) {
-                      alertaSimular(context,
+                      alertaSimular(context,"No simulaste una operacion!!",
                           "Recuerda que todavia no has simulado una combersion de dinero!, utiliza a TENGO y QUIERO");
                     } else {
                       Navigator.push(
@@ -612,7 +620,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void alertaSimular(BuildContext context, String mensaje) {
+  void alertaSimular(BuildContext context, String mensajeTitulo, String mensajeCuerpo) {
     Widget cancelBoton = FlatButton(
         child: Text("Ok"),
         onPressed: () {
@@ -636,8 +644,8 @@ class _HomePageState extends State<HomePage> {
     // );
 
     AlertDialog alerta = AlertDialog(
-      title: Text("No simulaste una operacion!!"),
-      content: Text(mensaje),
+      title: Text(mensajeTitulo),
+      content: Text(mensajeCuerpo),
       actions: [
         cancelBoton,
         // continuarBoton,
@@ -769,5 +777,4 @@ class _HomePageState extends State<HomePage> {
     }
     return lista;
   }
-
 }

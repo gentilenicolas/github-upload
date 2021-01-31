@@ -84,16 +84,23 @@ class RealizarOp extends StatelessWidget {
             //crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              ListTile(
-                title: Text('TIPOS DE CAMBIO A OFRECERTE',
+               Divider(
+                      color: Colors.white,
+                    ),
+              // ListTile(
+              //   title:
+               Text('TIPOS DE CAMBIO A OFRECERTE',
                     style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-              ),
+             //),
+             Divider(
+                      color: Colors.white,
+                    ),
               Container(
                 // margin: EdgeInsets.only(left: 15),
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.only(left: 0),
                       child: Text(
                           "Tc pizarra : " +
                               blSimular.simularOP.tcPizarra.toString(),
@@ -103,11 +110,11 @@ class RealizarOp extends StatelessWidget {
                       color: Colors.white,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.only(left: 0),
                       child: Text(
                           "Tc cliente : " +
                               blSimular.simularOP.tcUsuarioApp.toString(),
-                          style: TextStyle(fontSize: 15)),
+                          style: TextStyle(fontSize: 20)),
                     ),
                     Divider(
                       color: Colors.white,
@@ -136,11 +143,15 @@ class RealizarOp extends StatelessWidget {
       child: Card(
         elevation: 24.0,
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+               Divider(
+                      color: Colors.white,
+                    ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
+
                 child: Center(
                   child: Text('RESUMEN DE OPERACIÓN',
                       style:
@@ -150,41 +161,47 @@ class RealizarOp extends StatelessWidget {
               Divider(
                 color: Colors.white,
               ),
-              Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                      "Tipo de cambio Aplicado : " +
-                          blSimular.simularOP.tcPizarra.toString(),
-                      style: TextStyle(fontSize: 20),
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 0),
+                      child: Text(
+                        "Tipo de cambio Aplicado : " +
+                            blSimular.simularOP.tcPizarra.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Divider(
                 color: Colors.white,
               ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                        'Tengo : ' +
-                            blSimular.simularOP.importeTengo.toString() +
-                            ' moneda',
-                        style: TextStyle(fontSize: 15.0)),
-                  ),
-                  VerticalDivider(),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                        'Quiero : ' +
-                            blSimular.simularOP.importeQuiero.toString() +
-                            ' moneda',
-                        style: TextStyle(fontSize: 15.0)),
-                  ),
-                ],
+              Container(
+                 padding: EdgeInsets.zero,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.zero,
+                      child: Text(
+                          'Tengo : ' +
+                              blSimular.simularOP.importeTengo.toString() + " "+ blSimular.simularOP.monedaTengo.descripcion.toString(),
+                          style: TextStyle(fontSize: 15.0)),
+                    ),
+                   Divider(
+                color: Colors.white,
+              ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 0),
+                      child: Text(
+                          'Obtengo : ' +
+                              blSimular.simularOP.importeQuiero.toString() + " "+ blSimular.simularOP.monedaQuiero.descripcion.toString(),
+                              
+                          style: TextStyle(fontSize: 15.0)),
+                    ),
+                  ],
+                ),
               ),
               Divider(
                 color: Colors.white,

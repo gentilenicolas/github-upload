@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/providers/SimularOp_provider.dart';
+import 'package:formvalidation/src/providers/cuentasBancarias_provider.dart';
 import 'package:formvalidation/src/providers/localidades_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:formvalidation/src/providers/realizarOp_provider.dart';
 import 'package:formvalidation/src/providers/tengoQuiero_provider.dart';
+import 'package:formvalidation/src/providers/cuentasBancarias_provider.dart';
 import 'package:formvalidation/src/routes/routes.dart';
 import 'package:formvalidation/src/share_prefs/preferencias_usuario.dart';
 import 'package:formvalidation/src/utils/funciones.dart';
@@ -41,6 +43,8 @@ class InduApp extends StatelessWidget {
             create: (_) => new LocalidadesProvider()),
         ChangeNotifierProvider<TengoQuieroProvider>(
             create: (_) => new TengoQuieroProvider()),
+        ChangeNotifierProvider<CuentaBancariaProvider>(
+            create: (_) => new CuentaBancariaProvider()),
         //aca van los demas providers, podes hacerte un provider de logueado
         //Provider<Clase> (create: (_) => new Clase())    como ejemplo, clase puede ser login, loguead, lo que venga fijate
       ],

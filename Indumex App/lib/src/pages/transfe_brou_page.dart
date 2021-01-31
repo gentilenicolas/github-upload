@@ -1,46 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/providers/cuentasBancarias_provider.dart';
+import 'package:formvalidation/src/utils/alertas.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
 class TranfBrou extends StatelessWidget {
+  final cuentasBancariasProvider = new CuentaBancariaProvider();
+
   @override
   Widget build(BuildContext context) {
+//final blocCb = CuentaBancariaProvider.of(context);
+
     return MaterialApp(
       title: 'Tranfe Brou',
       home: Scaffold(
         appBar: AppBar(
           title: Text('Transferencia a Brou'),
         ),
-        body: Center(
-          child: Container(
-            margin: EdgeInsets.all(15),
-            child: Column(
-              children: <Widget>[
-                 _cuentasIx( context) ,
+        body: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.all(15),
+              child: Column(
+                children: <Widget>[
+                  _cuentasIx(context),
                   SizedBox(
-                  height: 10,
-                ),
-                _contenedorPersona(context),
-                SizedBox(
-                  height: 10,
-                ),
-                
-                SizedBox(
-                  height: 10,
-                ),
-                _contenedorEmpresa(context),
-                SizedBox(
-                  height: 10,
-                ),
-               
-                SizedBox(
-                  height: 30,
-                ),
-                _cobrar(context),
-              ],
-            ),
+                    height: 10,
+                  ),
+                  _infoDepo(context),
+                  Divider(
+                    color: Colors.white,
+                  ),
+                  _contenedorPersona(context),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _contenedorEmpresa(context),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  _cobrar(context),
+                ],
+              ),
 
-            // child: envioComprobante(context),
+              // child: envioComprobante(context),
+            ),
           ),
         ),
       ),
@@ -58,64 +68,46 @@ class TranfBrou extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  Text("cuentas de indumex"),
-                  
+                  Text("Cuentas de indumex"),
                 ],
               ),
+              Divider(
+                color: Colors.white,
+              ),
+              Text("Brou aa6655909"),
               Divider(),
-                  Text("Brou aa6655909"),
-                Divider(color: Colors.white),
-                 Text("Brou 44454949"),
-                Divider(color: Colors.white),
-             
+              Text("Brou 44454949"),
+              Divider(color: Colors.white),
             ]),
       ),
     );
   }
 
-
-   void alertaLogin(BuildContext context, String mensaje) {
-    Widget cancelBoton = FlatButton(
-        child: Text("Cancelar"),
-        onPressed: () {
-          Navigator.pop(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>null,
-            ),
-          );
-        });
-    Widget continuarBoton = FlatButton(
-      child: Text("Continuar"),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TranfBrou(),
-          ),
-        );
-      },
-    );
-
-    AlertDialog alerta = AlertDialog(
-      title: Text("Recuede guardar el comprobante del mismo "),
-      content: Text(mensaje),
-      actions: [
-        cancelBoton,
-        continuarBoton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alerta;
-      },
+//Info depo
+  Widget _infoDepo(BuildContext context) {
+    return Card(
+      elevation: 24.0,
+      child: Container(
+        margin: EdgeInsets.all(15),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Column(
+                children: [
+                  Text("Informacion para deposito"),
+                ],
+              ),
+              Divider(
+                color: Colors.white,
+              ),
+              Text("Brou aa6655909"),
+              Divider(),
+              Text("Brou 44454949"),
+              Divider(color: Colors.white),
+            ]),
+      ),
     );
   }
-
-
 
   //contenedor DATOS DE CUENTAS iX
   Widget _contenedorPersona(BuildContext context) {
@@ -131,8 +123,9 @@ class TranfBrou extends StatelessWidget {
                   Text("TRANSFERENCIA DEDE CUENTA PERSONA"),
                 ],
               ),
-                Divider(color: Colors.white),
-              _enviarPersona(context),
+              Divider(color: Colors.white),
+              _enviarCuentaPersona2(context),
+            //  _enviarPersona(context),
             ]),
       ),
     );
@@ -151,8 +144,8 @@ class TranfBrou extends StatelessWidget {
                   Text("TRANSFERENCIA CON EMPRESA"),
                 ],
               ),
-                  Divider(color: Colors.white),
-               _enviarEmpresa(context),
+              Divider(color: Colors.white),
+              _enviarEmpresa(context),
             ]),
       ),
     );
@@ -173,6 +166,8 @@ class TranfBrou extends StatelessWidget {
               width: 400,
               child: RaisedButton(
                 onPressed: () {
+                  aviso(context,
+                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
                   _urlredirectPersona();
                 },
                 shape: RoundedRectangleBorder(
@@ -205,6 +200,23 @@ class TranfBrou extends StatelessWidget {
     );
   }
 
+ Widget _enviarCuentaPersona2(BuildContext context) {
+    return RaisedButton.icon(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        color: Colors.blueAccent[400],
+        textColor: Colors.white,
+        label: Text('Enviar Solicitud'),
+        icon: Icon(Icons.person),
+       onPressed: () {
+                  aviso(context,
+                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+                  _urlredirectPersona();
+                },);
+    //onPressed: (_guardando) ? null : _submit);
+  }
+
+
+
   _urlredirectPersona() async {
     const url = 'https://ebanking.brou.com.uy/frontend/loginStep1';
     if (await canLaunch(url)) {
@@ -229,7 +241,9 @@ class TranfBrou extends StatelessWidget {
               width: 400,
               child: RaisedButton(
                 onPressed: () {
-                  _urlredirectEmpesa();
+                  avisoEmpresa(context,
+                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+                  //  _urlredirectEmpesa();
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0)),
@@ -269,6 +283,47 @@ class TranfBrou extends StatelessWidget {
     } else {
       throw 'No pueden cargar el sitio : $url';
     }
+  }
+
+  void avisoEmpresa(BuildContext context, String mensaje) {
+    Widget cancelBoton = FlatButton(
+        child: Text("Cancelar"),
+        onPressed: () {
+          Navigator.pop(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TranfBrou(),
+            ),
+          );
+        });
+    Widget continuarBoton = FlatButton(
+      child: Text("Continuar"),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => _urlredirectEmpesa(),
+          ),
+        );
+      },
+    );
+
+    AlertDialog alerta = AlertDialog(
+      title: Text(mensaje),
+      // content: Text(mensaje),
+      actions: [
+        cancelBoton,
+        continuarBoton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 
   Widget _cobrar(BuildContext context) {

@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:formvalidation/src/models/Cuenta_bancaria_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
 export 'package:formvalidation/src/models/cuenta_bancaria_model.dart';
 
- class CuentaBancariaProvider 
+ class CuentaBancariaProvider  with ChangeNotifier
 //extends InheritedWidget 
 {
 
