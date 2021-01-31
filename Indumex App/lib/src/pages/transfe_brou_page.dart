@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/pages/cobrar_tranf_page.dart';
 import 'package:formvalidation/src/providers/cuentasBancarias_provider.dart';
+import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
-
+import 'package:formvalidation/src/utils/widgets.dart' as master;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class TranfBrou extends StatelessWidget {
   final cuentasBancariasProvider = new CuentaBancariaProvider();
@@ -10,6 +13,7 @@ class TranfBrou extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //final blocCb = CuentaBancariaProvider.of(context);
+    final blocUsuario = LoginProvider.of(context);
 
     return MaterialApp(
       title: 'Tranfe Brou',
@@ -31,20 +35,19 @@ class TranfBrou extends StatelessWidget {
                   Divider(
                     color: Colors.white,
                   ),
+                 // _swipperTranfe(context),
+                  SizedBox(
+                    height: 10,
+                  ),
                   _contenedorPersona(context),
                   SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   //  _contenedorEmpresa(context),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+
                   //_cobrar(context),
                 ],
               ),
@@ -53,6 +56,7 @@ class TranfBrou extends StatelessWidget {
             ),
           ),
         ),
+        endDrawer: master.menuDrawer(context, blocUsuario),
       ),
     );
   }
@@ -114,6 +118,41 @@ class TranfBrou extends StatelessWidget {
     );
   }
 
+  Widget _swipperTranfe(BuildContext context){
+
+    final _screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      padding: EdgeInsets.only(top: 10.0),
+       
+      child: Swiper(
+        layout: SwiperLayout.STACK,
+        itemWidth: _screenSize.width * 0.4,
+        itemHeight: _screenSize.height * 0.2,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: <Widget>[
+
+            //  _contenedorPersona(context),
+
+
+            ],
+          );
+
+          // return new Image.network(
+          //   "http://via.placeholder.com/350x150",
+          //   fit: BoxFit.fill, //imagen para que se adapte a las paginas que tien
+          // );
+        },
+        itemCount: 2,
+        pagination: new SwiperPagination(),
+        control: new SwiperControl(),
+      ),
+    );
+  }
+
+
+
   //contenedor DATOS DE CUENTAS iX
   Widget _contenedorPersona(BuildContext context) {
     return Card(
@@ -125,7 +164,7 @@ class TranfBrou extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  Text("TRANSFERENCIA DEDE CUENTA PERSONA"),
+                  Text("TRANSFERENCIA DESDE CUENTA PERSONA"),
                 ],
               ),
               Divider(color: Colors.white),
@@ -155,8 +194,8 @@ class TranfBrou extends StatelessWidget {
                 ],
               ),
               Divider(color: Colors.white),
-             // _enviarEmpresa(context),
-             _enviarCuentaEmpresa2(context),
+              // _enviarEmpresa(context),
+              _enviarCuentaEmpresa2(context),
             ]),
       ),
     );
@@ -238,7 +277,7 @@ class TranfBrou extends StatelessWidget {
 
   //ENVIAR TRANFE A PERSONA
 
- Widget _enviarCuentaEmpresa2(BuildContext context) {
+  Widget _enviarCuentaEmpresa2(BuildContext context) {
     return RaisedButton.icon(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Colors.blueAccent[400],
@@ -253,7 +292,6 @@ class TranfBrou extends StatelessWidget {
     );
     //onPressed: (_guardando) ? null : _submit);
   }
-
 
   // Widget _enviarEmpresa(BuildContext context) {
   //   return Container(
@@ -354,49 +392,53 @@ class TranfBrou extends StatelessWidget {
   }
 
   Widget _cobrar(BuildContext context) {
-    return 
-      Container(
-        //margin: EdgeInsets.all(05),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                //largo boton
-                height: 70.0,
-                //ancho
-                width: 400,
-                child: RaisedButton(
-                  onPressed: () {
-                    _urlredirectPersona();
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  padding: EdgeInsets.all(0.0),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.deepOrange, Colors.orangeAccent],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(15.0)),
-                    child: Container(
-                      constraints:
-                          BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "COBRAR",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+    return Container(
+      //margin: EdgeInsets.all(05),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Container(
+              //largo boton
+              height: 70.0,
+              //ancho
+              width: 400,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CobrarTranf(),
+                    ),
+                  );
+                  // _urlredirectPersona();
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.deepOrange, Colors.orangeAccent],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
                       ),
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "COBRAR",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-  
+      ),
+    );
   }
 }
