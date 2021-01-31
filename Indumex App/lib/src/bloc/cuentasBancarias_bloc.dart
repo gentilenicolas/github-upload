@@ -1,15 +1,16 @@
 
-import 'package:formvalidation/src/models/cuentas_bancarias_model.dart';
+import 'package:formvalidation/src/models/Cuenta_bancaria_model.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 class CuentasBancariasBloc {
-  final _cuentasController = BehaviorSubject<CuentasBancariasModel>();
+  final _cuentasController = BehaviorSubject<CuentaBancariaModel>();
 
 
  // Insertar  o enviar valores al Stream .sink
-  Function(CuentasBancariasModel) get changeCuentasBancarias => _cuentasController.sink.add;
+  Function(CuentaBancariaModel) get changeCuentasBancarias => _cuentasController.sink.add;
 
-  CuentasBancariasModel get cuentasBancarias => _cuentasController.value;
+  CuentaBancariaModel get cuentasBancarias => _cuentasController.value;
 
   dispose() {_cuentasController?.close();
   }

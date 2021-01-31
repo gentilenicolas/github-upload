@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:formvalidation/src/models/cuentas_bancarias_model.dart';
+
+import 'package:formvalidation/src/models/Cuenta_bancaria_model.dart';
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
-export 'package:formvalidation/src/models/cuentas_bancarias_model.dart';
+export 'package:formvalidation/src/models/cuenta_bancaria_model.dart';
 
- class CuentasBancariasProvider 
+ class CuentaBancariaProvider 
 //extends InheritedWidget 
 {
 
@@ -17,13 +18,13 @@ export 'package:formvalidation/src/models/cuentas_bancarias_model.dart';
     final resp = await http.get(url);
 
     final List<dynamic> decodedData = json.decode(resp.body);
-    final List<CuentasBancariasModel> listaModel = new List();
+    final List<CuentaBancariaModel> listaModel = new List();
     final List<String> listaString = new List();
 
     if (decodedData == null) return [];
 
     decodedData.forEach((dato) {
-      final datoTemp = CuentasBancariasModel.fromJson(dato);
+      final datoTemp = CuentaBancariaModel.fromJson(dato);
       listaModel.add(datoTemp);
     });
 

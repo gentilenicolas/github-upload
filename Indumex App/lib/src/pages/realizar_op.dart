@@ -157,7 +157,7 @@ class RealizarOp extends StatelessWidget {
                     child: Text(
                       "Tipo de cambio Aplicado : " +
                           blSimular.simularOP.tcPizarra.toString(),
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 ],

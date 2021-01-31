@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-CuentasBancariasModel cuentasModelFromJson(String str) =>
-    CuentasBancariasModel.fromJson(json.decode(str));
+CuentaBancariaModel cuentasModelFromJson(String str) =>
+    CuentaBancariaModel.fromJson(json.decode(str));
 
-String cuentasModelToJson(CuentasBancariasModel data) =>
+String cuentasModelToJson(CuentaBancariaModel data) =>
     json.encode(data.toJson());
 
-class CuentasBancariasModel {
-  CuentasBancariasModel({
+class CuentaBancariaModel {
+  CuentaBancariaModel({
     this.id,
     this.idusuario,
     this.idbanco,
@@ -25,8 +25,8 @@ class CuentasBancariasModel {
   int idMoneda;
   String alias;
 
-  factory CuentasBancariasModel.fromJson(Map<String, dynamic> json) =>
-      CuentasBancariasModel(
+  factory CuentaBancariaModel.fromJson(Map<String, dynamic> json) =>
+      CuentaBancariaModel(
         id: json["id"],
         idusuario: json["idusuario"],
         idbanco: json["idbanco"],
