@@ -3,6 +3,8 @@
 //final sucursalesModel = sucursalesModelFromJson(jsonString);
 
 import 'dart:convert';
+
+import 'EntregoPago_model.dart';
 //import 'package:formvalidation/src/pages/sucursales.dart';
 
 SucursalesModel sucursalesModelFromJson(String str) =>
@@ -30,28 +32,29 @@ class SucursalessModel {
 //sucursal
 class SucursalesModel {
   SucursalesModel({
-    this.id,
-    this.descripcion,
-    // this.suc,
-    // this.mail,
-    // this.direccion,
-    // this.telefono,
-    // this.telefono2,
-    // this.telefono3,
-    // this.celular,
-    // this.departamento,
+   this.id,
+        this.descripcion,
+        this.suc,
+        this.mail,
+        this.direccion,
+        this.telefono,
+        this.telefono2,
+        this.telefono3,
+        this.celular,
+        this.departamento,
   });
 
   int id;
-  String descripcion;
-  // int suc;
-  // String mail;
-  // String direccion;
-  // String telefono;
-  // String telefono2;
-  // String telefono3;
-  // String celular;
-  // Departamento departamento;
+    String descripcion;
+    int suc;
+    String mail;
+    String direccion;
+    String telefono;
+    String telefono2;
+    String telefono3;
+    String celular;
+    EntregoPagoModel departamento;
+
 
   factory SucursalesModel.fromJson(Map<String, dynamic> json) =>
       SucursalesModel(

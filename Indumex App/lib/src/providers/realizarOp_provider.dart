@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:formvalidation/src/bloc/realizarOp_bloc.dart';
-import 'package:formvalidation/src/models/Moneda_model.dart';
+
 import 'package:formvalidation/src/models/RealizarOp_model.dart';
-import 'package:formvalidation/src/models/Usuario_model.dart';
+import 'package:formvalidation/src/models/SimularOp_model.dart';
+
 import 'package:formvalidation/src/utils/url_api.dart';
 import 'package:http/http.dart' as http;
 export 'package:formvalidation/src/models/SimularOp_model.dart';
@@ -44,30 +45,45 @@ class RealizarOpProvider extends InheritedWidget {
   }
 
   Future<bool> enviarRealizarOp(
-      MonedaModel monedaTengo,
-      MonedaModel monedaQuiero,
-      double importeTengo,
-      double importeQuiero,
-      double tcAplicado,
-      UsuarioModel usuario,
+       SimularOpModel opSimulada,
+       DateTime fecha,
+       String comentarios,
+        suc,
+        reciboPago,
+        entregoPago,
+        cuentaBancaria,
+        comprobanteDepo,
+        nroDepo, 
+      
+      
+      
+      // MonedaModel monedaTengo,
+      // MonedaModel monedaQuiero,
+      // double importeTengo,
+      // double importeQuiero,
+      // double tcAplicado,
+      // UsuarioModel usuario,
       BuildContext context) async {
     RealizarOpModel modeloRealizarOp = new RealizarOpModel();
     final blocRealizar = RealizarOpProvider.of(context);
 
-    final url = '$urlApi/SimularOp';
+    final url = '$urlApi/Operacion';
 
     final resp = await http.post(url,
         
-        body: realizarOpModelToJson(new RealizarOpModel(
-            monedaTengo: monedaTengo,
-            monedaQuiero: monedaQuiero,
-            importeTengo: importeTengo,
-            importeQuiero: importeQuiero,
-            tcAplicado: tcAplicado,
-            usuario: usuario)),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+       // body: realizarOpModelToJson(new RealizarOpModel(
+            // monedaTengo: monedaTengo,
+            // monedaQuiero: monedaQuiero,
+            // importeTengo: importeTengo,
+            // importeQuiero: importeQuiero,
+            // tcAplicado: tcAplicado,
+            // cuentaBancaria: cuentaBancaria
+         //   )
+         //   ),
+       headers: <String, String>{
+         'Content-Type': 'application/json; charset=UTF-8'
+       }
+      );
 
    
     final decodedData = json.decode(resp.body);
