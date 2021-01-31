@@ -38,14 +38,14 @@ class TranfBrou extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  _contenedorEmpresa(context),
+                  //  _contenedorEmpresa(context),
                   SizedBox(
                     height: 10,
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  _cobrar(context),
+                  //_cobrar(context),
                 ],
               ),
 
@@ -62,7 +62,7 @@ class TranfBrou extends StatelessWidget {
     return Card(
       elevation: 24.0,
       child: Container(
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(10),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
@@ -74,10 +74,14 @@ class TranfBrou extends StatelessWidget {
               Divider(
                 color: Colors.white,
               ),
-              Text("Brou aa6655909"),
-              Divider(),
-              Text("Brou 44454949"),
-              Divider(color: Colors.white),
+              Column(
+                children: [
+                  Text("Brou 'S' aa6655909"),
+                  Divider(),
+                  Text("Brou 'USD' 44454949"),
+                  Divider(color: Colors.white),
+                ],
+              ),
             ]),
       ),
     );
@@ -100,9 +104,10 @@ class TranfBrou extends StatelessWidget {
               Divider(
                 color: Colors.white,
               ),
-              Text("Brou aa6655909"),
+              Text('IMPORTE A DEPOSITAR',
+                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               Divider(),
-              Text("Brou 44454949"),
+              Text("44454949 DOLAR"),
               Divider(color: Colors.white),
             ]),
       ),
@@ -125,7 +130,12 @@ class TranfBrou extends StatelessWidget {
               ),
               Divider(color: Colors.white),
               _enviarCuentaPersona2(context),
-            //  _enviarPersona(context),
+              Divider(),
+              _contenedorEmpresa(context),
+              Divider(color: Colors.white),
+              _cobrar(context),
+
+              //  _enviarPersona(context),
             ]),
       ),
     );
@@ -145,77 +155,77 @@ class TranfBrou extends StatelessWidget {
                 ],
               ),
               Divider(color: Colors.white),
-              _enviarEmpresa(context),
+             // _enviarEmpresa(context),
+             _enviarCuentaEmpresa2(context),
             ]),
       ),
     );
   }
 
-  //ENVIAR TRANFE A PERSONA
+  //ENVIAR TRANFE A PERSONA   //estoy utilizando el azul
 
-  Widget _enviarPersona(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(05),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              //largo boton
-              height: 70.0,
-              //ancho
-              width: 400,
-              child: RaisedButton(
-                onPressed: () {
-                  aviso(context,
-                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
-                  _urlredirectPersona();
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepOrange, Colors.orangeAccent],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "ENVIAR",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _enviarPersona(BuildContext context) {
+  //   return Container(
+  //     //margin: EdgeInsets.all(05),
+  //     child: Center(
+  //       child: Column(
+  //         children: <Widget>[
+  //           Container(
+  //             //largo boton
+  //             height: 70.0,
+  //             //ancho
+  //             width: 400,
+  //             child: RaisedButton(
+  //               onPressed: () {
+  //                 aviso(context,
+  //                     "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+  //                 _urlredirectPersona();
+  //               },
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(15.0)),
+  //               padding: EdgeInsets.all(0.0),
+  //               child: Ink(
+  //                 decoration: BoxDecoration(
+  //                     gradient: LinearGradient(
+  //                       colors: [Colors.deepOrange, Colors.orangeAccent],
+  //                       begin: Alignment.centerLeft,
+  //                       end: Alignment.centerRight,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(15.0)),
+  //                 child: Container(
+  //                   constraints:
+  //                       BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+  //                   alignment: Alignment.center,
+  //                   child: Text(
+  //                     "ENVIAR",
+  //                     textAlign: TextAlign.center,
+  //                     style: TextStyle(color: Colors.white, fontSize: 25),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
- Widget _enviarCuentaPersona2(BuildContext context) {
+  Widget _enviarCuentaPersona2(BuildContext context) {
     return RaisedButton.icon(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.blueAccent[400],
-        textColor: Colors.white,
-        label: Text('Enviar Solicitud'),
-        icon: Icon(Icons.person),
-       onPressed: () {
-                  aviso(context,
-                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
-                  _urlredirectPersona();
-                },);
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: Colors.blueAccent[400],
+      textColor: Colors.white,
+      label: Text('DEPOSITAR'),
+      icon: Icon(Icons.person),
+      onPressed: () {
+        aviso(context,
+            "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+        _urlredirectPersona();
+      },
+    );
     //onPressed: (_guardando) ? null : _submit);
   }
-
-
 
   _urlredirectPersona() async {
     const url = 'https://ebanking.brou.com.uy/frontend/loginStep1';
@@ -228,52 +238,69 @@ class TranfBrou extends StatelessWidget {
 
   //ENVIAR TRANFE A PERSONA
 
-  Widget _enviarEmpresa(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(05),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              //largo boton
-              height: 70.0,
-              //ancho
-              width: 400,
-              child: RaisedButton(
-                onPressed: () {
-                  avisoEmpresa(context,
-                      "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
-                  //  _urlredirectEmpesa();
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepOrange, Colors.orangeAccent],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "ENVIAR",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+ Widget _enviarCuentaEmpresa2(BuildContext context) {
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: Colors.blueAccent[400],
+      textColor: Colors.white,
+      label: Text('DEPOSITAR'),
+      icon: Icon(Icons.store),
+      onPressed: () {
+        aviso(context,
+            "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+        _urlredirectEmpesa();
+      },
     );
+    //onPressed: (_guardando) ? null : _submit);
   }
+
+
+  // Widget _enviarEmpresa(BuildContext context) {
+  //   return Container(
+  //     //margin: EdgeInsets.all(05),
+  //     child: Center(
+  //       child: Column(
+  //         children: <Widget>[
+  //           Container(
+  //             //largo boton
+  //             height: 70.0,
+  //             //ancho
+  //             width: 400,
+  //             child: RaisedButton(
+  //               onPressed: () {
+  //                 avisoEmpresa(context,
+  //                     "Recorda guardar una captura de pantalla o el comprobante del deposito!!");
+  //                 //  _urlredirectEmpesa();
+  //               },
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(15.0)),
+  //               padding: EdgeInsets.all(0.0),
+  //               child: Ink(
+  //                 decoration: BoxDecoration(
+  //                     gradient: LinearGradient(
+  //                       colors: [Colors.deepOrange, Colors.orangeAccent],
+  //                       begin: Alignment.centerLeft,
+  //                       end: Alignment.centerRight,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(15.0)),
+  //                 child: Container(
+  //                   constraints:
+  //                       BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+  //                   alignment: Alignment.center,
+  //                   child: Text(
+  //                     "ENVIAR",
+  //                     textAlign: TextAlign.center,
+  //                     style: TextStyle(color: Colors.white, fontSize: 25),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   _urlredirectEmpesa() async {
     const url =
@@ -327,47 +354,49 @@ class TranfBrou extends StatelessWidget {
   }
 
   Widget _cobrar(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(05),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              //largo boton
-              height: 70.0,
-              //ancho
-              width: 400,
-              child: RaisedButton(
-                onPressed: () {
-                  _urlredirectPersona();
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepOrange, Colors.orangeAccent],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+    return 
+      Container(
+        //margin: EdgeInsets.all(05),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Container(
+                //largo boton
+                height: 70.0,
+                //ancho
+                width: 400,
+                child: RaisedButton(
+                  onPressed: () {
+                    _urlredirectPersona();
+                  },
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "COBRAR",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                  padding: EdgeInsets.all(0.0),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.deepOrange, Colors.orangeAccent],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.circular(15.0)),
+                    child: Container(
+                      constraints:
+                          BoxConstraints(maxWidth: 400.0, minHeight: 100.0),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "COBRAR",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+  
   }
 }
