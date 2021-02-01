@@ -9,27 +9,56 @@ class CardSwipper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
-
+    
     return Container(
       padding: EdgeInsets.only(top: 10.0),
+      width: double.infinity,
+      height: 200.0,
       child: Swiper(
-        itemWidth: _screenSize.width * 0.8,
-        itemHeight: _screenSize.height * 0.3,
+        layout: SwiperLayout.STACK,
+        itemWidth: 250.0,
         itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: Card(
-              //"http://via.placeholder.com/350x150",
-           //   fit: BoxFit
-                 // .fill, //imagen para que se adapte a las paginas que tien
-            ),
+          return new Image.network(
+            "http://via.placeholder.com/350x150",
+            fit: BoxFit.fill, //imagen para que se adapte a las paginas que tien
           );
         },
-        itemCount: 2, //o lista.length , en nuestro caso tenemos solo 2 opciones
+        itemCount: 2,
         pagination: new SwiperPagination(),
         control: new SwiperControl(),
       ),
     );
   }
+
+  // final _screenSize = MediaQuery.of(context).size;
+
+  //   return Container(
+  //     padding: EdgeInsets.only(top: 10.0),
+  //     child: Swiper(
+  //       layout: SwiperLayout.STACK,
+  //       itemWidth: _screenSize.width * 0.9,
+  //       itemHeight: _screenSize.height * 0.4,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return Column(
+  //           children: <Widget>[
+
+  //             _pruebaCard(),
+  //              _pruebaCard(),
+  //             //  _contenedorPersona(context),
+  //           ],
+  //         );
+
+  //         // return new Image.network(
+  //         //   "http://via.placeholder.com/350x150",
+  //         //   fit: BoxFit.fill, //imagen para que se adapte a las paginas que tien
+  //         // );
+  //       },
+  //       itemCount: 2,
+  //       pagination: new SwiperPagination(),
+  //       control: new SwiperControl(),
+  //     ),
+  //   );
+
+
+
 }

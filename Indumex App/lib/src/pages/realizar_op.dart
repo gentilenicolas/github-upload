@@ -84,17 +84,17 @@ class RealizarOp extends StatelessWidget {
             //crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-               Divider(
-                      color: Colors.white,
-                    ),
+              Divider(
+                color: Colors.white,
+              ),
               // ListTile(
               //   title:
-               Text('TIPOS DE CAMBIO A OFRECERTE',
-                    style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-             //),
-             Divider(
-                      color: Colors.white,
-                    ),
+              Text('TIPOS DE CAMBIO A OFRECERTE',
+                  style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
+              //),
+              Divider(
+                color: Colors.white,
+              ),
               Container(
                 // margin: EdgeInsets.only(left: 15),
                 child: Column(
@@ -146,12 +146,11 @@ class RealizarOp extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-               Divider(
-                      color: Colors.white,
-                    ),
+              Divider(
+                color: Colors.white,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-
                 child: Center(
                   child: Text('RESUMEN DE OPERACIÓN',
                       style:
@@ -179,25 +178,30 @@ class RealizarOp extends StatelessWidget {
                 color: Colors.white,
               ),
               Container(
-                 padding: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
                 child: Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.zero,
                       child: Text(
                           'Tengo : ' +
-                              blSimular.simularOP.importeTengo.toString() + " "+ blSimular.simularOP.monedaTengo.descripcion.toString(),
+                              blSimular.simularOP.importeTengo.toString() +
+                              " " +
+                              blSimular.simularOP.monedaTengo.descripcion
+                                  .toString(),
                           style: TextStyle(fontSize: 15.0)),
                     ),
-                   Divider(
-                color: Colors.white,
-              ),
+                    Divider(
+                      color: Colors.white,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: 0),
                       child: Text(
                           'Obtengo : ' +
-                              blSimular.simularOP.importeQuiero.toString() + " "+ blSimular.simularOP.monedaQuiero.descripcion.toString(),
-                              
+                              blSimular.simularOP.importeQuiero.toString() +
+                              " " +
+                              blSimular.simularOP.monedaQuiero.descripcion
+                                  .toString(),
                           style: TextStyle(fontSize: 15.0)),
                     ),
                   ],
@@ -246,9 +250,9 @@ class RealizarOp extends StatelessWidget {
                 children: [
                   _crearBotonTipoLiquidacionReturarSuc(blUsuario),
                   Divider(color: Colors.white),
-                  _crearBotonTipoLiquidacionMoney(blUsuario),
+                  _crearBotonTipoLiquidacionMoney(blUsuario,blSimular),
                   Divider(color: Colors.white),
-                  _crearBotonTipoLiquidacionTransf(blUsuario),
+                  _crearBotonTipoLiquidacionBrou(blUsuario),
                 ],
               )
             ]),
@@ -259,7 +263,8 @@ class RealizarOp extends StatelessWidget {
   //botones tipos de liquidacion
   //liquidacion por medio de moneycard
 
-  Widget _crearBotonTipoLiquidacionMoney(LoginBloc bloc) {
+  Widget _crearBotonTipoLiquidacionMoney(
+      LoginBloc bloc, SimularBloc blSimular) {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -269,24 +274,35 @@ class RealizarOp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 MaterialButton(
-                    shape: CircleBorder(
-                        side: BorderSide(
-                            width: 1,
-                            color: Colors.orange[600],
-                            style: BorderStyle.solid)),
-                    elevation: 24.0,
-                    color: Colors.orange[500],
-                    textColor: Colors.white,
-                    child: Icon(
-                      Icons.credit_card,
-                      size: 25.0,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TranfMoney()),
-                      );
-                    }),
+                  shape: CircleBorder(
+                      side: BorderSide(
+                          width: 1,
+                          color: Colors.orange[600],
+                          style: BorderStyle.solid)),
+                  elevation: 24.0,
+                  color: Colors.orange[500],
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.credit_card,
+                    size: 25.0,
+                  ),
+                  // onPressed: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => TranfMoney()),
+                  //   );
+                  // }
+                  onPressed: () => (blSimular
+                                  .simularOP.monedaQuiero.descripcion !=
+                              "Dolares" ||
+                          blSimular.simularOP.monedaQuiero.descripcion !=
+                              "Pesos")
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TranfMoney()),
+                        )
+                      : null,
+                ),
                 Text('Moneycard'),
               ],
             ),
@@ -347,7 +363,7 @@ class RealizarOp extends StatelessWidget {
   }
 
 //liquidacion por transferencia brou
-  Widget _crearBotonTipoLiquidacionTransf(LoginBloc bloc) {
+  Widget _crearBotonTipoLiquidacionBrou(LoginBloc bloc) {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:formvalidation/src/bloc/simular_bloc.dart';
 import 'package:formvalidation/src/pages/cobrar_tranf_page.dart';
+import 'package:formvalidation/src/providers/SimularOp_provider.dart';
 import 'package:formvalidation/src/providers/cuentasBancarias_provider.dart';
 import 'package:formvalidation/src/providers/login_provider.dart';
 import 'package:formvalidation/src/utils/alertas.dart';
@@ -14,6 +16,7 @@ class TranfBrou extends StatelessWidget {
   Widget build(BuildContext context) {
 //final blocCb = CuentaBancariaProvider.of(context);
     final blocUsuario = LoginProvider.of(context);
+    final blocSimular = SimularOpProvider.of(context);
 
     return MaterialApp(
       title: 'Tranfe Brou',
@@ -21,9 +24,11 @@ class TranfBrou extends StatelessWidget {
         appBar: AppBar(
           title: Text('Transferencia a Brou'),
         ),
-        body: SingleChildScrollView(
+        body:
+        SingleChildScrollView(
           child: Center(
-            child: Container(
+            child: 
+            Container(
               margin: EdgeInsets.all(15),
               child: Column(
                 children: <Widget>[
@@ -31,22 +36,16 @@ class TranfBrou extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  _infoDepo(context),
-                  Divider(
-                    color: Colors.white,
-                  ),
-                 // _swipperTranfe(context),
+                  _infoDepo(context, blocSimular),
                   SizedBox(
                     height: 10,
                   ),
-                  _contenedorPersona(context),
+                  _contenedorTiposDetransf(context),
                   SizedBox(
                     height: 10,
                   ),
+                  _swipperTranfe(context),
                   //  _contenedorEmpresa(context),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
 
                   //_cobrar(context),
                 ],
@@ -54,11 +53,11 @@ class TranfBrou extends StatelessWidget {
 
               // child: envioComprobante(context),
             ),
-          ),
-        ),
+         ),
+       ),
         endDrawer: master.menuDrawer(context, blocUsuario),
       ),
-    );
+   );
   }
 
 //contenedor DATOS DE CUENTAS iX
@@ -92,7 +91,7 @@ class TranfBrou extends StatelessWidget {
   }
 
 //Info depo
-  Widget _infoDepo(BuildContext context) {
+  Widget _infoDepo(BuildContext context, SimularBloc blSimular) {
     return Card(
       elevation: 24.0,
       child: Container(
@@ -111,50 +110,69 @@ class TranfBrou extends StatelessWidget {
               Text('IMPORTE A DEPOSITAR',
                   style: TextStyle(color: Colors.blue[400], fontSize: 20.0)),
               Divider(),
-              Text("44454949 DOLAR"),
+              Text("Debes despositar : "+ blSimular.simularOP.tcAplicado.toString() + " " +blSimular.simularOP.monedaTengo.descripcion.toString()),
               Divider(color: Colors.white),
             ]),
       ),
     );
   }
 
-  Widget _swipperTranfe(BuildContext context){
-
+  Widget _swipperTranfe(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
-       
+   padding: EdgeInsets.only(top: 10.0),
+      width : double.infinity,
+      height : 200.0,
       child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.4,
-        itemHeight: _screenSize.height * 0.2,
+//itemWidth: _screenSize.width * 0.8,
+
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-
-            //  _contenedorPersona(context),
-
-
-            ],
+          return new Image.network(
+            "http://via.placeholder.com/350x150",
+            fit: BoxFit.fill,
           );
-
-          // return new Image.network(
-          //   "http://via.placeholder.com/350x150",
-          //   fit: BoxFit.fill, //imagen para que se adapte a las paginas que tien
-          // );
         },
         itemCount: 2,
         pagination: new SwiperPagination(),
         control: new SwiperControl(),
       ),
     );
+    // return Container(
+    //   padding: EdgeInsets.only(top: 10.0),
+    //   child: Swiper(
+    //     layout: SwiperLayout.STACK,
+    //     itemWidth: _screenSize.width * 0.9,
+    //     itemHeight: _screenSize.height * 0.4,
+    //     itemBuilder: (BuildContext context, int index) {
+    //       return Column(
+    //         children: <Widget>[
+    //           Image.network(
+    //             "http://via.placeholder.com/350x150",
+    //             fit: BoxFit
+    //                 .fill, //imagen para que se adapte a las paginas que tien
+    //           ),
+    //           // _pruebaCard(),
+    //           //  _pruebaCard(),
+    //           //  _contenedorPersona(context),
+    //         ],
+    //       );
+
+    //       // return new Image.network(
+    //       //   "http://via.placeholder.com/350x150",
+    //       //   fit: BoxFit.fill, //imagen para que se adapte a las paginas que tien
+    //       // );
+    //     },
+    //     itemCount: 2,
+    //     pagination: new SwiperPagination(),
+    //     control: new SwiperControl(),
+    //   ),
+    // );
   }
 
+  //contenedor tipos de transferencias
 
-
-  //contenedor DATOS DE CUENTAS iX
-  Widget _contenedorPersona(BuildContext context) {
+  Widget _contenedorTiposDetransf(BuildContext context) {
     return Card(
       elevation: 24.0,
       child: Container(
@@ -162,40 +180,20 @@ class TranfBrou extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Row(
+              Column(
                 children: [
                   Text("TRANSFERENCIA DESDE CUENTA PERSONA"),
+                  Divider(color: Colors.white),
+                  _enviarCuentaPersona2(context),
+                  Divider(color: Colors.white),
+                  Text("TRANSFERENCIA CON EMPRESA"),
+                  _enviarCuentaEmpresa2(context),
+                  Divider(color: Colors.white),
+                  _cobrar(context),
                 ],
               ),
-              Divider(color: Colors.white),
-              _enviarCuentaPersona2(context),
-              Divider(),
-              _contenedorEmpresa(context),
-              Divider(color: Colors.white),
-              _cobrar(context),
 
               //  _enviarPersona(context),
-            ]),
-      ),
-    );
-  }
-
-  Widget _contenedorEmpresa(BuildContext context) {
-    return Card(
-      elevation: 24.0,
-      child: Container(
-        margin: EdgeInsets.all(15),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                children: [
-                  Text("TRANSFERENCIA CON EMPRESA"),
-                ],
-              ),
-              Divider(color: Colors.white),
-              // _enviarEmpresa(context),
-              _enviarCuentaEmpresa2(context),
             ]),
       ),
     );
@@ -391,6 +389,7 @@ class TranfBrou extends StatelessWidget {
     );
   }
 
+//boton cobrar
   Widget _cobrar(BuildContext context) {
     return Container(
       //margin: EdgeInsets.all(05),
